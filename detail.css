@@ -1,0 +1,547 @@
+      /* ==========================================================================
+         OVERRIDE STYLE KHUSUS HALAMAN DETAIL (PREMIUM, SEARCH & NAVIGATION PREV/NEXT)
+         ========================================================================== */
+      body {
+        background-color: #f8fafc; /* Override warna latar khusus halaman detail; padding-top sudah dari style.css */
+      }
+
+      /* Premium Curved Header Background */
+      .detail-hero-header {
+        background: linear-gradient(135deg, #1e293b 0%, var(--color-dark) 100%);
+        padding: 40px 24px 120px 24px;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+        margin-top: -5px;
+      }
+      .detail-hero-header::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 90px;
+        background: linear-gradient(
+          to bottom,
+          rgba(15, 23, 42, 0) 0%,
+          rgba(248, 250, 252, 0.5) 70%,
+          #f8fafc 100%
+        );
+        pointer-events: none;
+      }
+      .detail-hero-header .glow-1 {
+        position: absolute;
+        width: 300px;
+        height: 300px;
+        background: rgba(180, 0, 0, 0.15);
+        filter: blur(80px);
+        border-radius: 50%;
+        top: -50px;
+        left: -50px;
+      }
+
+      .back-nav-container {
+        max-width: 1100px;
+        margin: 0 auto;
+        position: sticky;
+        top: 16px;
+        z-index: var(--zi-dropdown); /* Dropdown/Popover tier - konsisten dgn skala z-index di style.css */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .back-btn-modern {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(15, 23, 42, 0.65);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 10px 20px;
+        border-radius: 30px;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 500;
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.15);
+        transition: all 0.25s ease;
+      }
+      .back-btn-modern:hover {
+        background: rgba(239, 68, 68, 0.85);
+        transform: translateX(-3px);
+      }
+
+      /* Search Bar Style di Halaman Detail */
+      .nav-search-wrapper {
+        position: relative;
+        width: 260px;
+        z-index: var(--zi-dropdown); /* Dropdown/Popover */
+      }
+      .nav-search-container {
+        position: relative;
+        width: 100%;
+      }
+      .nav-search-input {
+        width: 100%;
+        padding: 10px 16px 10px 40px;
+        background: #f1f5f9;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        font-size: 13px;
+        outline: none;
+        font-family: inherit;
+        transition: all 0.3s ease;
+      }
+      .nav-search-input:focus {
+        background: #ffffff;
+        border-color: var(--color-dark);
+        box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+      }
+      .nav-search-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 13px;
+      }
+
+      /* LIVE SEARCH DROPDOWN STYLES */
+      .search-dropdown {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        width: 100%;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 12px 30px rgba(15, 23, 42, 0.1);
+        max-height: 280px;
+        overflow-y: auto;
+        display: block;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition:
+          opacity 0.22s ease,
+          transform 0.22s ease,
+          visibility 0.22s;
+      }
+      .search-dropdown.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .search-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+        text-decoration: none;
+        color: inherit;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .search-item:last-child {
+        border-bottom: none;
+      }
+      .search-item:hover {
+        background: #f8fafc;
+      }
+      .search-item img {
+        width: 36px;
+        height: 36px;
+        object-fit: contain;
+        border-radius: 6px;
+        background: #f1f5f9;
+        padding: 2px;
+      }
+      .search-item .search-info {
+        display: flex;
+        flex-direction: column;
+      }
+      .search-item .search-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--color-dark);
+      }
+      .search-item .search-variant {
+        font-size: 11px;
+        color: #64748b;
+      }
+      .search-no-results {
+        padding: 15px;
+        font-size: 12.5px;
+        color: #94a3b8;
+        text-align: center;
+      }
+
+      /* Floating Glassmorphism Detail Card Container */
+      .detail-main-wrapper {
+        max-width: 1000px;
+        margin: -70px auto 60px auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 20;
+      }
+
+      .detail-card-modern {
+        background: #ffffff;
+        border-radius: 32px;
+        box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08);
+        padding: 40px;
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+        gap: 40px;
+        border: 1px solid rgba(241, 245, 249, 0.8);
+      }
+
+      /* Kontainer Visual & Tombol Navigasi Kiri-Kanan Gambar */
+      .detail-visual-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        border-radius: 24px;
+        padding: 30px;
+        border: 1px solid #f1f5f9;
+        position: relative;
+        min-height: 380px;
+      }
+      .detail-visual-section img {
+        max-width: 85%;
+        max-height: 320px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+      }
+      .detail-visual-section img:hover {
+        transform: scale(1.03);
+      }
+
+      /* Style Tombol Melayang di Sisi Gambar */
+      .nav-side-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(15, 23, 42, 0.85); /* Warna slate gelap */
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.2);
+      }
+      .nav-side-btn:hover:not(.disabled) {
+        background: var(--color-accent); /* Berubah menjadi merah aksen saat di-hover */
+        transform: translateY(-50%) scale(1.1);
+        box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+      }
+      .nav-side-btn.disabled {
+        opacity: 0.25;
+        cursor: not-allowed;
+        background: rgba(148, 163, 184, 0.3);
+        color: #94a3b8;
+        border: none;
+        box-shadow: none;
+      }
+      .nav-side-btn-prev {
+        left: 15px;
+      }
+      .nav-side-btn-next {
+        right: 15px;
+      }
+
+      /* Indikator Produk Posisi di Pojok Kiri Bawah Gambar */
+      .nav-index-badge {
+        position: absolute;
+        bottom: 12px;
+        background: rgba(15, 23, 42, 0.06);
+        color: #475569;
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        border: 1px solid rgba(15, 23, 42, 0.05);
+      }
+
+      .detail-content-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .product-title-modern {
+        font-size: 28px;
+        font-weight: 800;
+        color: var(--color-dark);
+        line-height: 1.25;
+        margin-bottom: 12px;
+        letter-spacing: -0.5px;
+      }
+      .product-desc-modern {
+        font-size: 14px;
+        color: #64748b;
+        line-height: 1.6;
+        margin-bottom: 25px;
+      }
+      .price-indicator-text {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--color-accent);
+        margin-bottom: 14px;
+      }
+      .spec-table-modern {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 22px;
+        border: 1px solid #f1f5f9;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .spec-table-modern tr:nth-child(even) {
+        background: #f8fafc;
+      }
+      .spec-table-modern td {
+        padding: 10px 16px;
+        font-size: 13px;
+        border-bottom: 1px solid #f1f5f9;
+      }
+      .spec-table-modern tr:last-child td {
+        border-bottom: none;
+      }
+      .spec-table-modern td:first-child {
+        font-weight: 600;
+        color: #475569;
+        width: 40%;
+      }
+      .spec-table-modern td:last-child {
+        color: var(--color-dark);
+        font-weight: 500;
+      }
+      .btn-wa-ask-modern {
+        width: 100%;
+        margin-top: 12px;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        background: #dcfce7;
+        color: #15803d;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+      .btn-wa-ask-modern:hover {
+        background: #25d366;
+        color: #ffffff;
+        transform: translateY(-2px);
+      }
+
+      .action-box-modern {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        padding: 20px;
+        margin-top: 15px;
+      }
+
+      .action-row-flex {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 15px;
+      }
+
+      .btn-primary-action {
+        flex: 1;
+        padding: 14px;
+        border: none;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: all 0.2s ease;
+      }
+      .btn-add-cart {
+        background: var(--color-dark);
+        color: #ffffff;
+      }
+      .btn-add-cart:hover {
+        background: #1e293b;
+        transform: translateY(-2px);
+      }
+      .btn-instant-buy {
+        background: var(--color-accent);
+        color: #ffffff;
+        box-shadow: 0 10px 15px -3px rgba(239, 68, 68, 0.25);
+      }
+      .btn-instant-buy:hover {
+        background: #dc2626;
+        transform: translateY(-2px);
+      }
+
+      /* Modal Overlay Modern */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(15, 23, 42, 0.6);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        z-index: var(--zi-modal); /* Modal Popup */
+        padding: 20px;
+      }
+      .modal-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-box-modern {
+        background: #ffffff;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 460px;
+        padding: 30px;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        transform: scale(0.95);
+        transition: transform 0.3s ease;
+        position: relative;
+      }
+      .modal-overlay.show .modal-box-modern {
+        transform: scale(1);
+      }
+
+      /* Responsivitas Mobile Screen */
+      @media (max-width: 768px) {
+        .nav-search-wrapper {
+          width: 150px;
+          margin-right: 5px;
+        }
+        .detail-card-modern {
+          grid-template-columns: 1fr;
+          padding: 24px;
+          gap: 25px;
+          border-radius: 24px;
+        }
+        .detail-visual-section {
+          min-height: 300px;
+          padding: 20px;
+        }
+        .product-title-modern {
+          font-size: 22px;
+        }
+        .action-row-flex {
+          flex-direction: column;
+        }
+        .btn-primary-action {
+          width: 100%;
+        }
+        .detail-hero-header {
+          padding-bottom: 100px;
+        }
+        .nav-side-btn {
+          width: 38px;
+          height: 38px;
+        }
+      }
+      .sticky-buy-bar {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        .sticky-buy-bar {
+          display: flex;
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          width: 100%;
+          background: #ffffff;
+          border-top: 1px solid #f1f5f9;
+          box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
+          padding: 10px 14px;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          z-index: var(--zi-float-btn); /* Tombol Mengambang */
+          transition: transform 0.25s ease;
+        }
+        body:has(.cart-sidebar.active) .sticky-buy-bar,
+        body:has(.modal-overlay.show) .sticky-buy-bar {
+          transform: translateY(100%);
+          pointer-events: none;
+        }
+        .sticky-buy-info {
+          display: flex;
+          flex-direction: column;
+          min-width: 0;
+        }
+        .sticky-buy-name {
+          font-size: 12.5px;
+          font-weight: 700;
+          color: var(--color-dark);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 110px;
+        }
+        .sticky-buy-price {
+          font-size: 10.5px;
+          color: var(--color-accent);
+          font-weight: 600;
+        }
+        .sticky-buy-actions {
+          display: flex;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+        .sticky-buy-actions #sticky-add-cart-btn {
+          width: 42px;
+          height: 42px;
+          border-radius: 10px;
+          border: 1px solid #e2e8f0;
+          background: #f8fafc;
+          color: var(--color-dark);
+          font-size: 15px;
+        }
+        .sticky-buy-actions #sticky-instant-btn {
+          padding: 0 18px;
+          height: 42px;
+          border-radius: 10px;
+          border: none;
+          background: var(--color-accent);
+          color: #ffffff;
+          font-size: 13px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+        }
+        body {
+          padding-bottom: 70px;
+        }
+      }

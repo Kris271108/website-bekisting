@@ -1,0 +1,1346 @@
+<!doctype ht l>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bekisting Indonesia - Premium Formwork</title>
+    <link rel="icon" href="Logobekisting.png" type="image/png" />
+    <meta
+      name="description"
+      content="PT. Bekisting Indonesia Raya - penyedia sistem formwork, scaffolding, dan aksesoris bekisting heavy-duty berstandar SNI untuk proyek konstruksi di seluruh Indonesia. Tie Rod, Wing Nut, Beam Clamp, dan lainnya."
+    />
+    <meta
+      property="og:title"
+      content="Bekisting Indonesia - Premium Formwork & Scaffolding"
+    />
+    <meta
+      property="og:description"
+      content="Mitra bekisting terpercaya untuk proyek konstruksi Anda. Produk formwork & scaffolding heavy-duty berstandar SNI, siap kirim ke seluruh Indonesia."
+    />
+    <meta property="og:type" content="website" />
+    <!-- PENTING: ganti "https://www.bekistingindonesia.co.id/" di bawah ini
+         dengan domain asli setelah website online, supaya og:image jadi URL
+         absolut dan pratinjau gambar muncul saat link dibagikan ke WA/medsos -->
+    <meta
+      property="og:image"
+      content="https://www.bekistingindonesia.co.id/Logobekisting.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preload" href="Logobekisting.png" as="image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="products.js"></script>
+    <script src="data-loader.js"></script>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div id="page-transition-overlay">
+      <div class="page-transition-spinner"></div>
+    </div>
+    <div id="toast-notification" class="toast-notification">
+      <i class="fa-solid fa-circle-check"></i>
+      <span id="toast-message">Produk berhasil ditambahkan!</span>
+    </div>
+
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="#" id="logo-home-trigger">
+          <img src="Logobekisting.png" alt="Logo" class="nav-logo" />
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <button
+          class="nav-drawer-close"
+          id="nav-drawer-close"
+          aria-label="Tutup Menu"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="#" class="nav-item active" id="nav-home">Beranda</a>
+        <a href="#" class="nav-item" id="nav-catalog">Katalog Material</a>
+        <a href="#" class="nav-item" id="nav-about">Tentang Kami</a>
+        <a
+          href="https://wa.me/628123651818"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="nav-item"
+          >Hubungi Sales</a
+        >
+      </div>
+      <div class="nav-drawer-overlay" id="nav-drawer-overlay"></div>
+
+      <div class="nav-actions">
+        <button
+          class="hamburger-menu"
+          id="hamburger-btn"
+          aria-label="Buka Menu Navigasi"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <a href="#" id="cart-btn" class="cart-fab-btn">
+      <i class="fa-solid fa-basket-shopping"></i>
+      <span id="cart-badge" class="cart-counter">0</span>
+    </a>
+
+    <div class="confirm-modal-overlay" id="confirm-modal-overlay">
+      <div class="confirm-modal-box">
+        <div class="confirm-modal-icon">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h3 id="confirm-modal-title">Konfirmasi</h3>
+        <p id="confirm-modal-message">Apakah Anda yakin?</p>
+        <div class="confirm-modal-actions">
+          <button type="button" id="confirm-modal-cancel">Batal</button>
+          <button type="button" id="confirm-modal-ok">Ya, Lanjutkan</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="wa-float-wrapper" id="wa-float-wrapper">
+      <div class="wa-mini-popup" id="wa-mini-popup">
+        <button
+          class="wa-mini-close"
+          id="wa-mini-close"
+          aria-label="Tutup popup WhatsApp"
+        >
+          &times;
+        </button>
+        <p class="wa-mini-title">
+          <i class="fa-brands fa-whatsapp"></i> Butuh bantuan?
+        </p>
+        <p class="wa-mini-text">
+          Tim sales kami siap membantu kebutuhan material bekisting proyek Anda.
+        </p>
+        <a href="#" id="wa-mini-chat-btn" class="wa-mini-chat-btn"
+          >Mulai Chat Sekarang</a
+        >
+      </div>
+      <button class="wa-float-btn" id="wa-float-btn" aria-label="Chat WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+      </button>
+    </div>
+
+    <div id="view-home-container" class="page-view-section active-view">
+      <div class="concept-hero-section">
+        <div class="hero-red-circle-container" id="project-slideshow-container">
+          <img
+            src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80"
+            alt="Proyek 1"
+            class="project-slide-img slide-active"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80"
+            alt="Proyek 2"
+            class="project-slide-img"
+            loading="lazy"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&w=1200&q=80"
+            alt="Proyek 3"
+            class="project-slide-img"
+            loading="lazy"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1487958449943-2429e8be8625?auto=format&fit=crop&w=1200&q=80"
+            alt="Proyek 4"
+            class="project-slide-img"
+            loading="lazy"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1590644365607-1c5a9c8d0b3d?auto=format&fit=crop&w=1200&q=80"
+            alt="Proyek 5"
+            class="project-slide-img"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="hero-left-content">
+          <span class="hero-tagline-badge">Bekisting Indonesia</span>
+          <h1 class="concept-hero-title">
+            Investasi Tepat <br /><span>untuk Konstruksi Hebat.</span>
+          </h1>
+          <p class="concept-hero-desc">
+            Sistem fabrikasi logistik penahan beton cor super kokoh
+            terintegrasi. Temukan komponen presisi tinggi untuk efisiensi total
+            proyek Anda di sini.
+          </p>
+          <div class="hero-cta-row">
+            <a href="#" id="hero-explore-catalog-btn" class="concept-cta-btn"
+              >Lihat Katalog Heavy-Duty <i class="fa-solid fa-arrow-right"></i
+            ></a>
+            <a href="#" id="hero-wa-quote-btn" class="concept-cta-btn-outline">
+              <i class="fa-brands fa-whatsapp"></i> Minta Penawaran Harga
+              (WhatsApp)
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-right-visual">
+          <img
+            src="WhatsApp_Image_2026-06-03_at_07.56.15-removebg-preview.png"
+            alt="Model Pekerja"
+            class="hero-model-person"
+          />
+          <div
+            class="clean-product-floating-wrapper"
+            id="hero-interactive-display"
+          >
+            <div id="hero-display-media">
+              <i class="fa-solid fa-trowel-lines"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="featured-slider-section reveal-on-scroll">
+        <div class="featured-slider-heading">
+          <div>
+            <span class="section-eyebrow">Produk Unggulan</span>
+            <h2>Material Bekisting Paling Banyak Dicari</h2>
+          </div>
+          <div class="featured-slider-nav">
+            <button id="featured-prev-btn" aria-label="Sebelumnya">
+              <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button id="featured-next-btn" aria-label="Selanjutnya">
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="featured-slider-track" id="featured-slider-track"></div>
+      </div>
+
+      <div class="home-company-intro-section reveal-on-scroll">
+        <div class="company-intro-inner">
+          <div class="company-intro-text">
+            <span class="section-eyebrow">Tentang Kami</span>
+            <h2>Mitra Bekisting Terpercaya untuk Setiap Tahap Proyek Anda</h2>
+            <p>
+              PT. Bekisting Indonesia Raya adalah penyedia sistem formwork,
+              scaffolding, dan aksesoris bekisting heavy-duty berstandar SNI
+              yang telah dipercaya ratusan kontraktor di seluruh Indonesia. Kami
+              hadir untuk memastikan setiap tahap pengecoran beton Anda berjalan
+              presisi, aman, dan efisien — mulai dari Tie Rod, Wing Nut, Beam
+              Clamp, hingga pipa scaffolding penopang struktur gedung
+              bertingkat, jembatan, dan infrastruktur strategis lainnya.
+            </p>
+            <a href="#" id="home-about-more-btn" class="text-link-more">
+              Selengkapnya Tentang Kami <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+          <div class="company-intro-stats">
+            <div class="intro-stat-card">
+              <i class="fa-solid fa-industry"></i>
+              <h3>Produk Bersertifikat SNI</h3>
+              <p>
+                Material formwork dan scaffolding heavy-duty yang teruji
+                kekuatannya di ratusan proyek konstruksi.
+              </p>
+            </div>
+            <div class="intro-stat-card">
+              <i class="fa-solid fa-truck-fast"></i>
+              <h3>Jaringan Distribusi Nasional</h3>
+              <p>
+                Kantor operasional tersebar di Gresik, Malang, Bandung,
+                Banjarmasin, Banyuwangi, dan Semarang.
+              </p>
+            </div>
+            <div class="intro-stat-card">
+              <i class="fa-solid fa-headset"></i>
+              <h3>Dukungan Teknis Proyek</h3>
+              <p>
+                Tim kami siap membantu perhitungan kebutuhan material lewat
+                kalkulator estimasi dan konsultasi langsung.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="what-is-bekisting-section reveal-on-scroll">
+        <div class="wib-inner">
+          <div class="wib-media">
+            <img
+              src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=900&q=80"
+              alt="Ilustrasi Bekisting Konstruksi"
+              loading="lazy"
+            />
+          </div>
+          <div class="wib-text">
+            <span class="section-eyebrow">Kenali Produk Kami</span>
+            <h2>Apa Itu Bekisting?</h2>
+            <p>
+              Bekisting (formwork) adalah cetakan sementara berbahan kayu,
+              plywood, atau logam yang digunakan untuk membentuk struktur beton
+              — seperti kolom, balok, plat lantai, dan dinding — selagi beton
+              cor masih basah hingga mengeras sempurna. Setelah beton cukup kuat
+              menahan bebannya sendiri, bekisting dilepas dan dapat digunakan
+              kembali untuk pengecoran berikutnya.
+            </p>
+            <p>
+              Aksesoris pendukung seperti Tie Rod, Wing Nut, Beam Clamp, hingga
+              Push Pull Prop berperan menjaga kelurusan, kekuatan, dan presisi
+              bekisting agar mampu menahan tekanan beton cair tanpa bocor atau
+              melar, sehingga hasil akhir pengecoran rapi dan sesuai standar
+              konstruksi.
+            </p>
+            <ul class="wib-points">
+              <li>
+                <i class="fa-solid fa-check"></i> Menentukan bentuk & dimensi
+                akhir struktur beton
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Menahan tekanan beton cair
+                selama proses curing
+              </li>
+              <li>
+                <i class="fa-solid fa-check"></i> Dapat dipakai berulang kali
+                untuk efisiensi biaya proyek
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-faq-section reveal-on-scroll">
+        <div class="faq-heading">
+          <span class="section-eyebrow">Pertanyaan Umum</span>
+          <h2>Seputar Bekisting Indonesia</h2>
+          <p class="faq-heading-sub">
+            Beberapa pertanyaan yang paling sering ditanyakan pelanggan
+            sebelum memesan material bekisting dan scaffolding.
+          </p>
+        </div>
+        <div class="faq-list" id="home-faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apa itu PT. Bekisting Indonesia Raya?</span>
+              <i class="fa-solid fa-chevron-down faq-caret"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                PT. Bekisting Indonesia Raya adalah penyedia material formwork
+                (bekisting), scaffolding, dan aksesoris konstruksi heavy-duty
+                berstandar SNI, dengan jaringan distribusi di Gresik, Malang,
+                Bandung, Banjarmasin, Banyuwangi, dan Semarang.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apa saja jenis produk bekisting yang tersedia?</span>
+              <i class="fa-solid fa-chevron-down faq-caret"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Katalog kami mencakup Tie Rod, Wing Nut, Beam Clamp, Push Pull
+                Prop, pipa scaffolding, dan berbagai aksesoris pendukung
+                lainnya. Lihat selengkapnya di halaman
+                <a href="#" id="faq-catalog-link">Katalog Material</a>.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apakah bisa pesan dalam jumlah besar (proyek)?</span>
+              <i class="fa-solid fa-chevron-down faq-caret"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Bisa. Kami melayani kebutuhan volume besar untuk kontraktor
+                dan proyek konstruksi bertingkat. Tim kami siap membantu
+                perhitungan kebutuhan material dan penawaran harga khusus
+                proyek.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Bagaimana cara memesan dan menghitung ongkos kirim?</span>
+              <i class="fa-solid fa-chevron-down faq-caret"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Tambahkan produk ke keranjang, lalu isi data pengiriman
+                (lokasi proyek, jenis armada, dan jadwal) di halaman
+                checkout. Anda juga bisa memilih opsi ambil sendiri di
+                gudang terdekat.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Apakah produk bekisting bisa dipakai berulang kali?</span>
+              <i class="fa-solid fa-chevron-down faq-caret"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Ya. Bekisting dan scaffolding kami dirancang untuk pemakaian
+                berulang di banyak siklus pengecoran, sehingga lebih efisien
+                dari segi biaya dibanding material sekali pakai.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">
+              <span>Bagaimana jika butuh konsultasi teknis dulu?</span>
+              <i class="fa-solid fa-chevron-down faq-caret"></i>
+            </button>
+            <div class="faq-answer">
+              <p>
+                Tim teknis kami siap membantu lewat WhatsApp — klik tombol
+                chat hijau di pojok layar untuk konsultasi kebutuhan material
+                proyek Anda secara langsung.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-catalog-container" class="page-view-section">
+      <header class="about-hero-box catalog-hero-compact">
+        <h1>Katalog Material Bekisting</h1>
+        <p>
+          Temukan seluruh aksesoris formwork dan scaffolding heavy-duty
+          berstandar SNI untuk kebutuhan proyek konstruksi Anda.
+        </p>
+      </header>
+
+      <div class="middle-search-bubble-section">
+        <div class="floating-search-container">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input
+            type="text"
+            id="live-search-input"
+            placeholder="Cari aksesoris material cor Anda di sini..."
+          />
+        </div>
+
+        <div
+          class="bubble-scroll-box"
+          id="search-bubbles-box"
+          style="
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding: 15px 5px;
+            margin-bottom: 30px;
+          "
+        >
+          <button class="search-bubble active" data-category="all">
+            <i class="fa-solid fa-border-all"></i> Semua
+          </button>
+          <button
+            class="search-bubble"
+            data-category="Tie Rod & Aksesoris Ikat"
+          >
+            <i class="fa-solid fa-trowel-lines"></i> Tie Rod & Ikat
+          </button>
+          <button class="search-bubble" data-category="Clamp & Pengunci">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Clamp & Pengunci
+          </button>
+          <button class="search-bubble" data-category="Girder & Rangka Besi">
+            <i class="fa-solid fa-cubes"></i> Girder & Rangka
+          </button>
+          <button class="search-bubble" data-category="Pipe Support & Sistem">
+            <i class="fa-solid fa-lines-leaning"></i> Pipe Support
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="produk-container"
+        class="produk-grid"
+        style="max-width: 1300px; margin: 0 auto 80px auto; padding: 0 20px"
+      >
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line" style="width: 80%"></div>
+          <div class="skeleton-line" style="width: 50%"></div>
+          <div class="skeleton-line skeleton-btn"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line" style="width: 80%"></div>
+          <div class="skeleton-line" style="width: 50%"></div>
+          <div class="skeleton-line skeleton-btn"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line" style="width: 80%"></div>
+          <div class="skeleton-line" style="width: 50%"></div>
+          <div class="skeleton-line skeleton-btn"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-img"></div>
+          <div class="skeleton-line" style="width: 80%"></div>
+          <div class="skeleton-line" style="width: 50%"></div>
+          <div class="skeleton-line skeleton-btn"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="view-about-container" class="page-view-section">
+      <header class="about-hero-box">
+        <h1>Tentang PT. Bekisting Indonesia Raya</h1>
+        <p>
+          Mitra strategis terpercaya penyedia sistem formwork, scaffolding, dan
+          aksesoris bekisting heavy-duty premium berskala nasional.
+        </p>
+      </header>
+
+      <div class="about-split-grid">
+        <aside class="left-advantages-panel">
+          <h2>Profil & Keunggulan Komitmen Perusahaan</h2>
+          <p class="intro-desc-paragraph">
+            PT. Bekisting Indonesia Raya lahir sebagai jawaban atas kebutuhan
+            industri konstruksi modern nasional yang menuntut efisiensi tinggi,
+            jaminan keselamatan mutlak, dan hasil akhir pengecoran beton dengan
+            tingkat presisi yang sempurna. Dipercaya oleh ratusan kontraktor
+            berskala besar, kami berkomitmen penuh menyediakan produk premium
+            heavy-duty berstandar SNI mulai dari Tie Rod tebal anti-putus, Wing
+            Nut, hingga pipa scaffolding penopang beban struktural gedung
+            bertingkat, jembatan, dan infrastruktur strategis.
+          </p>
+
+          <div class="why-choose-us-block">
+            <h3 class="why-choose-us-title">Kenapa Memilih Kami</h3>
+            <div class="why-choose-us-list">
+              <div class="why-choose-item">
+                <div class="why-choose-icon">
+                  <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <div class="why-choose-text">
+                  <h4>Material Bersertifikat SNI</h4>
+                  <p>
+                    Semua produk formwork dan scaffolding melalui standar mutu
+                    ketat sebelum sampai ke lokasi proyek Anda.
+                  </p>
+                </div>
+              </div>
+              <div class="why-choose-item">
+                <div class="why-choose-icon">
+                  <i class="fa-solid fa-truck-fast"></i>
+                </div>
+                <div class="why-choose-text">
+                  <h4>Jaringan Distribusi Nasional</h4>
+                  <p>
+                    Kantor operasional tersebar di Gresik, Malang, Bandung,
+                    Banjarmasin, Banyuwangi, dan Semarang untuk pengiriman
+                    lebih cepat.
+                  </p>
+                </div>
+              </div>
+              <div class="why-choose-item">
+                <div class="why-choose-icon">
+                  <i class="fa-solid fa-rotate"></i>
+                </div>
+                <div class="why-choose-text">
+                  <h4>Material Siap Pakai Ulang</h4>
+                  <p>
+                    Dirancang untuk banyak siklus pengecoran sehingga lebih
+                    hemat biaya dibanding material sekali pakai.
+                  </p>
+                </div>
+              </div>
+              <div class="why-choose-item">
+                <div class="why-choose-icon">
+                  <i class="fa-solid fa-headset"></i>
+                </div>
+                <div class="why-choose-text">
+                  <h4>Dukungan Teknis Langsung</h4>
+                  <p>
+                    Tim kami siap membantu perhitungan kebutuhan material dan
+                    konsultasi proyek lewat WhatsApp.
+                  </p>
+                </div>
+              </div>
+              <div class="why-choose-item">
+                <div class="why-choose-icon">
+                  <i class="fa-solid fa-coins"></i>
+                </div>
+                <div class="why-choose-text">
+                  <h4>Harga Kompetitif untuk Proyek Besar</h4>
+                  <p>
+                    Tersedia penawaran khusus untuk pemesanan volume besar
+                    kebutuhan kontraktor dan proyek bertingkat.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        <section class="right-branches-panel">
+          <h2>Jaringan Kantor Cabang Resmi</h2>
+          <p class="section-sub">
+            Silakan hubungi kantor operasional wilayah terdekat dari lokasi
+            proyek Anda:
+          </p>
+          <div class="branch-vertical-list">
+            <div class="branch-detail-card">
+              <div class="branch-card-header">
+                <h3>Gresik</h3>
+                <span class="branch-pill-tag branch-pill-hq">Pusat</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-location-dot"></i>
+                <span
+                  >Jl. Raya Bangkingan No.16, Mojo Kopek, Gadung, Kec.
+                  Driyorejo, Kabupaten Gresik, Jawa Timur - 61177</span
+                >
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-phone"></i>
+                <span>0812 3651 818</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-brands fa-whatsapp" style="color: #25d366"></i>
+                <a
+                  href="https://wa.me/628123651818"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style="font-weight: 600"
+                  >0812-3651-818</a
+                >
+              </div>
+            </div>
+
+            <div class="branch-detail-card">
+              <div class="branch-card-header">
+                <h3>Malang</h3>
+                <span class="branch-pill-tag">Jawa Timur</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-location-dot"></i
+                ><span>Jl. Raya Ampeldento, Kec. Pakis, Kab. Malang</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-phone"></i><span>0812 7702 559</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-brands fa-whatsapp"></i
+                ><a
+                  href="https://wa.me/628127702559"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >0812 7702 559</a
+                >
+              </div>
+            </div>
+
+            <div class="branch-detail-card">
+              <div class="branch-card-header">
+                <h3>Bandung</h3>
+                <span class="branch-pill-tag">Jawa Barat</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-location-dot"></i
+                ><span>JL. Terusan Soreang - Cipatik No. 43 Kopo</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-phone"></i><span>0812 3651 717</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-brands fa-whatsapp"></i
+                ><a
+                  href="https://wa.me/628123651717"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >0812 3651 717</a
+                >
+              </div>
+            </div>
+
+            <div class="branch-detail-card">
+              <div class="branch-card-header">
+                <h3>Banjarmasin</h3>
+                <span class="branch-pill-tag">Kalimantan</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-location-dot"></i
+                ><span>Central Pergudangan Banjarmasin Tahap II KM 13,5</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-phone"></i><span>(0511) 4221577</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-brands fa-whatsapp"></i
+                ><a
+                  href="https://wa.me/628125166888"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >08125166888</a
+                >
+              </div>
+            </div>
+
+            <div class="branch-detail-card">
+              <div class="branch-card-header">
+                <h3>Banyuwangi</h3>
+                <span class="branch-pill-tag">Jawa Timur</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-location-dot"></i
+                ><span>Tegalwero, Blimbingsari, Kec. Rogojampi</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-phone"></i><span>0812 3829 1396</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-brands fa-whatsapp"></i
+                ><a
+                  href="https://wa.me/6281238291396"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >0812 3829 1396</a
+                >
+              </div>
+            </div>
+
+            <div class="branch-detail-card">
+              <div class="branch-card-header">
+                <h3>Semarang</h3>
+                <span class="branch-pill-tag">Jawa Tengah</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-location-dot"></i
+                ><span>Jl. Sawah Besar. XIII No.42, Kaligawe</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-solid fa-phone"></i><span>0819 1535 6999</span>
+              </div>
+              <div class="branch-info-row">
+                <i class="fa-brands fa-whatsapp"></i
+                ><a
+                  href="https://wa.me/6281231888989"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >0812 3188 8989</a
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+      <div
+        id="step-cart-view"
+        class="cart-step-wrapper"
+        style="display: flex; flex-direction: column; height: 100%"
+      >
+        <div
+          class="cart-header"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #f1f5f9;
+          "
+        >
+          <h3 style="margin: 0">
+            <i class="fa-solid fa-basket-shopping"></i> Keranjang Material
+          </h3>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <button
+              id="clear-cart-btn"
+              aria-label="Kosongkan keranjang"
+              title="Kosongkan Keranjang"
+              style="
+                background: #fef2f2;
+                border: none;
+                width: 32px;
+                height: 32px;
+                border-radius: 8px;
+                color: #ef4444;
+                font-size: 13px;
+                cursor: pointer;
+              "
+            >
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            <button
+              class="close-sidebar-btn"
+              id="close-cart-btn"
+              style="
+                background: none;
+                border: none;
+                font-size: 24px;
+                cursor: pointer;
+              "
+            >
+              ×
+            </button>
+          </div>
+        </div>
+        <div id="cart-summary-badge" class="cart-summary-badge"></div>
+        <div
+          class="cart-items-container"
+          id="cart-items-container"
+          style="flex: 1; overflow-y: auto; padding: 15px"
+        ></div>
+        <div
+          class="cart-footer"
+          style="padding: 20px; border-top: 1px solid #f1f5f9"
+        >
+          <button
+            id="next-to-location-btn"
+            class="next-step-btn"
+            style="
+              width: 100%;
+              padding: 15px;
+              background: #0f172a;
+              color: #fff;
+              border: none;
+              border-radius: 12px;
+              font-size: 14px;
+              font-weight: 600;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+            "
+          >
+            Lanjut ke Data Lokasi <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div
+        id="step-location-view"
+        class="cart-step-wrapper"
+        style="display: none; flex-direction: column; height: 100%"
+      >
+        <div
+          class="cart-header"
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #f1f5f9;
+          "
+        >
+          <button
+            id="back-to-cart-btn"
+            style="
+              background: none;
+              border: none;
+              color: #0f172a;
+              font-size: 14px;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              padding: 8px 10px;
+              margin-left: -10px;
+              border-radius: 8px;
+            "
+          >
+            <i class="fa-solid fa-arrow-left"></i> Kembali
+          </button>
+          <h3 style="font-size: 15px; font-weight: 700; margin: 0">
+            Lokasi Pengiriman
+          </h3>
+          <button
+            class="close-sidebar-btn"
+            id="close-cart-btn-2"
+            aria-label="Tutup keranjang"
+            style="
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+            "
+          >
+            ×
+          </button>
+        </div>
+
+        <div
+          class="location-form-body"
+          style="flex: 1; overflow-y: auto; padding: 20px"
+        >
+          <p class="form-section-title">
+            <i class="fa-solid fa-user"></i> Informasi Pemesan
+          </p>
+          <div class="form-group-modern">
+            <input
+              type="text"
+              id="buyer-name"
+              class="form-input-modern"
+              placeholder="Nama Pemesan / PT Kontraktor"
+              required
+            />
+            <i class="fa-solid fa-circle-check input-valid-icon"></i>
+          </div>
+          <div class="form-group-modern">
+            <input
+              type="tel"
+              id="buyer-phone"
+              class="form-input-modern"
+              placeholder="No. WhatsApp Utama (cth: 6281234567890)"
+              inputmode="numeric"
+              maxlength="15"
+              required
+            />
+            <i class="fa-solid fa-circle-check input-valid-icon"></i>
+            <p id="buyer-phone-error" class="field-error-text"></p>
+          </div>
+          <div class="form-group-modern">
+            <input
+              type="text"
+              id="buyer-project"
+              class="form-input-modern"
+              placeholder="Nama Perusahaan/Proyek (Opsional)"
+            />
+          </div>
+
+          <p class="form-section-title" style="margin-top: 22px">
+            <i class="fa-solid fa-truck-fast"></i> Metode Logistik
+          </p>
+          <div class="delivery-method-row">
+            <label class="delivery-method-card">
+              <input
+                type="radio"
+                name="delivery-method"
+                value="pickup"
+                id="method-pickup"
+              />
+              <span class="dm-icon">🟢</span>
+              <span class="dm-label">Ambil Sendiri</span>
+              <span class="dm-sub">Self Pick-up di Gudang</span>
+            </label>
+            <label class="delivery-method-card">
+              <input
+                type="radio"
+                name="delivery-method"
+                value="delivery"
+                id="method-delivery"
+                checked
+              />
+              <span class="dm-icon">🚚</span>
+              <span class="dm-label">Armada Kirim</span>
+              <span class="dm-sub">Pengiriman ke Proyek</span>
+            </label>
+          </div>
+
+          <div id="pickup-fields" style="display: none">
+            <div class="form-group-modern">
+              <select id="warehouse-select" class="form-input-modern">
+                <option value="">Pilih Gudang/Workshop Terdekat</option>
+                <option value="Gudang Utama Gresik (Senin-Sabtu 08.00-16.00)">
+                  Gudang Utama Gresik (Senin-Sabtu 08.00-16.00)
+                </option>
+                <option value="Depo Malang (Senin-Sabtu 08.00-16.00)">
+                  Depo Malang (Senin-Sabtu 08.00-16.00)
+                </option>
+                <option value="Depo Bandung (Senin-Sabtu 08.00-16.00)">
+                  Depo Bandung (Senin-Sabtu 08.00-16.00)
+                </option>
+                <option value="Depo Banjarmasin (Senin-Sabtu 08.00-16.00)">
+                  Depo Banjarmasin (Senin-Sabtu 08.00-16.00)
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div id="delivery-fields">
+            <div class="form-group-modern">
+              <select id="fleet-type-select" class="form-input-modern">
+                <option value="">Pilih Jenis Armada Kirim</option>
+                <option value="Pick-up / Engkel (Kapasitas Kecil)">
+                  Pick-up / Engkel (Kapasitas Kecil)
+                </option>
+                <option value="Truk Fuso / CDD (Kapasitas Sedang)">
+                  Truk Fuso / CDD (Kapasitas Sedang)
+                </option>
+                <option value="Tronton / Trailer / Crane (Kapasitas Besar)">
+                  Tronton / Trailer / Crane (Kapasitas Besar)
+                </option>
+              </select>
+            </div>
+            <div class="form-row-split">
+              <div class="form-group-modern">
+                <input
+                  type="text"
+                  id="buyer-province"
+                  class="form-input-modern"
+                  placeholder="Provinsi"
+                />
+              </div>
+              <div class="form-group-modern">
+                <input
+                  type="text"
+                  id="buyer-city"
+                  class="form-input-modern"
+                  placeholder="Kota/Kabupaten"
+                />
+              </div>
+            </div>
+            <div class="form-group-modern">
+              <textarea
+                id="buyer-street"
+                class="form-input-modern"
+                placeholder="Alamat Lengkap Proyek / Detail Lokasi"
+                rows="3"
+                maxlength="300"
+              ></textarea>
+            </div>
+            <button type="button" id="autofill-maps-btn" class="gps-helper-btn">
+              <i class="fa-solid fa-location-crosshairs"></i> Bantu Isi Otomatis
+              Pakai GPS (Opsional)
+            </button>
+            <p id="gps-error-msg" class="gps-error-text"></p>
+            <div class="form-row-split" style="margin-top: 12px">
+              <div class="form-group-modern">
+                <input
+                  type="text"
+                  id="pic-lapangan-name"
+                  class="form-input-modern"
+                  placeholder="Nama PIC di Lapangan"
+                />
+              </div>
+              <div class="form-group-modern">
+                <input
+                  type="tel"
+                  id="pic-lapangan-phone"
+                  class="form-input-modern"
+                  inputmode="numeric"
+                  placeholder="No. HP PIC Lapangan"
+                />
+              </div>
+            </div>
+            <div class="form-group-modern">
+              <textarea
+                id="truck-access-note"
+                class="form-input-modern"
+                placeholder="Patokan Akses Truk (cth: Masuk lewat gerbang timur, jalan muat Fuso)"
+                rows="2"
+                maxlength="200"
+              ></textarea>
+            </div>
+            <label class="truck-access-checkbox">
+              <input type="checkbox" id="truck-access-confirm" />
+              Lokasi proyek bisa dimasuki truk Tronton/Fuso
+            </label>
+          </div>
+
+          <p class="form-section-title" style="margin-top: 22px">
+            <i class="fa-solid fa-calendar-days"></i> Jadwal Pengiriman
+          </p>
+          <div class="form-group-modern">
+            <input type="date" id="delivery-date" class="form-input-modern" />
+          </div>
+          <div class="form-group-modern">
+            <select id="delivery-shift" class="form-input-modern">
+              <option value="">Pilih Waktu Pengiriman</option>
+              <option value="🌅 Pagi (08.00 - 12.00)">
+                🌅 Pagi (08.00 - 12.00)
+              </option>
+              <option value="☀️ Siang/Sore (13.00 - 17.00)">
+                ☀️ Siang/Sore (13.00 - 17.00)
+              </option>
+              <option value="🌙 Malam (Sesuai Izin Jam Melintas Truk Kota)">
+                🌙 Malam (Sesuai Izin Jam Melintas Truk Kota)
+              </option>
+            </select>
+          </div>
+          <div class="delivery-method-row">
+            <label class="urgency-card">
+              <input
+                type="radio"
+                name="urgency"
+                value="Reguler (Sesuai Jadwal Rute Gudang)"
+                checked
+              />
+              <span> Reguler</span>
+            </label>
+            <label class="urgency-card">
+              <input
+                type="radio"
+                name="urgency"
+                value="Prioritas/Urgent (Bongkar Segera di Proyek)"
+              />
+              <span> Prioritas/Urgent</span>
+            </label>
+          </div>
+
+          <div class="form-group-modern" style="margin-top: 18px">
+            <textarea
+              id="buyer-notes"
+              class="form-input-modern"
+              placeholder="Catatan Tambahan Lainnya (Opsional)"
+              rows="2"
+            ></textarea>
+          </div>
+
+          <div class="order-summary-card">
+            <div class="order-summary-row">
+              <span>Jenis Material</span>
+              <strong id="summary-item-count">-</strong>
+            </div>
+            <div class="order-summary-row">
+              <span>Total Kuantitas</span>
+              <strong id="summary-qty-total">-</strong>
+            </div>
+            <div class="order-summary-row">
+              <span>Estimasi Berat</span>
+              <strong id="summary-weight-total">-</strong>
+            </div>
+            <div class="order-summary-row">
+              <span>Biaya Material</span>
+              <strong>Hubungi Sales</strong>
+            </div>
+            <div class="order-summary-row">
+              <span>Estimasi Ongkir</span>
+              <strong>Akan Dihitung Sales</strong>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="cart-footer"
+          style="padding: 20px; border-top: 1px solid #f1f5f9"
+        >
+          <button
+            id="checkout-wa-btn"
+            style="
+              width: 100%;
+              padding: 15px;
+              background: #25d366;
+              color: #fff;
+              border: none;
+              border-radius: 12px;
+              font-size: 14px;
+              font-weight: 600;
+              cursor: pointer;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              gap: 8px;
+            "
+          >
+            <i class="fa-brands fa-whatsapp" style="font-size: 18px"></i> Kirim
+            Pesanan ke WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <footer
+      class="premium-modern-footer"
+      style="
+        background: #0f172a;
+        padding: 60px 20px 40px 20px;
+        color: #ffffff;
+        border-top: 4px solid #ef4444;
+      "
+    >
+      <div
+        style="
+          max-width: 1300px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: 1fr 0.9fr 0.85fr;
+          gap: 40px;
+          text-align: left;
+          align-items: start;
+        "
+        class="footer-grid-mobile"
+      >
+        <div style="display: flex; flex-direction: column; gap: 20px">
+          <img
+            src="Logobekisting.png"
+            alt="Logo PT. Bekisting Indonesia Raya"
+            loading="lazy"
+            style="
+              max-height: 45px;
+              width: fit-content;
+              filter: brightness(0) invert(1);
+            "
+          />
+
+          <div
+            style="
+              font-size: 14px;
+              color: #cbd5e1;
+              line-height: 1.6;
+              max-width: 500px;
+            "
+          >
+            <p
+              style="
+                margin: 0 0 8px 0;
+                font-weight: 700;
+                color: #ef4444;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+              "
+            >
+              Kantor Operasional Pusat:
+            </p>
+            <i
+              class="fa-solid fa-location-dot"
+              style="color: #ef4444; margin-right: 6px"
+            ></i>
+            <span
+              >Jl. Raya Bangkingan No.16, Mojo Kopek, Gadung, Kec. Driyorejo,
+              Kabupaten Gresik, Jawa Timur - 61177</span
+            >
+          </div>
+
+          <div
+            class="footer-social-wrapper"
+            style="
+              display: flex;
+              gap: 12px;
+              margin-top: 10px;
+              justify-content: flex-start;
+            "
+          >
+            <a
+              href="https://www.facebook.com/pt.tanggamasjayamakmur"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="fa-brands fa-facebook-f"></i
+            ></a>
+            <a
+              href="https://www.instagram.com/scaffoldingtanggamas"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="fa-brands fa-instagram"></i
+            ></a>
+            <a
+              href="https://wa.me/628123651818"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="fa-brands fa-whatsapp"></i
+            ></a>
+            <a
+              href="https://www.tiktok.com/@tanggamasjayamakmur"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><i class="fa-brands fa-tiktok"></i
+            ></a>
+          </div>
+        </div>
+
+        <div class="footer-map-col">
+          <h4
+            style="
+              margin: 0 0 12px 0;
+              font-size: 16px;
+              font-weight: 700;
+              color: #ffffff;
+              letter-spacing: 0.5px;
+            "
+          >
+            Lokasi Kami
+          </h4>
+          <div class="footer-map-frame">
+            <iframe
+              src="https://maps.google.com/maps?q=Jl.%20Raya%20Bangkingan%20No.16%2C%20Driyorejo%2C%20Gresik%2C%20Jawa%20Timur&z=15&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Lokasi PT. Bekisting Indonesia Raya"
+            ></iframe>
+          </div>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Jl.+Raya+Bangkingan+No.16+Driyorejo+Gresik+Jawa+Timur"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-map-link"
+          >
+            <i class="fa-solid fa-diamond-turn-right"></i> Buka di Google Maps
+          </a>
+        </div>
+
+        <div
+          style="
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+          "
+          class="footer-right-mobile"
+        >
+          <h4
+            style="
+              margin: 0;
+              font-size: 16px;
+              font-weight: 700;
+              color: #ffffff;
+              letter-spacing: 0.5px;
+            "
+          >
+            Akses Navigasi
+          </h4>
+          <a
+            href="#"
+            id="footer-back-to-home-btn"
+            style="
+              display: inline-flex;
+              align-items: center;
+              gap: 10px;
+              background: rgba(255, 255, 255, 0.05);
+              color: #ffffff;
+              border: 1px solid rgba(255, 255, 255, 0.15);
+              padding: 14px 28px;
+              border-radius: 50px;
+              font-weight: 600;
+              font-size: 13.5px;
+              text-decoration: none;
+              transition: all 0.3s ease;
+              box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            "
+          >
+            <i class="fa-solid fa-house-chimney" style="color: #ef4444"></i>
+            Kembali ke Halaman Utama
+          </a>
+        </div>
+      </div>
+
+      <div
+        style="
+          max-width: 1300px;
+          margin: 40px auto 0 auto;
+          padding-top: 25px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          text-align: center;
+        "
+      >
+        <p
+          class="footer-copyright-text"
+          style="color: #64748b; font-size: 13px; margin: 0"
+        >
+          © 2026 PT. Bekisting Indonesia Raya. Hak Cipta Dilindungi
+          Undang-Undang.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

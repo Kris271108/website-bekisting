@@ -1,0 +1,557 @@
+[
+  {
+    "name": "Angle Beam",
+    "category": "Clamp & Pengunci",
+    "desc": "Aksesoris berkualitas tinggi untuk memperkuat sudut struktur bekisting agar tetap siku, kokoh, dan presisi saat menahan tekanan pengecoran beton.",
+    "material": "Besi Siku Baja Karbon",
+    "standar": "Menahan beban tekan sudut hingga struktur tetap presisi 90°",
+    "variants": [
+      {
+        "name": "Angle Beam",
+        "sku": "BKS-ANGLEBEAM",
+        "stock": 28,
+        "img": "Bekisting-Angle-Beam-Bekisting-Indonesa.jpg",
+        "weightKg": 3.5
+      }
+    ]
+  },
+  {
+    "name": "AV Kicker",
+    "category": "Clamp & Pengunci",
+    "desc": "AV Kicker penyangga bekisting kolom/dinding heavy-duty yang berfungsi menjaga kelurusan vertikal formwork secara akurat.",
+    "material": "Baja Adjustable Heavy-Duty",
+    "standar": "Menopang beban vertikal kolom/dinding secara akurat",
+    "variants": [
+      {
+        "name": "AV Kicker",
+        "sku": "BKS-AVKICKER",
+        "stock": 85,
+        "img": "bekisting-av-kicker.jpg",
+        "weightKg": 4.0
+      }
+    ]
+  },
+  {
+    "name": "Base Plate",
+    "category": "Pipe Support & Sistem",
+    "desc": "Base Plate tatakan bawah pipa support atau scaffolding untuk mendistribusikan beban secara merata ke permukaan tanah/lantai kerja.",
+    "material": "Pelat Baja Cor/Press",
+    "standar": "Mendistribusikan beban scaffolding merata ke lantai kerja",
+    "variants": [
+      {
+        "name": "Base Plate",
+        "sku": "BKS-BASEPLATE",
+        "stock": 98,
+        "img": "bekisting-base-plate.jpg",
+        "weightKg": 1.8
+      }
+    ]
+  },
+  {
+    "name": "Beam Clamp",
+    "category": "Clamp & Pengunci",
+    "desc": "Pengunci balok bekisting yang kuat untuk mencengkeram balok kayu atau besi penyangga lantai cor agar tidak bergeser.",
+    "material": "Besi Cor Ductile / Baja Tempa",
+    "standar": "Cengkeraman kuat, tidak mudah bergeser saat beban dinamis",
+    "variants": [
+      {
+        "name": "Beam Clamp Tipe A",
+        "sku": "BKS-BEAMCLAMPTIPEA",
+        "stock": 25,
+        "img": "bekisting-beam-clamp-a.jpg",
+        "weightKg": 2.2
+      },
+      {
+        "name": "Beam Clamp Tipe B",
+        "sku": "BKS-BEAMCLAMPTIPEB",
+        "stock": 48,
+        "img": "bekisting-beam-clamp-b.jpg",
+        "weightKg": 2.5
+      },
+      {
+        "name": "Beam Clamp Tipe C",
+        "sku": "BKS-BEAMCLAMPTIPEC",
+        "stock": 106,
+        "img": "bekisting-beam-clamp-c.jpg",
+        "weightKg": 2.8
+      }
+    ]
+  },
+  {
+    "name": "Beam Rill",
+    "category": "Girder & Rangka Besi",
+    "desc": "Rel besi pilihan (Beam Rill) sebagai balok penopang utama dalam menahan beban cetakan semen horizontal maupun vertikal.",
+    "material": "Baja Profil Solid",
+    "standar": "Menahan beban horizontal & vertikal cetakan beton",
+    "variants": [
+      {
+        "name": "Beam Rill 1.5M",
+        "sku": "BKS-BEAMRILL15M",
+        "stock": 76,
+        "img": "bekisting-beam-rill-1.5m.jpg",
+        "weightKg": 12.0
+      },
+      {
+        "name": "Beam Rill 2.0M",
+        "sku": "BKS-BEAMRILL20M",
+        "stock": 71,
+        "img": "bekisting-beam-rill-2.0m.jpg",
+        "weightKg": 16.0
+      }
+    ]
+  },
+  {
+    "name": "Bracing & Bracing Siku",
+    "category": "Girder & Rangka Besi",
+    "desc": "Pipa pengikat silang antar scaffolding dan penopang diagonal luar kolom agar panggung cor tetap stabil dan aman.",
+    "material": "Pipa Baja Galvanis",
+    "standar": "Menjaga kestabilan struktur scaffolding dari gaya diagonal",
+    "variants": [
+      {
+        "name": "Bracing 1.2M",
+        "sku": "BKS-BRACING12M",
+        "stock": 16,
+        "img": "bekisting-bracing-1.2m.jpg",
+        "weightKg": 5.5
+      },
+      {
+        "name": "Bracing Siku 2.4M",
+        "sku": "BKS-BRACINGSIKU24M",
+        "stock": 67,
+        "img": "bekisting-bracing-siku-2.4m.jpg",
+        "weightKg": 9.0
+      }
+    ]
+  },
+  {
+    "name": "Climbing System",
+    "category": "Pipe Support & Sistem",
+    "desc": "Sistem bekisting panjat (climbing formwork) untuk pengecoran struktur vertikal tinggi seperti core lift dan dinding gedung secara bertahap.",
+    "material": "Rangka Baja Modular",
+    "standar": "Menahan beban pengecoran vertikal bertahap struktur tinggi",
+    "variants": [
+      {
+        "name": "Climbing System",
+        "sku": "BKS-CLIMBINGSYSTEM",
+        "stock": 116,
+        "img": "bekisting-climbing.jpg",
+        "weightKg": 45.0
+      }
+    ]
+  },
+  {
+    "name": "Form Tie",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Alat pengikat dua sisi dinding bekisting penahan beban semen cair berkekuatan tarikan maksimal standar konstruksi.",
+    "material": "Besi Ulir Baja Karbon Tinggi",
+    "standar": "Kekuatan tarik maksimal standar konstruksi cor dinding",
+    "variants": [
+      {
+        "name": "Form Tie 1 M",
+        "sku": "BKS-FORMTIE1M",
+        "stock": 79,
+        "img": "bekisting-form-tie-1-m.jpg",
+        "weightKg": 1.2
+      },
+      {
+        "name": "Form Tie 1 Ribs M 12",
+        "sku": "BKS-FORMTIE1RIBSM12",
+        "stock": 75,
+        "img": "bekisting-form-tie-1-ribs-m-12.jpg",
+        "weightKg": 1.3
+      }
+    ]
+  },
+  {
+    "name": "Besi Hollow Standar",
+    "category": "Girder & Rangka Besi",
+    "desc": "Rangka pengaku (stud) besi hollow hitam cetakan plywood agar triplek tidak melengkung akibat beban dorong semen basah.",
+    "material": "Besi Hollow Hitam",
+    "standar": "Menahan tekanan dorong beton basah pada panel plywood",
+    "variants": [
+      {
+        "name": "Besi Hollow 1M",
+        "sku": "BKS-BESIHOLLOW1M",
+        "stock": 51,
+        "img": "bekisting-hollow-1m.jpg",
+        "weightKg": 2.0
+      },
+      {
+        "name": "Besi Hollow 2M",
+        "sku": "BKS-BESIHOLLOW2M",
+        "stock": 29,
+        "img": "bekisting-hollow-2m.jpg",
+        "weightKg": 4.0
+      },
+      {
+        "name": "Besi Hollow 3M",
+        "sku": "BKS-BESIHOLLOW3M",
+        "stock": 28,
+        "img": "bekisting-hollow-3m.jpg",
+        "weightKg": 6.0
+      },
+      {
+        "name": "Besi Hollow 6M",
+        "sku": "BKS-BESIHOLLOW6M",
+        "stock": 54,
+        "img": "bekisting-hollow-6m.jpg",
+        "weightKg": 12.0
+      }
+    ]
+  },
+  {
+    "name": "Besi Hollow Galvanized",
+    "category": "Girder & Rangka Besi",
+    "desc": "Rangka pengaku berbahan besi galvanis anti karat. Sangat awet, kuat, dan dapat digunakan berulang kali di lingkungan proyek ekstrem.",
+    "material": "Besi Hollow Galvanis Anti Karat",
+    "standar": "Tahan lama & dapat dipakai berulang di lingkungan ekstrem",
+    "variants": [
+      {
+        "name": "Besi Hollow Galvanized 4M",
+        "sku": "BKS-BESIHOLLOWGALVANIZED4M",
+        "stock": 56,
+        "img": "bekisting-hollow-galvanized-4m.jpg",
+        "weightKg": 8.5
+      },
+      {
+        "name": "Besi Hollow Galvanized 6M",
+        "sku": "BKS-BESIHOLLOWGALVANIZED6M",
+        "stock": 89,
+        "img": "bekisting-hollow-galvanized-6m.jpg",
+        "weightKg": 12.8
+      }
+    ]
+  },
+  {
+    "name": "Baut U / Kawel",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Baut berbentuk klem letter U untuk mengunci balok kayu girder ke sabuk besi utama dengan cengkeraman rapat maksimal.",
+    "material": "Baja Bentuk U (Klem)",
+    "standar": "Cengkeraman rapat maksimal pada balok girder",
+    "variants": [
+      {
+        "name": "Baut U / Kawel 35cm",
+        "sku": "BKS-BAUTUKAWEL35CM",
+        "stock": 57,
+        "img": "bekisting-kawel-35cm.jpg",
+        "weightKg": 0.4
+      },
+      {
+        "name": "Baut U / Kawel 50cm",
+        "sku": "BKS-BAUTUKAWEL50CM",
+        "stock": 41,
+        "img": "bekisting-kawel-50cm.jpg",
+        "weightKg": 0.55
+      },
+      {
+        "name": "Baut U / Kawel 1 Meter",
+        "sku": "BKS-BAUTUKAWEL1METER",
+        "stock": 66,
+        "img": "bekisting-kawel-1m.jpg",
+        "weightKg": 1.0
+      }
+    ]
+  },
+  {
+    "name": "Mur & Baut Bekisting",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Satu set pasangan mur dan baut khusus berkekuatan tinggi untuk perakitan antar komponen modular besi baja.",
+    "material": "Baja Karbon Berkekuatan Tinggi",
+    "standar": "Perakitan modular antar komponen besi baja",
+    "variants": [
+      {
+        "name": "Mur & Baut Bekisting",
+        "sku": "BKS-MURBAUTBEKISTING",
+        "stock": 92,
+        "img": "bekisting-mur-dan-baut.jpg",
+        "weightKg": 0.15
+      }
+    ]
+  },
+  {
+    "name": "Cone System",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Aksesoris penahan ujung separator tie rod untuk mencegah kebocoran pasta semen sekaligus membentuk celah rapi pada beton.",
+    "material": "Plastik ABS / Baja",
+    "standar": "Mencegah kebocoran pasta semen di titik tie rod",
+    "variants": [
+      {
+        "name": "Plastic Cone",
+        "sku": "BKS-PLASTICCONE",
+        "stock": 74,
+        "img": "bekisting-plastic-cone.jpg",
+        "weightKg": 0.03
+      },
+      {
+        "name": "Steel Cone",
+        "sku": "BKS-STEELCONE",
+        "stock": 47,
+        "img": "bekisting-steel-cone.jpg",
+        "weightKg": 0.08
+      }
+    ]
+  },
+  {
+    "name": "Push Pull / Push Pull Prop",
+    "category": "Pipe Support & Sistem",
+    "desc": "Pipa penyeimbang cetakan kolom beton dengan mekanisme putar ulir halus demi menjaga presisi kelurusan dinding.",
+    "material": "Pipa Baja dengan Ulir Adjustable",
+    "standar": "Menjaga presisi kelurusan dinding kolom beton",
+    "variants": [
+      {
+        "name": "Push Pull 2.9M",
+        "sku": "BKS-PUSHPULL29M",
+        "stock": 43,
+        "img": "bekisting-push-pull-2.9m.jpg",
+        "weightKg": 14.0
+      },
+      {
+        "name": "Push Pull 2.94M",
+        "sku": "BKS-PUSHPULL294M",
+        "stock": 98,
+        "img": "bekisting-push-pull-2.94m.jpg",
+        "weightKg": 14.2
+      },
+      {
+        "name": "Push Pull Prop 3.8M",
+        "sku": "BKS-PUSHPULLPROP38M",
+        "stock": 119,
+        "img": "bekisting-push-pull-prop-3.8m.jpg",
+        "weightKg": 18.5
+      }
+    ]
+  },
+  {
+    "name": "Spring Clip",
+    "category": "Clamp & Pengunci",
+    "desc": "Jepitan besi baja (penjepit seling) pengunci kawat baja cor agar panel kayu cetakan terjepit konstan saat penuangan semen basah.",
+    "material": "Baja Pegas",
+    "standar": "Menjepit konstan panel cetakan saat penuangan semen basah",
+    "variants": [
+      {
+        "name": "Spring Clip",
+        "sku": "BKS-SPRINGCLIP",
+        "stock": 80,
+        "img": "bekisting-spring-clip.jpg",
+        "weightKg": 0.2
+      }
+    ]
+  },
+  {
+    "name": "Steel Column Clamp",
+    "category": "Clamp & Pengunci",
+    "desc": "Klem penahan (sabuk kolom) utama sisi luar bekisting kolom agar tidak melar atau meledak akibat beban akumulasi semen.",
+    "material": "Baja Plat Tebal",
+    "standar": "Menahan beban akumulasi tekanan semen sisi luar kolom",
+    "variants": [
+      {
+        "name": "Steel Column Clamp",
+        "sku": "BKS-STEELCOLUMNCLAMP",
+        "stock": 36,
+        "img": "bekisting-steel-column-clamp.jpg",
+        "weightKg": 3.2
+      }
+    ]
+  },
+  {
+    "name": "Suri Suri Sabuk Kolom",
+    "category": "Girder & Rangka Besi",
+    "desc": "Suri-suri besi sabuk pengaku kolom cetakan beton untuk menyalurkan beban merata dan menahan momen lentur kayu.",
+    "material": "Besi Profil / Galvanis",
+    "standar": "Menyalurkan beban merata & menahan momen lentur",
+    "variants": [
+      {
+        "name": "Suri Suri Sabuk Kolom 0.75M",
+        "sku": "BKS-SURISURISABUKKOLOM075M",
+        "stock": 95,
+        "img": "bekisting-suri-suri-sabuk-kolom-0.75m.jpg",
+        "weightKg": 6.0
+      },
+      {
+        "name": "Suri Suri Sabuk Kolom 1.2M",
+        "sku": "BKS-SURISURISABUKKOLOM12M",
+        "stock": 70,
+        "img": "bekisting-suri-suri-sabuk-kolom-1.2m.jpg",
+        "weightKg": 9.5
+      },
+      {
+        "name": "Suri Suri Sabuk Kolom 1.5M",
+        "sku": "BKS-SURISURISABUKKOLOM15M",
+        "stock": 35,
+        "img": "bekisting-suri-suri-sabuk-kolom-1.5m.jpg",
+        "weightKg": 11.8
+      },
+      {
+        "name": "Suri Suri Sabuk Kolom Galvanized 75cm",
+        "sku": "BKS-SURISURISABUKKOLOMGALVANIZED75CM",
+        "stock": 85,
+        "img": "bekisting-suri-suri-sabuk-kolom-galvanized-75cm.jpg",
+        "weightKg": 6.3
+      },
+      {
+        "name": "Suri Suri Sabuk Kolom Galvanized 120cm",
+        "sku": "BKS-SURISURISABUKKOLOMGALVANIZED120CM",
+        "stock": 116,
+        "img": "bekisting-suri-suri-sabuk-kolom-galvanized-120cm.jpg",
+        "weightKg": 10.0
+      }
+    ]
+  },
+  {
+    "name": "Tie Nut & Wingnut",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Mur sayap kupu-kupu penarik tie rod berkekuatan tinggi sebagai penahan struktur cetakan beton bertulang dinding.",
+    "material": "Baja Karbon Tempa",
+    "standar": "Penahan struktur cetakan beton bertulang dinding",
+    "variants": [
+      {
+        "name": "Tie Nut",
+        "sku": "BKS-TIENUT",
+        "stock": 48,
+        "img": "bekisting-tie-nut.jpg",
+        "weightKg": 0.1
+      },
+      {
+        "name": "Wingnut Hitam",
+        "sku": "BKS-WINGNUTHITAM",
+        "stock": 37,
+        "img": "bekisting-wingnut-hitam.jpg",
+        "weightKg": 0.12
+      },
+      {
+        "name": "Wingnut TM",
+        "sku": "BKS-WINGNUTTM",
+        "stock": 120,
+        "img": "bekisting-wingnut-tm.jpg",
+        "weightKg": 0.13
+      }
+    ]
+  },
+  {
+    "name": "Tie Rod",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Besi solid ulir kasar kualitas premium anti putus sebagai jangkar penahan tekanan utama saat semen cor dituang.",
+    "material": "Besi Solid Ulir Kasar Premium",
+    "standar": "Jangkar penahan tekanan utama saat pengecoran",
+    "variants": [
+      {
+        "name": "Tie Rod 1M",
+        "sku": "BKS-TIEROD1M",
+        "stock": 49,
+        "img": "bekisting-tie-rod-1m.jpg",
+        "weightKg": 1.6
+      },
+      {
+        "name": "Tie Rod 2M",
+        "sku": "BKS-TIEROD2M",
+        "stock": 79,
+        "img": "bekisting-tie-rod-2m.jpg",
+        "weightKg": 3.2
+      },
+      {
+        "name": "Tie Rod 3M",
+        "sku": "BKS-TIEROD3M",
+        "stock": 21,
+        "img": "bekisting-tie-rod-3m.jpg",
+        "weightKg": 4.8
+      },
+      {
+        "name": "Tie Rod 4M",
+        "sku": "BKS-TIEROD4M",
+        "stock": 102,
+        "img": "bekisting-tie-rod-4m.jpg",
+        "weightKg": 6.4
+      },
+      {
+        "name": "Tie Rod 5M",
+        "sku": "BKS-TIEROD5M",
+        "stock": 59,
+        "img": "bekisting-tie-rod-5m.jpg",
+        "weightKg": 8.0
+      },
+      {
+        "name": "Tie Rod 6M",
+        "sku": "BKS-TIEROD6M",
+        "stock": 16,
+        "img": "bekisting-tie-rod-6m.jpg",
+        "weightKg": 9.6
+      }
+    ]
+  },
+  {
+    "name": "Besi Kanal UNP",
+    "category": "Girder & Rangka Besi",
+    "desc": "Besi Kanal UNP profil tebal sebagai girder penyangga utama beban bekisting horizontal dan plat lantai cor.",
+    "material": "Baja Profil UNP Tebal",
+    "standar": "Girder penyangga utama beban horizontal & plat lantai",
+    "variants": [
+      {
+        "name": "UNP 2M",
+        "sku": "BKS-UNP2M",
+        "stock": 95,
+        "img": "bekisting-unp-2m.jpg",
+        "weightKg": 22.0
+      },
+      {
+        "name": "UNP 3M",
+        "sku": "BKS-UNP3M",
+        "stock": 69,
+        "img": "bekisting-unp-3m.jpg",
+        "weightKg": 33.0
+      },
+      {
+        "name": "UNP 4M",
+        "sku": "BKS-UNP4M",
+        "stock": 21,
+        "img": "bekisting-unp-4m.jpg",
+        "weightKg": 44.0
+      },
+      {
+        "name": "UNP 6M",
+        "sku": "BKS-UNP6M",
+        "stock": 20,
+        "img": "bekisting-unp-6m.jpg",
+        "weightKg": 66.0
+      }
+    ]
+  },
+  {
+    "name": "WAP & Washer Plate",
+    "category": "Tie Rod & Aksesoris Ikat",
+    "desc": "Jangkar plastik dinding (Wall Anchor Plastic) dan ring pelat besi lebar penahan Tie Nut agar tekanan menyebar merata.",
+    "material": "Plastik & Pelat Baja",
+    "standar": "Menyebarkan tekanan Tie Nut secara merata",
+    "variants": [
+      {
+        "name": "WAP (Wall Anchor Plastic)",
+        "sku": "BKS-WAPWALLANCHORPLASTIC",
+        "stock": 99,
+        "img": "bekisting-wap.jpg",
+        "weightKg": 0.05
+      },
+      {
+        "name": "Washer Plate",
+        "sku": "BKS-WASHERPLATE",
+        "stock": 114,
+        "img": "bekisting-washer-plate.jpg",
+        "weightKg": 0.25
+      }
+    ]
+  },
+  {
+    "name": "Water Stopper",
+    "category": "Pipe Support & Sistem",
+    "desc": "Komponen pengecoran khusus yang dipasang di tengah tie rod dinding kolam/basement untuk memutus rembesan air tanah.",
+    "material": "Karet PVC / Baja",
+    "standar": "Memutus rembesan air tanah pada dinding kolam/basement",
+    "variants": [
+      {
+        "name": "Water Stopper",
+        "sku": "BKS-WATERSTOPPER",
+        "stock": 54,
+        "img": "bekisting-water-stopper.jpg",
+        "weightKg": 0.6
+      }
+    ]
+  }
+]
