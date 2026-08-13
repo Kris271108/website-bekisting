@@ -21,8 +21,7 @@
  * tidak berubah. Kalau nanti butuh proteksi yang lebih kuat (dicek ulang
  * di server), tinggal bilang saja, itu langkah upgrade berikutnya.
  */
-const GOOGLE_CLIENT_ID = "";
+const GOOGLE_CLIENT_ID =
+  "181741039704-2g8sip6rqvovjnga29f1c746f16o6l4f.apps.googleusercontent.com";
 
-const ADMIN_EMAILS = [
-  // contoh: "nama.kamu@gmail.com",
-];
+const ADMIN_EMAILS = ["jshkrisss@gmail.com"];
