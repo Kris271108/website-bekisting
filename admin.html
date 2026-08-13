@@ -13,78 +13,63 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
     />
     <style>
       :root {
-        --ink: #14181c;
-        --steel: #1e2530;
-        --steel-line: #303a48;
-        --paper: #f2efe7;
-        --paper-dim: #eae5d6;
-        --card: #fffdf8;
-        --line: #ddd6c2;
-        --line-soft: #ece7d8;
-        --text-muted: #6b6355;
-        --text-light: #9c9484;
-        --red: #e1341e;
-        --red-dark: #a8220f;
-        --red-bg: #fbe1dc;
-        --green: #1f7a45;
-        --green-bg: #dcefe1;
-        --amber: #a15c07;
-        --amber-bg: #f7e6bd;
-        --blue: #28527d;
-        --blue-bg: #dde6ee;
-        --font-display: "Oswald", "Arial Narrow", sans-serif;
-        --font-mono: "IBM Plex Mono", "Courier New", monospace;
-        --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
+        --color-accent: #ef4444;
+        --color-accent-dark: #b40000;
+        --color-dark: #0f172a;
+        --color-bg: #f4f6fa;
+        --color-bg-soft: #eef1f6;
+        --color-card: rgba(255, 255, 255, 0.82);
+        --color-border: #e5e9f0;
+        --color-border-light: #eef1f6;
+        --color-text-muted: #64748b;
+        --color-text-light: #94a3b8;
+        --color-success: #16a34a;
+        --color-success-bg: #dcfce7;
+        --color-warning: #b45309;
+        --color-warning-bg: #fef3c7;
+        --color-danger-bg: #fee2e2;
+        --color-blue: #1d4ed8;
+        --color-blue-bg: #dbeafe;
+        --color-purple: #6d28d9;
+        --color-purple-bg: #ede9fe;
       }
       * {
         box-sizing: border-box;
       }
       body {
         margin: 0;
-        font-family: var(--font-body);
-        background: var(--paper);
-        background-image:
-          linear-gradient(rgba(40, 82, 125, 0.055) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(40, 82, 125, 0.055) 1px, transparent 1px);
-        background-size: 34px 34px;
-        color: var(--ink);
+        font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        background: var(--color-bg);
+        background-image: radial-gradient(
+            circle at 15% 0%,
+            rgba(239, 68, 68, 0.07),
+            transparent 45%
+          ),
+          radial-gradient(
+            circle at 85% 15%,
+            rgba(15, 23, 42, 0.05),
+            transparent 40%
+          );
+        background-attachment: fixed;
+        color: var(--color-dark);
       }
 
       header {
-        background: linear-gradient(120deg, var(--ink) 0%, var(--steel) 100%);
+        background: linear-gradient(135deg, var(--color-dark) 0%, #1e293b 100%);
         color: #fff;
-        padding: 22px 24px 46px 24px;
-        position: relative;
-        overflow: hidden;
-        border-bottom: 4px solid var(--red);
-      }
-      header::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 130px;
-        height: 100%;
-        background: repeating-linear-gradient(
-          -45deg,
-          var(--red) 0px,
-          var(--red) 14px,
-          transparent 14px,
-          transparent 28px
-        );
-        opacity: 0.13;
+        padding: 20px 24px;
       }
       .header-top {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        position: relative;
-        z-index: 1;
+        max-width: 1180px;
+        margin: 0 auto;
       }
       .header-brand {
         display: flex;
@@ -94,161 +79,124 @@
       .header-brand .logo-badge {
         width: 42px;
         height: 42px;
-        border-radius: 4px;
-        background: var(--red);
+        border-radius: 12px;
+        background: var(--color-accent);
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 18px;
-        border: 1px solid rgba(255, 255, 255, 0.25);
       }
       header h1 {
         margin: 0;
-        font-family: var(--font-display);
-        font-weight: 600;
         font-size: 17px;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
+        font-weight: 700;
       }
       header p {
         margin: 2px 0 0 0;
-        font-size: 11.5px;
-        color: #98a2b3;
-        font-family: var(--font-mono);
-        letter-spacing: 0.3px;
+        font-size: 12px;
+        color: #94a3b8;
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
       .back-to-site {
         color: #cbd5e1;
         text-decoration: none;
-        font-size: 12px;
+        font-size: 12.5px;
         font-weight: 600;
         display: flex;
         align-items: center;
         gap: 6px;
-        background: rgba(255, 255, 255, 0.06);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        padding: 8px 14px;
-        border-radius: 4px;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        padding: 9px 15px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-family: inherit;
       }
       .back-to-site:hover {
-        background: rgba(255, 255, 255, 0.14);
+        background: rgba(255, 255, 255, 0.16);
+      }
+      .admin-identity {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #cbd5e1;
+        font-size: 12.5px;
+      }
+      .admin-identity img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #334155;
       }
 
       .setup-banner {
-        background: var(--amber-bg);
-        color: var(--amber);
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
         padding: 12px 20px;
         font-size: 13px;
         display: none;
         text-align: center;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       }
       .setup-banner.show {
         display: block;
       }
 
-      .stat-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 12px;
-        max-width: 1100px;
-        margin: -28px auto 0 auto;
-        padding: 0 24px;
-        position: relative;
-        z-index: 2;
-      }
-      .stat-card {
-        background: var(--ink);
-        color: #fff;
-        border-radius: 3px;
-        padding: 16px 18px;
-        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.45);
-        border-left: 3px solid var(--red);
-        position: relative;
-      }
-      .stat-card::after {
-        content: "";
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        width: 6px;
-        height: 6px;
-        border-top: 1px solid rgba(255, 255, 255, 0.25);
-        border-right: 1px solid rgba(255, 255, 255, 0.25);
-      }
-      .stat-card .stat-icon {
-        width: 28px;
-        height: 28px;
-        border-radius: 3px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 12px;
-        margin-bottom: 10px;
-      }
-      .stat-card .stat-label {
-        font-size: 10px;
-        color: #9aa5b5;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        font-family: var(--font-display);
-      }
-      .stat-card .stat-value {
-        font-family: var(--font-mono);
-        font-size: 22px;
-        font-weight: 700;
-        margin-top: 4px;
+      main {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px 24px 60px 24px;
       }
 
-      main {
-        max-width: 1100px;
-        margin: 0 auto;
-        padding: 20px 24px 60px 24px;
-      }
       .tabs {
         display: flex;
-        gap: 4px;
-        margin-bottom: 0;
-        border-bottom: 2px solid var(--line);
+        gap: 6px;
+        margin-bottom: 18px;
+        background: var(--color-card);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--color-border);
+        border-radius: 30px;
+        padding: 5px;
+        width: fit-content;
       }
       .tab-btn {
-        padding: 10px 20px;
-        border-radius: 3px 3px 0 0;
+        padding: 9px 18px;
+        border-radius: 24px;
         border: none;
         background: transparent;
-        color: var(--text-muted);
-        font-family: var(--font-display);
-        font-weight: 600;
+        color: var(--color-text-muted);
+        font-family: inherit;
+        font-weight: 700;
         font-size: 12.5px;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
         cursor: pointer;
         display: flex;
         align-items: center;
         gap: 7px;
-        border-bottom: 3px solid transparent;
-        margin-bottom: -2px;
+        transition: all 0.15s ease;
       }
       .tab-btn.active {
-        background: var(--card);
-        color: var(--ink);
-        border: 1px solid var(--line);
-        border-bottom: 3px solid var(--red);
+        background: var(--color-accent);
+        color: #fff;
+        box-shadow: 0 6px 14px -4px rgba(239, 68, 68, 0.5);
       }
       .panel {
-        background: var(--card);
-        border-radius: 0 4px 4px 4px;
-        padding: 20px;
-        box-shadow: 0 6px 18px rgba(20, 24, 28, 0.06);
-        border: 1px solid var(--line);
-        border-top: none;
         display: none;
       }
       .panel.active {
         display: block;
+      }
+      .glass-card {
+        background: var(--color-card);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--color-border);
+        border-radius: 20px;
+        box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.12);
       }
       .panel-toolbar {
         display: flex;
@@ -259,336 +207,385 @@
         flex-wrap: wrap;
       }
       .panel-toolbar strong {
-        font-family: var(--font-display);
-        font-size: 14px;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        font-weight: 600;
+        font-size: 15px;
+        font-weight: 800;
       }
 
       .btn {
-        padding: 10px 16px;
-        border-radius: 3px;
+        padding: 10px 18px;
+        border-radius: 30px;
         border: none;
-        font-family: var(--font-display);
+        font-family: inherit;
         font-size: 12.5px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
+        font-weight: 700;
         cursor: pointer;
         display: inline-flex;
         align-items: center;
-        gap: 6px;
+        gap: 7px;
         transition: all 0.15s ease;
       }
       .btn-primary {
-        background: var(--red);
+        background: var(--color-accent);
         color: #fff;
-        box-shadow: 0 6px 14px -4px rgba(225, 52, 30, 0.5);
+        box-shadow: 0 8px 18px -6px rgba(239, 68, 68, 0.55);
       }
       .btn-primary:hover {
-        background: var(--red-dark);
+        background: var(--color-accent-dark);
       }
       .btn-secondary {
-        background: var(--paper);
-        color: var(--ink);
-        border: 1px solid var(--line);
+        background: #fff;
+        color: var(--color-dark);
+        border: 1px solid var(--color-border);
+      }
+      .btn-danger {
+        background: var(--color-danger-bg);
+        color: #b91c1c;
       }
 
-      .product-grid {
+      /* ===== Beranda ===== */
+      .stat-cards {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
         gap: 14px;
+        margin-bottom: 20px;
       }
-      .product-card {
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        overflow: hidden;
-        background: var(--card);
-        position: relative;
+      .stat-card {
+        background: var(--color-card);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid var(--color-border);
+        border-radius: 18px;
+        padding: 16px 18px;
+        box-shadow: 0 8px 22px -12px rgba(15, 23, 42, 0.14);
       }
-      .product-card::before {
-        content: "";
-        position: absolute;
-        top: 6px;
-        left: 6px;
-        width: 8px;
-        height: 8px;
-        border-top: 2px solid var(--line);
-        border-left: 2px solid var(--line);
-        z-index: 1;
-      }
-      .product-card .product-card-top {
+      .stat-card .stat-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
         display: flex;
-        gap: 10px;
-        padding: 12px;
-        background: var(--paper-dim);
-        border-bottom: 1px solid var(--line-soft);
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        margin-bottom: 10px;
       }
-      .product-card img {
-        width: 56px;
-        height: 56px;
-        object-fit: contain;
-        background: #fff;
-        border-radius: 3px;
-        border: 1px solid var(--line-soft);
-        flex-shrink: 0;
-      }
-      .product-card .pc-title {
-        font-size: 13.5px;
+      .stat-card .stat-label {
+        font-size: 11px;
+        color: var(--color-text-muted);
         font-weight: 700;
-        line-height: 1.3;
       }
-      .product-card .pc-variant {
-        font-size: 11.5px;
-        color: var(--text-muted);
-        font-family: var(--font-mono);
+      .stat-card .stat-value {
+        font-size: 21px;
+        font-weight: 800;
+        margin-top: 2px;
       }
-      .product-card .pc-body {
-        padding: 12px;
+
+      .data-table-wrap {
+        padding: 20px;
+        margin-bottom: 18px;
+      }
+      .data-table-wrap h3 {
+        margin: 0 0 14px 0;
+        font-size: 14px;
+        font-weight: 800;
         display: flex;
-        flex-direction: column;
+        align-items: center;
         gap: 8px;
       }
-      .field-row {
-        display: flex;
-        gap: 8px;
-      }
-      .field-row .field-col {
-        flex: 1;
-      }
-      .field-col label {
-        font-size: 10px;
-        color: var(--text-muted);
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        display: block;
-        margin-bottom: 3px;
-        font-family: var(--font-display);
-      }
-      .field-col input,
-      .field-col select,
-      .field-col textarea {
+      table.data-table {
         width: 100%;
-        padding: 7px 9px;
-        border: 1px solid var(--line);
-        border-radius: 3px;
+        border-collapse: collapse;
         font-size: 12.5px;
-        font-family: var(--font-mono);
+      }
+      table.data-table th {
+        text-align: left;
+        padding: 8px 10px;
+        color: var(--color-text-muted);
+        font-weight: 700;
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        border-bottom: 1px solid var(--color-border);
+      }
+      table.data-table td {
+        padding: 9px 10px;
+        border-bottom: 1px solid var(--color-border-light);
+        vertical-align: top;
+      }
+      table.data-table tr:last-child td {
+        border-bottom: none;
+      }
+      table.data-table tr.total-row td {
+        border-top: 2px solid var(--color-border);
+        border-bottom: none;
+        font-weight: 800;
+        padding-top: 12px;
+      }
+      .table-scroll {
+        max-height: 340px;
+        overflow-y: auto;
+      }
+
+      /* ===== Inventaris — daftar (list, clickable) ===== */
+      .search-bar {
+        position: relative;
+        flex: 1;
+        min-width: 180px;
+        max-width: 340px;
+      }
+      .search-bar i {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-text-light);
+        font-size: 12px;
+      }
+      .search-bar input {
+        width: 100%;
+        padding: 10px 14px 10px 34px;
+        border: 1px solid var(--color-border);
+        border-radius: 30px;
+        font-size: 12.5px;
+        font-family: inherit;
         background: #fff;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
       }
-      .field-col textarea {
-        resize: vertical;
-        min-height: 54px;
-        line-height: 1.4;
-        font-family: var(--font-body);
-      }
-      .field-col input:focus,
-      .field-col select:focus,
-      .field-col textarea:focus {
+      .search-bar input:focus {
         outline: none;
-        border-color: var(--red);
-        box-shadow: 0 0 0 3px rgba(225, 52, 30, 0.12);
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
       }
-      .pc-actions {
-        display: flex;
-        gap: 8px;
-        margin-top: 4px;
-      }
-      .pc-actions button {
-        flex: 1;
-        padding: 8px;
-        border-radius: 3px;
-        border: none;
-        font-family: var(--font-display);
-        font-size: 11.5px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-      }
-      .pc-actions .save-btn {
-        background: var(--green-bg);
-        color: var(--green);
-      }
-      .pc-actions .delete-btn {
-        background: var(--red-bg);
-        color: var(--red-dark);
-      }
-      .stock-tag {
-        font-size: 10px;
-        font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 3px;
-        display: inline-block;
-        margin-top: 4px;
-        font-family: var(--font-mono);
-        letter-spacing: 0.2px;
-      }
-      .stock-tag.out {
-        background: var(--red-bg);
-        color: var(--red-dark);
-      }
-      .stock-tag.low {
-        background: var(--amber-bg);
-        color: var(--amber);
-      }
-      .stock-tag.ok {
-        background: var(--green-bg);
-        color: var(--green);
-      }
-      .sold-tag {
-        font-size: 10px;
-        font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 3px;
-        display: inline-block;
-        margin-top: 4px;
-        margin-left: 4px;
-        background: var(--blue-bg);
-        color: var(--blue);
-        font-family: var(--font-mono);
-      }
-      .local-tag {
-        font-size: 10px;
-        font-weight: 700;
-        padding: 2px 8px;
-        border-radius: 3px;
-        display: inline-block;
-        margin-top: 4px;
-        margin-left: 4px;
-        background: var(--amber-bg);
-        color: var(--amber);
-        font-family: var(--font-mono);
-      }
-      .product-card.is-local {
-        border-style: dashed;
-        border-color: #d8a53e;
-        background: #fdf9ee;
-      }
-      .product-card.is-local::before {
-        border-color: #d8a53e;
-      }
-      .product-card.is-local .import-btn {
-        flex: 1;
-        padding: 8px;
-        border-radius: 3px;
-        border: none;
-        font-family: var(--font-display);
-        font-size: 11.5px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        background: var(--amber-bg);
-        color: var(--amber);
-      }
+
       .catalog-sync-note {
         display: flex;
         align-items: center;
         gap: 10px;
-        background: var(--amber-bg);
-        color: var(--amber);
-        border-radius: 3px;
-        padding: 10px 14px;
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+        border-radius: 14px;
+        padding: 12px 16px;
         font-size: 12.5px;
         margin-bottom: 14px;
         flex-wrap: wrap;
-        border-left: 3px solid var(--amber);
       }
       .catalog-sync-note .sync-note-text {
         flex: 1;
         min-width: 200px;
       }
-      .catalog-sync-note #import-all-catalog-btn {
-        white-space: nowrap;
-      }
-      .product-card {
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
-      }
-      .product-card:hover {
-        box-shadow: 0 10px 22px -10px rgba(20, 24, 28, 0.3);
-        transform: translateY(-2px);
-      }
-      .pc-sales-row {
+
+      .product-list {
         display: flex;
+        flex-direction: column;
         gap: 8px;
-        margin-top: 2px;
       }
-      .pc-sales-row .mini-stat {
+      .product-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        background: #fff;
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .product-row:hover {
+        border-color: var(--color-accent);
+        box-shadow: 0 6px 16px -8px rgba(239, 68, 68, 0.3);
+        transform: translateY(-1px);
+      }
+      .product-row img {
+        width: 44px;
+        height: 44px;
+        object-fit: contain;
+        background: var(--color-bg-soft);
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+      .pr-info {
         flex: 1;
-        background: var(--paper);
-        border: 1px solid var(--line-soft);
-        border-radius: 3px;
-        padding: 6px 8px;
-        text-align: center;
+        min-width: 0;
       }
-      .pc-sales-row .mini-stat .mini-stat-label {
-        font-size: 9px;
-        color: var(--text-muted);
+      .pr-name {
+        font-size: 13.5px;
         font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        font-family: var(--font-display);
       }
-      .pc-sales-row .mini-stat .mini-stat-value {
-        font-family: var(--font-mono);
-        font-size: 14px;
-        font-weight: 700;
-        margin-top: 1px;
-      }
-      .pc-sales-row .mini-stat.sold .mini-stat-value {
-        color: var(--blue);
-      }
-      .pc-sales-row .mini-stat.remaining .mini-stat-value {
-        color: var(--green);
-      }
-      .search-bar {
-        position: relative;
-        flex: 1;
-        min-width: 180px;
-        max-width: 320px;
-      }
-      .search-bar i {
-        position: absolute;
-        left: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: var(--text-light);
+      .pr-name .pr-variant {
+        font-weight: 500;
+        color: var(--color-text-muted);
         font-size: 12px;
       }
-      .search-bar input {
-        width: 100%;
-        padding: 9px 12px 9px 32px;
-        border: 1px solid var(--line);
-        border-radius: 3px;
-        font-size: 12.5px;
-        font-family: var(--font-body);
-        background: #fff;
+      .pr-meta {
+        display: flex;
+        gap: 6px;
+        margin-top: 4px;
+        flex-wrap: wrap;
       }
-      .search-bar input:focus {
-        outline: none;
-        border-color: var(--red);
-        box-shadow: 0 0 0 3px rgba(225, 52, 30, 0.12);
+      .pr-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: var(--color-bg-soft);
+        color: var(--color-text-muted);
+      }
+      .pr-price {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--color-dark);
+        white-space: nowrap;
+      }
+      .pr-arrow {
+        color: var(--color-text-light);
+        font-size: 13px;
+      }
+      .stock-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+      .stock-tag.out {
+        background: var(--color-danger-bg);
+        color: #b91c1c;
+      }
+      .stock-tag.low {
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+      }
+      .stock-tag.ok {
+        background: var(--color-success-bg);
+        color: var(--color-success);
+      }
+      .sold-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: var(--color-purple-bg);
+        color: var(--color-purple);
+      }
+      .local-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
       }
 
-      .order-card {
-        border: 1px solid var(--line);
-        border-left: 3px solid var(--blue);
-        border-radius: 3px;
-        padding: 14px 16px;
+      /* ===== Inventaris — mode edit (inline, bukan modal) ===== */
+      .edit-back-btn {
+        background: none;
+        border: none;
+        color: var(--color-text-muted);
+        font-family: inherit;
+        font-size: 12.5px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 16px;
+        padding: 0;
+      }
+      .edit-back-btn:hover {
+        color: var(--color-accent);
+      }
+      .edit-layout {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 24px;
+      }
+      @media (max-width: 720px) {
+        .edit-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+      .edit-image-col img {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: contain;
+        background: var(--color-bg-soft);
+        border-radius: 16px;
+        border: 1px solid var(--color-border);
+        margin-bottom: 10px;
+      }
+      .edit-image-col label {
+        font-size: 10.5px;
+        color: var(--color-text-muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        display: block;
+        margin-bottom: 4px;
+      }
+      .edit-image-col input {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        font-size: 12px;
+        font-family: inherit;
         margin-bottom: 12px;
-        background: var(--card);
+      }
+      .edit-short-desc {
+        font-size: 12.5px;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+        background: var(--color-bg-soft);
+        padding: 12px;
+        border-radius: 12px;
+        margin: 0;
+      }
+      .field-row {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 12px;
+      }
+      .field-row .field-col {
+        flex: 1;
+      }
+      .field-col label {
+        font-size: 11px;
+        color: var(--color-text-muted);
+        font-weight: 700;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .field-col input,
+      .field-col textarea {
+        width: 100%;
+        padding: 10px 13px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        font-size: 13px;
+        font-family: inherit;
+        background: #fff;
+      }
+      .field-col textarea {
+        resize: vertical;
+        min-height: 90px;
+        line-height: 1.5;
+      }
+      .field-col input:focus,
+      .field-col textarea:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+      .edit-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      /* ===== Pesanan ===== */
+      .order-card {
+        border: 1px solid var(--color-border);
+        border-radius: 16px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
+        background: #fff;
       }
       .order-card .order-head {
         display: flex;
@@ -600,8 +597,7 @@
       }
       .order-card .order-time {
         font-size: 11.5px;
-        color: var(--text-muted);
-        font-family: var(--font-mono);
+        color: var(--color-text-muted);
       }
       .order-card .order-name {
         font-weight: 700;
@@ -611,109 +607,29 @@
         font-size: 10.5px;
         font-weight: 700;
         padding: 3px 10px;
-        border-radius: 3px;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        font-family: var(--font-display);
+        border-radius: 20px;
       }
       .order-badge.instant {
-        background: var(--red-bg);
-        color: var(--red-dark);
+        background: var(--color-danger-bg);
+        color: #b91c1c;
       }
       .order-badge.cart {
-        background: var(--blue-bg);
-        color: var(--blue);
+        background: var(--color-blue-bg);
+        color: var(--color-blue);
       }
       .order-items-list {
         font-size: 12.5px;
-        color: var(--text-muted);
+        color: var(--color-text-muted);
         margin: 6px 0;
         padding-left: 18px;
       }
-      .empty-state {
-        text-align: center;
-        padding: 40px 20px;
-        color: var(--text-muted);
-        font-size: 13.5px;
-      }
+
+      .empty-state,
       .loading-state {
         text-align: center;
         padding: 40px 20px;
-        color: var(--text-muted);
+        color: var(--color-text-muted);
         font-size: 13.5px;
-      }
-
-      .modal-overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(20, 24, 28, 0.6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.25s ease;
-        z-index: 100;
-      }
-      .modal-overlay.show {
-        opacity: 1;
-        pointer-events: auto;
-      }
-      .modal-box {
-        background: var(--card);
-        border-radius: 4px;
-        width: 100%;
-        max-width: 440px;
-        padding: 22px;
-        max-height: 88vh;
-        overflow-y: auto;
-        border-top: 4px solid var(--red);
-      }
-      .modal-box h3 {
-        margin: 0 0 14px 0;
-        font-family: var(--font-display);
-        font-size: 16px;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-      }
-      .modal-field {
-        margin-bottom: 12px;
-      }
-      .modal-field label {
-        font-size: 11px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        color: var(--text-muted);
-        display: block;
-        margin-bottom: 4px;
-        font-family: var(--font-display);
-      }
-      .modal-field input {
-        width: 100%;
-        padding: 10px 12px;
-        border: 1px solid var(--line);
-        border-radius: 3px;
-        font-size: 13px;
-        font-family: var(--font-mono);
-      }
-      .modal-actions {
-        display: flex;
-        gap: 10px;
-        margin-top: 16px;
-      }
-      .modal-actions button {
-        flex: 1;
-        padding: 11px;
-        border-radius: 3px;
-        border: none;
-        font-family: var(--font-display);
-        font-weight: 600;
-        font-size: 12.5px;
-        text-transform: uppercase;
-        letter-spacing: 0.4px;
-        cursor: pointer;
       }
 
       #toast-container {
@@ -730,21 +646,21 @@
       }
       .toast {
         padding: 12px 16px;
-        border-radius: 3px;
+        border-radius: 14px;
         font-size: 13px;
         font-weight: 600;
-        box-shadow: 0 10px 25px rgba(20, 24, 28, 0.3);
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
         display: flex;
         align-items: center;
         gap: 8px;
         animation: toast-in 0.25s ease;
       }
       .toast.success {
-        background: var(--green);
+        background: var(--color-success);
         color: #fff;
       }
       .toast.error {
-        background: var(--red-dark);
+        background: #b91c1c;
         color: #fff;
       }
       @keyframes toast-in {
@@ -763,17 +679,7 @@
         position: fixed;
         inset: 0;
         z-index: 1000;
-        background: linear-gradient(120deg, var(--ink) 0%, var(--steel) 100%);
-        background-image:
-          repeating-linear-gradient(
-            -45deg,
-            var(--red) 0px,
-            var(--red) 14px,
-            transparent 14px,
-            transparent 28px
-          ),
-          linear-gradient(120deg, var(--ink) 0%, var(--steel) 100%);
-        background-blend-mode: overlay;
+        background: linear-gradient(135deg, var(--color-dark) 0%, #1e293b 100%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -783,20 +689,20 @@
         display: none;
       }
       .admin-login-card {
-        background: var(--card);
-        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(14px);
+        border-radius: 24px;
         padding: 40px 32px;
         max-width: 380px;
         width: 100%;
         text-align: center;
-        box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.6);
-        border-top: 5px solid var(--red);
+        box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.5);
       }
       .admin-login-logo {
         width: 56px;
         height: 56px;
-        border-radius: 4px;
-        background: var(--red);
+        border-radius: 16px;
+        background: var(--color-accent);
         color: #fff;
         display: flex;
         align-items: center;
@@ -806,28 +712,22 @@
       }
       .admin-login-card h2 {
         margin: 0 0 2px 0;
-        font-family: var(--font-display);
         font-size: 19px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--ink);
+        font-weight: 800;
+        color: var(--color-dark);
       }
       .admin-login-card p.subtitle {
         margin: 0 0 18px 0;
         font-size: 13px;
-        color: var(--text-muted);
+        color: var(--color-text-muted);
       }
       .admin-login-cta {
         margin: 0 0 12px 0;
-        font-family: var(--font-display);
         font-size: 12.5px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.6px;
-        color: var(--ink);
+        font-weight: 700;
+        color: var(--color-dark);
         padding-top: 12px;
-        border-top: 1px dashed var(--line);
+        border-top: 1px dashed var(--color-border);
       }
       .admin-google-btn-slot {
         display: flex;
@@ -836,36 +736,15 @@
       }
       .admin-login-error {
         margin-top: 16px;
-        background: var(--red-bg);
-        color: var(--red-dark);
-        border-radius: 3px;
+        background: var(--color-danger-bg);
+        color: #b91c1c;
+        border-radius: 12px;
         padding: 10px 14px;
         font-size: 12.5px;
         text-align: left;
-        border-left: 3px solid var(--red-dark);
-      }
-      .admin-identity {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: #cbd5e1;
-        font-size: 12px;
-        font-family: var(--font-mono);
-      }
-      .admin-identity img {
-        width: 28px;
-        height: 28px;
-        border-radius: 3px;
-        object-fit: cover;
-        background: #334155;
-      }
-      .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
       }
       .logout-link {
-        background: rgba(255, 255, 255, 0.06);
+        background: rgba(255, 255, 255, 0.08);
         border: none;
         font-family: inherit;
         color: #cbd5e1;
@@ -884,6 +763,7 @@
         <div id="admin-login-error" class="admin-login-error" style="display: none"></div>
       </div>
     </div>
+
     <header>
       <div class="header-top">
         <div class="header-brand">
@@ -913,95 +793,107 @@
       PANDUAN-SETUP.md.
     </div>
 
-    <div class="stat-cards" id="stat-cards"></div>
-
     <main>
       <div class="tabs">
-        <button class="tab-btn active" data-tab="products">
-          <i class="fa-solid fa-boxes-stacked"></i> Produk
+        <button class="tab-btn active" data-tab="home">
+          <i class="fa-solid fa-chart-line"></i> Beranda
+        </button>
+        <button class="tab-btn" data-tab="products">
+          <i class="fa-solid fa-boxes-stacked"></i> Inventaris
         </button>
         <button class="tab-btn" data-tab="orders">
           <i class="fa-solid fa-receipt"></i> Pesanan Masuk
         </button>
       </div>
 
-      <section id="panel-products" class="panel active">
-        <div class="panel-toolbar">
-          <strong>Daftar Produk & Varian</strong>
-          <div class="search-bar">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="product-search" placeholder="Cari nama produk, varian, atau kategori..." />
+      <!-- ===== BERANDA ===== -->
+      <section id="panel-home" class="panel active">
+        <div class="stat-cards" id="stat-cards"></div>
+
+        <div class="glass-card data-table-wrap">
+          <h3><i class="fa-solid fa-receipt"></i> Pesanan Terbaru</h3>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Produk</th>
+                  <th>Jumlah</th>
+                  <th>Estimasi Harga</th>
+                </tr>
+              </thead>
+              <tbody id="recent-orders-table-body"></tbody>
+            </table>
           </div>
-          <button class="btn btn-primary" id="add-product-btn">
-            <i class="fa-solid fa-plus"></i> Tambah Produk Baru
-          </button>
+          <div id="recent-orders-empty" class="empty-state" style="display: none; padding: 20px 0 0 0;">
+            Belum ada pesanan.
+          </div>
         </div>
-        <div id="catalog-sync-note" class="catalog-sync-note" style="display:none">
-          <i class="fa-solid fa-circle-info"></i>
-          <span class="sync-note-text"></span>
-          <button class="btn btn-secondary" id="import-all-catalog-btn" style="display:none">
-            <i class="fa-solid fa-cloud-arrow-up"></i> Impor Semua ke Dashboard
-          </button>
+
+        <div class="glass-card data-table-wrap">
+          <h3><i class="fa-solid fa-boxes-stacked"></i> Produk</h3>
+          <div class="table-scroll">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Nama Produk</th>
+                  <th>Stok</th>
+                  <th>Harga</th>
+                </tr>
+              </thead>
+              <tbody id="products-table-body"></tbody>
+            </table>
+          </div>
         </div>
-        <div class="product-grid" id="product-grid"></div>
-        <div id="product-loading" class="loading-state">Memuat data produk...</div>
-        <div id="product-empty" class="empty-state" style="display: none"></div>
       </section>
 
-      <section id="panel-orders" class="panel">
-        <div class="panel-toolbar">
-          <strong>Pesanan Masuk</strong>
-          <button class="btn btn-secondary" id="refresh-orders-btn">
-            <i class="fa-solid fa-rotate"></i> Muat Ulang
-          </button>
+      <!-- ===== INVENTARIS ===== -->
+      <section id="panel-products" class="panel">
+        <div class="glass-card" style="padding: 20px;">
+          <div id="product-list-view">
+            <div class="panel-toolbar">
+              <strong>Daftar Produk & Varian</strong>
+              <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="product-search" placeholder="Cari nama produk, varian, atau kategori..." />
+              </div>
+              <button class="btn btn-primary" id="add-product-btn">
+                <i class="fa-solid fa-plus"></i> Tambah Produk
+              </button>
+            </div>
+            <div id="catalog-sync-note" class="catalog-sync-note" style="display:none">
+              <i class="fa-solid fa-circle-info"></i>
+              <span class="sync-note-text"></span>
+              <button class="btn btn-secondary" id="import-all-catalog-btn" style="display:none">
+                <i class="fa-solid fa-cloud-arrow-up"></i> Impor Semua ke Dashboard
+              </button>
+            </div>
+            <div class="product-list" id="product-grid"></div>
+            <div id="product-loading" class="loading-state">Memuat data produk...</div>
+            <div id="product-empty" class="empty-state" style="display: none"></div>
+          </div>
+
+          <div id="product-edit-view" style="display: none"></div>
         </div>
-        <div id="orders-list"></div>
-        <div id="orders-loading" class="loading-state">Memuat data pesanan...</div>
-        <div id="orders-empty" class="empty-state" style="display: none">
-          Belum ada pesanan yang tercatat.
+      </section>
+
+      <!-- ===== PESANAN ===== -->
+      <section id="panel-orders" class="panel">
+        <div class="glass-card" style="padding: 20px;">
+          <div class="panel-toolbar">
+            <strong>Pesanan Masuk</strong>
+            <button class="btn btn-secondary" id="refresh-orders-btn">
+              <i class="fa-solid fa-rotate"></i> Muat Ulang
+            </button>
+          </div>
+          <div id="orders-list"></div>
+          <div id="orders-loading" class="loading-state">Memuat data pesanan...</div>
+          <div id="orders-empty" class="empty-state" style="display: none">
+            Belum ada pesanan yang tercatat.
+          </div>
         </div>
       </section>
     </main>
-
-    <div class="modal-overlay" id="add-product-modal">
-      <div class="modal-box">
-        <h3><i class="fa-solid fa-box-open"></i> Tambah Produk Baru</h3>
-        <form id="add-product-form">
-          <div class="modal-field">
-            <label>Nama Produk</label>
-            <input type="text" id="np-name" required />
-          </div>
-          <div class="modal-field">
-            <label>Nama Varian</label>
-            <input type="text" id="np-variant" placeholder="Boleh sama dengan nama produk" />
-          </div>
-          <div class="modal-field">
-            <label>Kategori</label>
-            <input type="text" id="np-category" placeholder="mis. Clamp & Pengunci" />
-          </div>
-          <div class="modal-field">
-            <label>Deskripsi</label>
-            <textarea id="np-description" rows="3" style="width:100%; padding:10px 12px; border:1px solid var(--color-border); border-radius:8px; font-size:13px; font-family:inherit; resize:vertical;" placeholder="Deskripsi produk..."></textarea>
-          </div>
-          <div class="modal-field">
-            <label>Harga (Rp) — kosongkan untuk "Hubungi Sales"</label>
-            <input type="number" id="np-price" min="0" />
-          </div>
-          <div class="modal-field">
-            <label>Stok Awal</label>
-            <input type="number" id="np-stock" min="0" value="0" />
-          </div>
-          <div class="modal-field">
-            <label>Nama File Gambar (harus sudah ada di folder situs)</label>
-            <input type="text" id="np-image" placeholder="mis. bekisting-produk-baru.jpg" />
-          </div>
-          <div class="modal-actions">
-            <button type="button" class="btn-secondary" id="cancel-add-product">Batal</button>
-            <button type="submit" class="btn-primary">Simpan Produk</button>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <div id="toast-container"></div>
 
@@ -1027,7 +919,745 @@
         document.getElementById("setup-banner").classList.add("show");
       }
 
-      // ===== Gerbang login admin (Google Sign-In) =====
+      function formatRupiah(n) {
+        const num = Math.round(parseFloat(n) || 0);
+        return "Rp " + num.toLocaleString("id-ID");
+      }
+
+      function escapeAttr(v) {
+        return String(v === undefined || v === null ? "" : v).replace(
+          /"/g,
+          "&quot;",
+        );
+      }
+      function escapeHtml(v) {
+        return String(v === undefined || v === null ? "" : v)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+
+      function showToast(message, type) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = `toast ${type === "error" ? "error" : "success"}`;
+        toast.innerHTML = `<i class="fa-solid ${type === "error" ? "fa-circle-exclamation" : "fa-circle-check"}"></i> ${message}`;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.remove();
+        }, 3200);
+      }
+
+      async function postAction(action, payload) {
+        if (!APPS_SCRIPT_URL) {
+          showToast("Dashboard belum tersambung ke Google Sheets.", "error");
+          return null;
+        }
+        try {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({ action, ...payload }),
+          });
+          const json = await res.json();
+          if (!json.ok) {
+            showToast(json.error || "Gagal menyimpan.", "error");
+            return null;
+          }
+          return json;
+        } catch (err) {
+          showToast("Gagal terhubung ke server: " + err.message, "error");
+          return null;
+        }
+      }
+
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".panel")
+            .forEach((p) => p.classList.remove("active"));
+          btn.classList.add("active");
+          document
+            .getElementById("panel-" + btn.dataset.tab)
+            .classList.add("active");
+        });
+      });
+
+      // ===================== DATA: katalog + Sheets =====================
+      let lastProductRows = [];
+      let lastOrderRows = [];
+
+      function buildRowsFromCatalog() {
+        const catalog =
+          typeof PRODUCT_DATA !== "undefined" && Array.isArray(PRODUCT_DATA)
+            ? PRODUCT_DATA
+            : [];
+        const rows = [];
+        catalog.forEach((prod) => {
+          (prod.variants || []).forEach((v) => {
+            rows.push({
+              ProductName: prod.name || "",
+              Category: prod.category || "",
+              Description: prod.desc || "",
+              Material: prod.material || "",
+              Standar: prod.standar || "",
+              VariantName: v.name || prod.name || "",
+              SKU: v.sku || "",
+              Price: v.price || "",
+              Stock: v.stock || 0,
+              ImageFileName: v.img || "",
+              WeightKg: v.weightKg || "",
+              _row: null,
+            });
+          });
+        });
+        return rows;
+      }
+
+      function mergeWithCatalog(sheetRows) {
+        const catalogRows = buildRowsFromCatalog();
+        const norm = (s) => String(s || "").trim().toLowerCase();
+        const existingSku = new Set(
+          sheetRows.map((r) => norm(r.SKU)).filter(Boolean),
+        );
+        const existingNameVariant = new Set(
+          sheetRows.map((r) => norm(r.ProductName) + "||" + norm(r.VariantName)),
+        );
+        const missingFromSheet = catalogRows.filter((row) => {
+          const skuKey = norm(row.SKU);
+          if (skuKey && existingSku.has(skuKey)) return false;
+          const nvKey = norm(row.ProductName) + "||" + norm(row.VariantName);
+          if (existingNameVariant.has(nvKey)) return false;
+          return true;
+        });
+        return sheetRows.concat(missingFromSheet);
+      }
+
+      function getAllOrderItems() {
+        const allItems = [];
+        lastOrderRows.forEach((o) => {
+          let items = [];
+          try {
+            items = JSON.parse(o.ItemsJSON || "[]");
+          } catch (e) {
+            items = [];
+          }
+          items.forEach((it) => allItems.push(it));
+        });
+        return allItems;
+      }
+
+      function computeSoldForRow(row, allItems) {
+        const pName = (row.ProductName || "").trim();
+        const vName = (row.VariantName || "").trim();
+        const combinedName =
+          vName && vName !== pName ? `${pName} - ${vName}` : pName;
+        let sold = 0;
+        allItems.forEach((it) => {
+          const itName = (it.name || it.productName || "").trim();
+          const itVariant = (it.variant || "").trim();
+          const qty = parseInt(it.qty) || 0;
+          if (itName === pName && itVariant === vName) {
+            sold += qty;
+          } else if (itName === combinedName && !itVariant) {
+            sold += qty;
+          } else if (itName === pName && !vName && !itVariant) {
+            sold += qty;
+          }
+        });
+        return sold;
+      }
+
+      // Cari harga produk saat ini berdasarkan nama item pesanan (dipakai
+      // buat estimasi harga di tabel "Pesanan Terbaru" — histori harga asli
+      // belum tersimpan per pesanan, ini estimasi dari harga produk sekarang).
+      function findCurrentPriceForItem(it) {
+        const itName = (it.name || it.productName || "").trim();
+        const itVariant = (it.variant || "").trim();
+        const match = lastProductRows.find((row) => {
+          const pName = (row.ProductName || "").trim();
+          const vName = (row.VariantName || "").trim();
+          const combinedName =
+            vName && vName !== pName ? `${pName} - ${vName}` : pName;
+          if (itName === pName && itVariant === vName) return true;
+          if (itName === combinedName && !itVariant) return true;
+          if (itName === pName && !vName && !itVariant) return true;
+          return false;
+        });
+        return match && match.Price ? parseFloat(match.Price) || 0 : 0;
+      }
+
+      function stockTagHtml(stock) {
+        const s = parseInt(stock) || 0;
+        if (s <= 0) return `<span class="stock-tag out">Stok Habis</span>`;
+        if (s <= 30) return `<span class="stock-tag low">Stok Terbatas</span>`;
+        return `<span class="stock-tag ok">Stok Aman</span>`;
+      }
+
+      // ===================== BERANDA =====================
+      function renderStatCards() {
+        const rows = lastProductRows;
+        const totalVarian = rows.length;
+        const totalStok = rows.reduce(
+          (sum, r) => sum + (parseInt(r.Stock) || 0),
+          0,
+        );
+        const habisStok = rows.filter(
+          (r) => !r.Stock || parseInt(r.Stock) <= 0,
+        ).length;
+        const namaProdukUnik = new Set(rows.map((r) => r.ProductName)).size;
+        const nilaiInventori = rows.reduce((sum, r) => {
+          const price = parseFloat(r.Price) || 0;
+          const stock = parseInt(r.Stock) || 0;
+          return sum + price * stock;
+        }, 0);
+        const totalPesanan = lastOrderRows.length;
+        const totalTerjual = getAllOrderItems().reduce(
+          (sum, it) => sum + (parseInt(it.qty) || 0),
+          0,
+        );
+
+        document.getElementById("stat-cards").innerHTML = `
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#dbeafe;color:#1d4ed8"><i class="fa-solid fa-tags"></i></div>
+            <div class="stat-label">Total Produk</div>
+            <div class="stat-value">${namaProdukUnik}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#f1f5f9;color:#334155"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="stat-label">Total Varian</div>
+            <div class="stat-value">${totalVarian}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <div class="stat-label">Total Stok</div>
+            <div class="stat-value">${totalStok}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#fee2e2;color:#b91c1c"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="stat-label">Stok Habis</div>
+            <div class="stat-value">${habisStok}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#fef3c7;color:#b45309"><i class="fa-solid fa-sack-dollar"></i></div>
+            <div class="stat-label">Estimasi Nilai Stok</div>
+            <div class="stat-value" style="font-size:15px">${formatRupiah(nilaiInventori)}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#ede9fe;color:#6d28d9"><i class="fa-solid fa-receipt"></i></div>
+            <div class="stat-label">Pesanan Tercatat</div>
+            <div class="stat-value">${totalPesanan}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#dbeafe;color:#1d4ed8"><i class="fa-solid fa-cart-shopping"></i></div>
+            <div class="stat-label">Total Qty Terjual</div>
+            <div class="stat-value">${totalTerjual}</div>
+          </div>
+        `;
+      }
+
+      function renderRecentOrdersTable() {
+        const tbody = document.getElementById("recent-orders-table-body");
+        const emptyEl = document.getElementById("recent-orders-empty");
+        const recent = lastOrderRows.slice(0, 8);
+        if (recent.length === 0) {
+          tbody.innerHTML = "";
+          emptyEl.style.display = "block";
+          return;
+        }
+        emptyEl.style.display = "none";
+        tbody.innerHTML = recent
+          .map((o) => {
+            let items = [];
+            try {
+              items = JSON.parse(o.ItemsJSON || "[]");
+            } catch (e) {
+              items = [];
+            }
+            const produkText = items
+              .map(
+                (it) =>
+                  `${escapeHtml(it.name || "")}${it.variant ? " (" + escapeHtml(it.variant) + ")" : ""} x${it.qty || 0}`,
+              )
+              .join(", ");
+            const estTotal = items.reduce(
+              (sum, it) =>
+                sum + findCurrentPriceForItem(it) * (parseInt(it.qty) || 0),
+              0,
+            );
+            const dateStr = o.Timestamp
+              ? new Date(o.Timestamp).toLocaleDateString("id-ID", {
+                  day: "2-digit",
+                  month: "short",
+                  year: "numeric",
+                })
+              : "-";
+            return `
+              <tr>
+                <td>${dateStr}</td>
+                <td>${produkText || "-"}</td>
+                <td>${o.TotalQty || 0}</td>
+                <td>${estTotal > 0 ? formatRupiah(estTotal) : "-"}</td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      function renderProductsTable() {
+        const tbody = document.getElementById("products-table-body");
+        const rows = lastProductRows;
+        const totalStok = rows.reduce(
+          (sum, r) => sum + (parseInt(r.Stock) || 0),
+          0,
+        );
+        const totalNilai = rows.reduce((sum, r) => {
+          const price = parseFloat(r.Price) || 0;
+          const stock = parseInt(r.Stock) || 0;
+          return sum + price * stock;
+        }, 0);
+        tbody.innerHTML =
+          rows
+            .map(
+              (r) => `
+              <tr>
+                <td>${escapeHtml(r.ProductName)}${r.VariantName && r.VariantName !== r.ProductName ? ` <span style="color:var(--color-text-muted)">— ${escapeHtml(r.VariantName)}</span>` : ""}</td>
+                <td>${parseInt(r.Stock) || 0}</td>
+                <td>${r.Price ? formatRupiah(r.Price) : "Hubungi Sales"}</td>
+              </tr>
+            `,
+            )
+            .join("") +
+          `
+          <tr class="total-row">
+            <td>Total</td>
+            <td>${totalStok}</td>
+            <td>${formatRupiah(totalNilai)}</td>
+          </tr>
+        `;
+      }
+
+      function renderHome() {
+        renderStatCards();
+        renderRecentOrdersTable();
+        renderProductsTable();
+      }
+
+      // ===================== INVENTARIS: daftar & pencarian =====================
+      const productGrid = document.getElementById("product-grid");
+      const productLoading = document.getElementById("product-loading");
+      const productEmpty = document.getElementById("product-empty");
+      const productListView = document.getElementById("product-list-view");
+      const productEditView = document.getElementById("product-edit-view");
+
+      let productSearchTerm = "";
+      let currentGridRows = [];
+
+      function productListRowHtml(row, soldQty, idx) {
+        const imgSrc = row.ImageFileName ? row.ImageFileName : PLACEHOLDER_IMG;
+        const isLocal = row._row === null || row._row === undefined;
+        return `
+          <div class="product-row" data-idx="${idx}">
+            <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.ProductName)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+            <div class="pr-info">
+              <div class="pr-name">${escapeAttr(row.ProductName)} <span class="pr-variant">${escapeAttr(row.VariantName)}</span></div>
+              <div class="pr-meta">
+                ${row.Category ? `<span class="pr-tag">${escapeAttr(row.Category)}</span>` : ""}
+                ${stockTagHtml(row.Stock)}
+                ${soldQty > 0 ? `<span class="sold-tag">${soldQty} Terjual</span>` : ""}
+                ${isLocal ? `<span class="local-tag">Belum Tersinkron</span>` : ""}
+              </div>
+            </div>
+            <div class="pr-price">${row.Price ? formatRupiah(row.Price) : "Hubungi Sales"}</div>
+            <i class="fa-solid fa-chevron-right pr-arrow"></i>
+          </div>
+        `;
+      }
+
+      function renderCatalogSyncNote() {
+        const noteEl = document.getElementById("catalog-sync-note");
+        if (!noteEl) return;
+        const unsynced = lastProductRows.filter((r) => r._row === null).length;
+        if (unsynced === 0) {
+          noteEl.style.display = "none";
+          return;
+        }
+        noteEl.style.display = "flex";
+        noteEl.querySelector(".sync-note-text").textContent = APPS_SCRIPT_URL
+          ? `${unsynced} produk dari katalog situs belum tersimpan di Dashboard. Klik salah satu produknya lalu "Simpan ke Dashboard", atau impor semua sekaligus.`
+          : `Menampilkan ${unsynced} produk dari katalog situs (products.js). Sambungkan ke Google Sheets supaya bisa diedit & tersimpan permanen.`;
+        noteEl.querySelector("#import-all-catalog-btn").style.display =
+          APPS_SCRIPT_URL ? "inline-flex" : "none";
+      }
+
+      function renderProductGrid() {
+        if (lastProductRows.length === 0) return;
+        const allItems = getAllOrderItems();
+        const term = productSearchTerm.trim().toLowerCase();
+        const rows = !term
+          ? lastProductRows
+          : lastProductRows.filter((row) =>
+              [row.ProductName, row.VariantName, row.Category, row.SKU]
+                .join(" ")
+                .toLowerCase()
+                .includes(term),
+            );
+        currentGridRows = rows;
+        if (rows.length === 0) {
+          productGrid.innerHTML = "";
+          productEmpty.style.display = "block";
+          productEmpty.textContent = "Tidak ada produk yang cocok dengan pencarian.";
+          return;
+        }
+        productEmpty.style.display = "none";
+        productGrid.innerHTML = rows
+          .map((row, idx) =>
+            productListRowHtml(row, computeSoldForRow(row, allItems), idx),
+          )
+          .join("");
+        productGrid.querySelectorAll(".product-row").forEach((el) => {
+          el.addEventListener("click", () => {
+            const idx = parseInt(el.dataset.idx, 10);
+            showProductEdit(currentGridRows[idx], false);
+          });
+        });
+        renderCatalogSyncNote();
+      }
+
+      async function loadProducts() {
+        if (!APPS_SCRIPT_URL) {
+          productLoading.style.display = "none";
+          const catalogRows = buildRowsFromCatalog();
+          lastProductRows = catalogRows;
+          renderHome();
+          if (catalogRows.length === 0) {
+            productEmpty.style.display = "block";
+            productEmpty.textContent =
+              "Dashboard belum tersambung ke Google Sheets, dan tidak ada data katalog (products.js) yang terbaca.";
+            productGrid.innerHTML = "";
+            return;
+          }
+          productEmpty.style.display = "none";
+          renderProductGrid();
+          return;
+        }
+        productLoading.style.display = "block";
+        productEmpty.style.display = "none";
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=getProducts`);
+          const json = await res.json();
+          productLoading.style.display = "none";
+          if (!json.ok) throw new Error(json.error || "Gagal memuat");
+          const sheetRows = json.data || [];
+          const rows = mergeWithCatalog(sheetRows);
+          lastProductRows = rows;
+          renderHome();
+          if (rows.length === 0) {
+            productEmpty.style.display = "block";
+            productEmpty.textContent =
+              'Belum ada produk. Klik "Tambah Produk" untuk mulai.';
+            productGrid.innerHTML = "";
+            return;
+          }
+          renderProductGrid();
+        } catch (err) {
+          productLoading.style.display = "none";
+          productEmpty.style.display = "block";
+          productEmpty.textContent = "Gagal memuat data: " + err.message;
+        }
+      }
+
+      document.getElementById("product-search").addEventListener("input", (e) => {
+        productSearchTerm = e.target.value;
+        renderProductGrid();
+      });
+
+      document
+        .getElementById("import-all-catalog-btn")
+        .addEventListener("click", async () => {
+          const unsynced = lastProductRows.filter((r) => r._row === null);
+          if (unsynced.length === 0) return;
+          const btn = document.getElementById("import-all-catalog-btn");
+          btn.disabled = true;
+          let ok = 0;
+          for (const row of unsynced) {
+            const product = {
+              ProductName: row.ProductName,
+              VariantName: row.VariantName,
+              Category: row.Category,
+              Description: row.Description,
+              Material: row.Material || "",
+              Standar: row.Standar || "",
+              SKU: row.SKU,
+              Price: row.Price,
+              Stock: row.Stock,
+              ImageFileName: row.ImageFileName,
+              WeightKg: row.WeightKg || "",
+            };
+            const res = await postAction("addProduct", { product });
+            if (res && res.ok) ok++;
+          }
+          btn.disabled = false;
+          showToast(`${ok} dari ${unsynced.length} produk katalog berhasil diimpor.`, "success");
+          loadProducts();
+        });
+
+      // ===================== INVENTARIS: mode edit inline =====================
+      const BLANK_ROW = {
+        ProductName: "",
+        VariantName: "",
+        Category: "",
+        Description: "",
+        Material: "",
+        Standar: "",
+        SKU: "",
+        Price: "",
+        Stock: 0,
+        ImageFileName: "",
+        WeightKg: "",
+      };
+
+      function showProductList() {
+        productEditView.style.display = "none";
+        productEditView.innerHTML = "";
+        productListView.style.display = "block";
+      }
+
+      function showProductEdit(row, isNew) {
+        productListView.style.display = "none";
+        productEditView.style.display = "block";
+        renderProductEditView(row || { ...BLANK_ROW }, isNew);
+      }
+
+      function renderProductEditView(row, isNew) {
+        const isLocal = !isNew && (row._row === null || row._row === undefined);
+        const imgSrc = row.ImageFileName ? row.ImageFileName : PLACEHOLDER_IMG;
+
+        let actionsHtml;
+        if (isNew) {
+          actionsHtml = `<button class="btn btn-primary" id="edit-save-btn"><i class="fa-solid fa-check"></i> Simpan Produk Baru</button>`;
+        } else if (isLocal) {
+          actionsHtml = `<button class="btn btn-primary" id="edit-save-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Dashboard</button>`;
+        } else {
+          actionsHtml = `
+            <button class="btn btn-primary" id="edit-save-btn"><i class="fa-solid fa-check"></i> Simpan Perubahan</button>
+            <button class="btn btn-danger" id="edit-delete-btn"><i class="fa-solid fa-trash"></i> Hapus</button>
+          `;
+        }
+
+        productEditView.innerHTML = `
+          <button class="edit-back-btn" id="edit-back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar</button>
+          <div class="edit-layout">
+            <div class="edit-image-col">
+              <img id="edit-img-preview" src="${escapeAttr(imgSrc)}" onerror="this.src='${PLACEHOLDER_IMG}'" alt="" />
+              <label>Nama File Gambar</label>
+              <input id="edit-ImageFileName" value="${escapeAttr(row.ImageFileName)}" placeholder="mis. bekisting-produk.jpg" />
+              <label>Deskripsi Singkat</label>
+              <p class="edit-short-desc" id="edit-short-desc">${row.Description ? escapeHtml(row.Description) : "Belum ada deskripsi."}</p>
+            </div>
+            <div class="edit-fields-col">
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Nama Produk</label>
+                  <input id="edit-ProductName" value="${escapeAttr(row.ProductName)}" />
+                </div>
+                <div class="field-col">
+                  <label>Nama Varian</label>
+                  <input id="edit-VariantName" value="${escapeAttr(row.VariantName)}" placeholder="Boleh sama dengan nama produk" />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Harga (Rp)</label>
+                  <input id="edit-Price" type="number" value="${row.Price || ""}" placeholder="Kosongkan = Hubungi Sales" />
+                </div>
+                <div class="field-col">
+                  <label>Stok</label>
+                  <input id="edit-Stock" type="number" value="${row.Stock || 0}" />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Kategori</label>
+                  <input id="edit-Category" value="${escapeAttr(row.Category)}" placeholder="mis. Clamp & Pengunci" />
+                </div>
+                <div class="field-col">
+                  <label>SKU</label>
+                  <input id="edit-SKU" value="${escapeAttr(row.SKU)}" />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Deskripsi Lengkap</label>
+                  <textarea id="edit-Description" placeholder="Deskripsi produk...">${escapeHtml(row.Description)}</textarea>
+                </div>
+              </div>
+              <div class="edit-actions">${actionsHtml}</div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("edit-back-btn").addEventListener("click", showProductList);
+
+        document.getElementById("edit-ImageFileName").addEventListener("input", (e) => {
+          document.getElementById("edit-img-preview").src =
+            e.target.value.trim() || PLACEHOLDER_IMG;
+        });
+        document.getElementById("edit-Description").addEventListener("input", (e) => {
+          document.getElementById("edit-short-desc").textContent =
+            e.target.value.trim() || "Belum ada deskripsi.";
+        });
+
+        const readFields = () => ({
+          ProductName: document.getElementById("edit-ProductName").value.trim(),
+          VariantName: document.getElementById("edit-VariantName").value.trim(),
+          Category: document.getElementById("edit-Category").value.trim(),
+          SKU: document.getElementById("edit-SKU").value.trim(),
+          Price: document.getElementById("edit-Price").value,
+          Stock: document.getElementById("edit-Stock").value,
+          ImageFileName: document.getElementById("edit-ImageFileName").value.trim(),
+          Description: document.getElementById("edit-Description").value,
+        });
+
+        const saveBtn = document.getElementById("edit-save-btn");
+        saveBtn.addEventListener("click", async () => {
+          const fields = readFields();
+          if (!fields.ProductName) {
+            showToast("Nama produk wajib diisi.", "error");
+            return;
+          }
+          if (isNew || isLocal) {
+            const product = {
+              ProductName: fields.ProductName,
+              VariantName: fields.VariantName || fields.ProductName,
+              Category: fields.Category,
+              Description: fields.Description,
+              Material: row.Material || "",
+              Standar: row.Standar || "",
+              SKU: fields.SKU,
+              Price: fields.Price,
+              Stock: fields.Stock,
+              ImageFileName: fields.ImageFileName,
+              WeightKg: row.WeightKg || "",
+            };
+            const res = await postAction("addProduct", { product });
+            if (res && res.ok) {
+              showToast(
+                isNew ? "Produk baru berhasil disimpan." : "Produk katalog tersimpan ke Dashboard.",
+                "success",
+              );
+              showProductList();
+              loadProducts();
+            }
+          } else {
+            const res = await postAction("updateProduct", {
+              row: row._row,
+              product: fields,
+            });
+            if (res && res.ok) {
+              showToast("Produk berhasil disimpan.", "success");
+              showProductList();
+              loadProducts();
+            }
+          }
+        });
+
+        const deleteBtn = document.getElementById("edit-delete-btn");
+        if (deleteBtn) {
+          deleteBtn.addEventListener("click", async () => {
+            const res = await postAction("deleteProduct", { row: row._row });
+            if (res && res.ok) {
+              showToast("Varian dihapus.", "success");
+              showProductList();
+              loadProducts();
+            }
+          });
+        }
+      }
+
+      document.getElementById("add-product-btn").addEventListener("click", () => {
+        showProductEdit({ ...BLANK_ROW }, true);
+      });
+
+      // ===================== PESANAN =====================
+      const ordersList = document.getElementById("orders-list");
+      const ordersLoading = document.getElementById("orders-loading");
+      const ordersEmpty = document.getElementById("orders-empty");
+
+      async function loadOrders() {
+        if (!APPS_SCRIPT_URL) {
+          ordersLoading.style.display = "none";
+          ordersEmpty.style.display = "block";
+          return;
+        }
+        ordersLoading.style.display = "block";
+        ordersEmpty.style.display = "none";
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=getOrders`);
+          const json = await res.json();
+          ordersLoading.style.display = "none";
+          if (!json.ok) throw new Error(json.error || "Gagal memuat");
+          const orders = json.data || [];
+          lastOrderRows = orders;
+          renderHome();
+          if (orders.length === 0) {
+            ordersEmpty.style.display = "block";
+            ordersList.innerHTML = "";
+            return;
+          }
+          ordersList.innerHTML = orders.map(orderCardHtml).join("");
+        } catch (err) {
+          ordersLoading.style.display = "none";
+          ordersEmpty.style.display = "block";
+          ordersEmpty.textContent = "Gagal memuat data: " + err.message;
+        }
+      }
+
+      function orderCardHtml(o) {
+        const isInstant = o.Type === "Instant" || o.Type === "Langsung";
+        const badgeClass = isInstant ? "instant" : "cart";
+        const badgeLabel = isInstant ? "Pesan Langsung" : "Keranjang";
+        let items = [];
+        try {
+          items = JSON.parse(o.ItemsJSON || "[]");
+        } catch (e) {
+          items = [];
+        }
+        const itemsHtml = items
+          .map(
+            (it) =>
+              `<li>${escapeAttr(it.name || "")}${it.variant ? " (" + escapeAttr(it.variant) + ")" : ""} x${it.qty || 0}</li>`,
+          )
+          .join("");
+        const timeStr = o.Timestamp
+          ? new Date(o.Timestamp).toLocaleString("id-ID", {
+              day: "2-digit",
+              month: "short",
+              year: "numeric",
+              hour: "2-digit",
+              minute: "2-digit",
+            })
+          : "-";
+        return `
+          <div class="order-card">
+            <div class="order-head">
+              <span class="order-name">${escapeAttr(o.CustomerName || "Tanpa Nama")}</span>
+              <span class="order-badge ${badgeClass}">${badgeLabel}</span>
+            </div>
+            <div class="order-time">${timeStr} · ${escapeAttr(o.Phone || "-")}</div>
+            <ul class="order-items-list">${itemsHtml || "<li>-</li>"}</ul>
+            <div style="font-size:12.5px; color:#64748b;">Alamat: ${escapeAttr(o.Address || "-")}</div>
+          </div>
+        `;
+      }
+
+      document
+        .getElementById("refresh-orders-btn")
+        .addEventListener("click", loadOrders);
+
+      // ===================== Gerbang login admin (Google Sign-In) =====================
       const adminLoginGate = document.getElementById("admin-login-gate");
       const adminGoogleBtnSlot = document.getElementById("admin-google-btn");
       const adminLoginError = document.getElementById("admin-login-error");
@@ -1116,652 +1746,6 @@
         });
       }
 
-      function showToast(message, type) {
-        const container = document.getElementById("toast-container");
-        const toast = document.createElement("div");
-        toast.className = `toast ${type === "error" ? "error" : "success"}`;
-        toast.innerHTML = `<i class="fa-solid ${type === "error" ? "fa-circle-exclamation" : "fa-circle-check"}"></i> ${message}`;
-        container.appendChild(toast);
-        setTimeout(() => {
-          toast.style.opacity = "0";
-          toast.style.transition = "opacity 0.3s ease";
-          setTimeout(() => toast.remove(), 300);
-        }, 3200);
-      }
-
-      document.querySelectorAll(".tab-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          document
-            .querySelectorAll(".tab-btn")
-            .forEach((b) => b.classList.remove("active"));
-          document
-            .querySelectorAll(".panel")
-            .forEach((p) => p.classList.remove("active"));
-          btn.classList.add("active");
-          document
-            .getElementById("panel-" + btn.dataset.tab)
-            .classList.add("active");
-        });
-      });
-
-      function escapeAttr(v) {
-        return String(v === undefined || v === null ? "" : v).replace(
-          /"/g,
-          "&quot;",
-        );
-      }
-      function escapeHtml(v) {
-        return String(v === undefined || v === null ? "" : v)
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;");
-      }
-      function formatRupiah(n) {
-        return new Intl.NumberFormat("id-ID", {
-          style: "currency",
-          currency: "IDR",
-          minimumFractionDigits: 0,
-        }).format(n);
-      }
-
-      let lastProductRows = [];
-      let lastOrderRows = [];
-
-      // Ubah window.PRODUCT_DATA (products.js, sumber katalog situs) jadi
-      // baris-baris rata (satu baris = satu varian), format sama seperti
-      // baris dari Google Sheets, supaya bisa ditampilkan bareng di admin.
-      function buildRowsFromCatalog() {
-        const catalog =
-          typeof PRODUCT_DATA !== "undefined" && Array.isArray(PRODUCT_DATA)
-            ? PRODUCT_DATA
-            : [];
-        const rows = [];
-        catalog.forEach((prod) => {
-          (prod.variants || []).forEach((v) => {
-            rows.push({
-              ProductName: prod.name || "",
-              Category: prod.category || "",
-              Description: prod.desc || "",
-              Material: prod.material || "",
-              Standar: prod.standar || "",
-              VariantName: v.name || prod.name || "",
-              SKU: v.sku || "",
-              Price: v.price || "",
-              Stock: v.stock || 0,
-              ImageFileName: v.img || "",
-              WeightKg: v.weightKg || "",
-              _row: null, // null = belum ada di Google Sheets (katalog situs saja)
-            });
-          });
-        });
-        return rows;
-      }
-
-      // Gabungkan produk dari Google Sheets (sumber utama, bisa diedit
-      // langsung) dengan produk dari katalog situs yang BELUM ada di Sheets
-      // (supaya tetap kelihatan di admin dan bisa "diimpor" sekali klik).
-      function mergeWithCatalog(sheetRows) {
-        const catalogRows = buildRowsFromCatalog();
-        const norm = (s) => String(s || "").trim().toLowerCase();
-        const existingSku = new Set(
-          sheetRows.map((r) => norm(r.SKU)).filter(Boolean),
-        );
-        const existingNameVariant = new Set(
-          sheetRows.map((r) => norm(r.ProductName) + "||" + norm(r.VariantName)),
-        );
-        const missingFromSheet = catalogRows.filter((row) => {
-          const skuKey = norm(row.SKU);
-          if (skuKey && existingSku.has(skuKey)) return false;
-          const nvKey = norm(row.ProductName) + "||" + norm(row.VariantName);
-          if (existingNameVariant.has(nvKey)) return false;
-          return true;
-        });
-        return sheetRows.concat(missingFromSheet);
-      }
-
-      // Mengambil semua item dari semua pesanan (Keranjang & Pesan Langsung),
-      // dipakai untuk menghitung berapa qty yang sudah terjual per varian.
-      function getAllOrderItems() {
-        const allItems = [];
-        lastOrderRows.forEach((o) => {
-          let items = [];
-          try {
-            items = JSON.parse(o.ItemsJSON || "[]");
-          } catch (e) {
-            items = [];
-          }
-          items.forEach((it) => allItems.push(it));
-        });
-        return allItems;
-      }
-
-      // Cocokkan item pesanan ke baris produk berdasarkan nama produk +
-      // varian. Menangani dua format nama yang dipakai situs: "Pesan
-      // Langsung" (name = nama produk, variant = nama varian terpisah) dan
-      // "Keranjang" (name = "Nama Produk - Nama Varian" digabung).
-      function computeSoldForRow(row, allItems) {
-        const pName = (row.ProductName || "").trim();
-        const vName = (row.VariantName || "").trim();
-        const combinedName =
-          vName && vName !== pName ? `${pName} - ${vName}` : pName;
-        let sold = 0;
-        allItems.forEach((it) => {
-          const itName = (it.name || it.productName || "").trim();
-          const itVariant = (it.variant || "").trim();
-          const qty = parseInt(it.qty) || 0;
-          if (itName === pName && itVariant === vName) {
-            sold += qty;
-          } else if (itName === combinedName && !itVariant) {
-            sold += qty;
-          } else if (itName === pName && !vName && !itVariant) {
-            sold += qty;
-          }
-        });
-        return sold;
-      }
-
-      function renderStatCards() {
-        const rows = lastProductRows;
-        const totalVarian = rows.length;
-        const totalStok = rows.reduce(
-          (sum, r) => sum + (parseInt(r.Stock) || 0),
-          0,
-        );
-        const habisStok = rows.filter(
-          (r) => !r.Stock || parseInt(r.Stock) <= 0,
-        ).length;
-        const namaProdukUnik = new Set(rows.map((r) => r.ProductName)).size;
-        const nilaiInventori = rows.reduce((sum, r) => {
-          const price = parseFloat(r.Price) || 0;
-          const stock = parseInt(r.Stock) || 0;
-          return sum + price * stock;
-        }, 0);
-        const totalPesanan = lastOrderRows.length;
-        const totalTerjual = getAllOrderItems().reduce(
-          (sum, it) => sum + (parseInt(it.qty) || 0),
-          0,
-        );
-        const belumTersinkron = rows.filter((r) => r._row === null).length;
-
-        document.getElementById("stat-cards").innerHTML = `
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#dde6ee;color:#28527d"><i class="fa-solid fa-tags"></i></div>
-            <div class="stat-label">Total Produk</div>
-            <div class="stat-value">${namaProdukUnik}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#e2e5ea;color:#334155"><i class="fa-solid fa-layer-group"></i></div>
-            <div class="stat-label">Total Varian</div>
-            <div class="stat-value">${totalVarian}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#dcefe1;color:#1f7a45"><i class="fa-solid fa-boxes-stacked"></i></div>
-            <div class="stat-label">Total Stok</div>
-            <div class="stat-value">${totalStok}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#fbe1dc;color:#a8220f"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div class="stat-label">Stok Habis</div>
-            <div class="stat-value">${habisStok}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#f7e6bd;color:#a15c07"><i class="fa-solid fa-sack-dollar"></i></div>
-            <div class="stat-label">Estimasi Nilai Stok</div>
-            <div class="stat-value" style="font-size:15px">${formatRupiah(nilaiInventori)}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#e2e5ea;color:#1e2530"><i class="fa-solid fa-receipt"></i></div>
-            <div class="stat-label">Pesanan Tercatat</div>
-            <div class="stat-value">${totalPesanan}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#dde6ee;color:#28527d"><i class="fa-solid fa-cart-shopping"></i></div>
-            <div class="stat-label">Total Qty Terjual</div>
-            <div class="stat-value">${totalTerjual}</div>
-          </div>
-          ${
-            belumTersinkron > 0
-              ? `
-          <div class="stat-card">
-            <div class="stat-icon" style="background:${"#f7e6bd"};color:${"#a15c07"}"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-            <div class="stat-label">Katalog Belum Tersinkron</div>
-            <div class="stat-value">${belumTersinkron}</div>
-          </div>`
-              : ""
-          }
-        `;
-      }
-
-      const productGrid = document.getElementById("product-grid");
-      const productLoading = document.getElementById("product-loading");
-      const productEmpty = document.getElementById("product-empty");
-
-      function stockTagHtml(stock) {
-        const s = parseInt(stock) || 0;
-        if (s <= 0) return `<span class="stock-tag out">Stok Habis</span>`;
-        if (s <= 30) return `<span class="stock-tag low">Stok Terbatas</span>`;
-        return `<span class="stock-tag ok">Stok Aman</span>`;
-      }
-
-      function productCardHtml(row, soldQty, idx) {
-        const imgSrc = row.ImageFileName ? row.ImageFileName : PLACEHOLDER_IMG;
-        const sisaStok = parseInt(row.Stock) || 0;
-        const isLocal = row._row === null || row._row === undefined;
-        const actionsHtml = isLocal
-          ? `
-              <div class="pc-actions">
-                <button class="import-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Dashboard</button>
-              </div>
-            `
-          : `
-              <div class="pc-actions">
-                <button class="save-btn"><i class="fa-solid fa-check"></i> Simpan</button>
-                <button class="delete-btn"><i class="fa-solid fa-trash"></i> Hapus</button>
-              </div>
-            `;
-        return `
-          <div class="product-card ${isLocal ? "is-local" : ""}" data-idx="${idx}">
-            <div class="product-card-top">
-              <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.ProductName)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
-              <div>
-                <div class="pc-title">${escapeAttr(row.ProductName)}</div>
-                <div class="pc-variant">${escapeAttr(row.VariantName)}</div>
-                ${stockTagHtml(row.Stock)}
-                ${soldQty > 0 ? `<span class="sold-tag"><i class="fa-solid fa-arrow-trend-up"></i> ${soldQty} Terjual</span>` : ""}
-                ${isLocal ? `<span class="local-tag"><i class="fa-solid fa-triangle-exclamation"></i> Belum Tersinkron</span>` : ""}
-              </div>
-            </div>
-            <div class="pc-body">
-              <div class="pc-sales-row">
-                <div class="mini-stat sold">
-                  <div class="mini-stat-label">Terjual</div>
-                  <div class="mini-stat-value">${soldQty}</div>
-                </div>
-                <div class="mini-stat remaining">
-                  <div class="mini-stat-label">Sisa Stok</div>
-                  <div class="mini-stat-value">${sisaStok}</div>
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field-col">
-                  <label>Harga (Rp)</label>
-                  <input class="f-Price" type="number" value="${row.Price || ""}" placeholder="Hubungi Sales" />
-                </div>
-                <div class="field-col">
-                  <label>Stok (Sisa)</label>
-                  <input class="f-Stock" type="number" value="${row.Stock || 0}" />
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field-col">
-                  <label>Deskripsi</label>
-                  <textarea class="f-Description" placeholder="Deskripsi produk...">${escapeHtml(row.Description)}</textarea>
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field-col">
-                  <label>SKU</label>
-                  <input class="f-SKU" value="${escapeAttr(row.SKU)}" />
-                </div>
-                <div class="field-col">
-                  <label>Kategori</label>
-                  <input class="f-Category" value="${escapeAttr(row.Category)}" />
-                </div>
-              </div>
-              <div class="field-row">
-                <div class="field-col">
-                  <label>Nama Gambar</label>
-                  <input class="f-ImageFileName" value="${escapeAttr(row.ImageFileName)}" />
-                </div>
-              </div>
-              ${actionsHtml}
-            </div>
-          </div>
-        `;
-      }
-
-      let productSearchTerm = "";
-      let currentGridRows = [];
-
-      function renderProductGrid() {
-        if (lastProductRows.length === 0) return;
-        const allItems = getAllOrderItems();
-        const term = productSearchTerm.trim().toLowerCase();
-        const rows = !term
-          ? lastProductRows
-          : lastProductRows.filter((row) =>
-              [row.ProductName, row.VariantName, row.Category, row.SKU]
-                .join(" ")
-                .toLowerCase()
-                .includes(term),
-            );
-        currentGridRows = rows;
-        if (rows.length === 0) {
-          productGrid.innerHTML = "";
-          productEmpty.style.display = "block";
-          productEmpty.textContent = "Tidak ada produk yang cocok dengan pencarian.";
-          return;
-        }
-        productEmpty.style.display = "none";
-        productGrid.innerHTML = rows
-          .map((row, idx) =>
-            productCardHtml(row, computeSoldForRow(row, allItems), idx),
-          )
-          .join("");
-        wireProductCardEvents();
-        renderCatalogSyncNote();
-      }
-
-      function renderCatalogSyncNote() {
-        const noteEl = document.getElementById("catalog-sync-note");
-        if (!noteEl) return;
-        const unsynced = lastProductRows.filter((r) => r._row === null).length;
-        if (unsynced === 0) {
-          noteEl.style.display = "none";
-          return;
-        }
-        noteEl.style.display = "flex";
-        noteEl.querySelector(".sync-note-text").textContent = APPS_SCRIPT_URL
-          ? `${unsynced} produk dari katalog situs belum tersimpan di Dashboard. Klik "Simpan ke Dashboard" di kartunya, atau impor semua sekaligus.`
-          : `Menampilkan ${unsynced} produk dari katalog situs (products.js). Sambungkan ke Google Sheets supaya bisa diedit & tersimpan permanen.`;
-        noteEl.querySelector("#import-all-catalog-btn").style.display =
-          APPS_SCRIPT_URL ? "inline-flex" : "none";
-      }
-
-      async function loadProducts() {
-        if (!APPS_SCRIPT_URL) {
-          // Belum tersambung ke Google Sheets sama sekali — tetap tampilkan
-          // katalog produk situs (dari products.js) walau belum bisa
-          // diedit tersimpan permanen sampai dashboard disambungkan.
-          productLoading.style.display = "none";
-          const catalogRows = buildRowsFromCatalog();
-          lastProductRows = catalogRows;
-          renderStatCards();
-          if (catalogRows.length === 0) {
-            productEmpty.style.display = "block";
-            productEmpty.textContent =
-              "Dashboard belum tersambung ke Google Sheets, dan tidak ada data katalog (products.js) yang terbaca.";
-            productGrid.innerHTML = "";
-            return;
-          }
-          productEmpty.style.display = "none";
-          renderProductGrid();
-          return;
-        }
-        productLoading.style.display = "block";
-        productEmpty.style.display = "none";
-        try {
-          const res = await fetch(`${APPS_SCRIPT_URL}?action=getProducts`);
-          const json = await res.json();
-          productLoading.style.display = "none";
-          if (!json.ok) throw new Error(json.error || "Gagal memuat");
-          const sheetRows = json.data || [];
-          const rows = mergeWithCatalog(sheetRows);
-          lastProductRows = rows;
-          renderStatCards();
-          if (rows.length === 0) {
-            productEmpty.style.display = "block";
-            productEmpty.textContent =
-              'Belum ada produk. Klik "Tambah Produk Baru" untuk mulai.';
-            productGrid.innerHTML = "";
-            return;
-          }
-          renderProductGrid();
-        } catch (err) {
-          productLoading.style.display = "none";
-          productEmpty.style.display = "block";
-          productEmpty.textContent = "Gagal memuat data: " + err.message;
-        }
-      }
-
-      document.getElementById("product-search").addEventListener("input", (e) => {
-        productSearchTerm = e.target.value;
-        renderProductGrid();
-      });
-
-      function wireProductCardEvents() {
-        productGrid.querySelectorAll(".product-card").forEach((card) => {
-          const idx = parseInt(card.dataset.idx, 10);
-          const row = currentGridRows[idx];
-          if (!row) return;
-
-          const readFields = () => {
-            const product = {};
-            [
-              "Price",
-              "Stock",
-              "Description",
-              "SKU",
-              "Category",
-              "ImageFileName",
-            ].forEach((f) => {
-              const input = card.querySelector(".f-" + f);
-              if (input) product[f] = input.value;
-            });
-            return product;
-          };
-
-          const saveBtn = card.querySelector(".save-btn");
-          if (saveBtn) {
-            saveBtn.addEventListener("click", async () => {
-              const res = await postAction("updateProduct", {
-                row: row._row,
-                product: readFields(),
-              });
-              if (res && res.ok) {
-                showToast("Produk berhasil disimpan.", "success");
-                loadProducts();
-              }
-            });
-          }
-
-          const deleteBtn = card.querySelector(".delete-btn");
-          if (deleteBtn) {
-            deleteBtn.addEventListener("click", async () => {
-              const res = await postAction("deleteProduct", { row: row._row });
-              if (res && res.ok) {
-                showToast("Varian dihapus.", "success");
-                loadProducts();
-              }
-            });
-          }
-
-          const importBtn = card.querySelector(".import-btn");
-          if (importBtn) {
-            importBtn.addEventListener("click", async () => {
-              const fields = readFields();
-              const product = {
-                ProductName: row.ProductName,
-                VariantName: row.VariantName,
-                Category: fields.Category,
-                Description: fields.Description,
-                Material: row.Material || "",
-                Standar: row.Standar || "",
-                SKU: fields.SKU,
-                Price: fields.Price,
-                Stock: fields.Stock,
-                ImageFileName: fields.ImageFileName,
-                WeightKg: row.WeightKg || "",
-              };
-              const res = await postAction("addProduct", { product });
-              if (res && res.ok) {
-                showToast("Produk katalog tersimpan ke Dashboard.", "success");
-                loadProducts();
-              }
-            });
-          }
-        });
-      }
-
-      document
-        .getElementById("import-all-catalog-btn")
-        .addEventListener("click", async () => {
-          const unsynced = lastProductRows.filter((r) => r._row === null);
-          if (unsynced.length === 0) return;
-          const btn = document.getElementById("import-all-catalog-btn");
-          btn.disabled = true;
-          let ok = 0;
-          for (const row of unsynced) {
-            const product = {
-              ProductName: row.ProductName,
-              VariantName: row.VariantName,
-              Category: row.Category,
-              Description: row.Description,
-              Material: row.Material || "",
-              Standar: row.Standar || "",
-              SKU: row.SKU,
-              Price: row.Price,
-              Stock: row.Stock,
-              ImageFileName: row.ImageFileName,
-              WeightKg: row.WeightKg || "",
-            };
-            const res = await postAction("addProduct", { product });
-            if (res && res.ok) ok++;
-          }
-          btn.disabled = false;
-          showToast(`${ok} dari ${unsynced.length} produk katalog berhasil diimpor.`, "success");
-          loadProducts();
-        });
-
-      const addProductModal = document.getElementById("add-product-modal");
-      document
-        .getElementById("add-product-btn")
-        .addEventListener("click", () => {
-          document.getElementById("add-product-form").reset();
-          addProductModal.classList.add("show");
-        });
-      document
-        .getElementById("cancel-add-product")
-        .addEventListener("click", () => {
-          addProductModal.classList.remove("show");
-        });
-      addProductModal.addEventListener("click", (e) => {
-        if (e.target === addProductModal) addProductModal.classList.remove("show");
-      });
-      document
-        .getElementById("add-product-form")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const name = document.getElementById("np-name").value.trim();
-          if (!name) {
-            showToast("Nama produk wajib diisi.", "error");
-            return;
-          }
-          const variant =
-            document.getElementById("np-variant").value.trim() || name;
-          const product = {
-            ProductName: name,
-            VariantName: variant,
-            Category: document.getElementById("np-category").value.trim(),
-            Description: document.getElementById("np-description").value.trim(),
-            Material: "",
-            Standar: "",
-            SKU: "",
-            Price: document.getElementById("np-price").value,
-            Stock: document.getElementById("np-stock").value || "0",
-            ImageFileName: document.getElementById("np-image").value.trim(),
-            WeightKg: "",
-          };
-          const res = await postAction("addProduct", { product });
-          if (res && res.ok) {
-            showToast("Produk baru berhasil ditambahkan.", "success");
-            addProductModal.classList.remove("show");
-            loadProducts();
-          }
-        });
-
-      async function postAction(action, payload) {
-        if (!APPS_SCRIPT_URL) {
-          showToast("Dashboard belum tersambung ke Google Sheets.", "error");
-          return null;
-        }
-        try {
-          const res = await fetch(APPS_SCRIPT_URL, {
-            method: "POST",
-            body: JSON.stringify({ action, ...payload }),
-          });
-          const json = await res.json();
-          if (!json.ok) {
-            showToast("Gagal: " + (json.error || "Terjadi kesalahan"), "error");
-          }
-          return json;
-        } catch (err) {
-          showToast("Gagal terhubung ke server: " + err.message, "error");
-          return null;
-        }
-      }
-
-      const ordersList = document.getElementById("orders-list");
-      const ordersLoading = document.getElementById("orders-loading");
-      const ordersEmpty = document.getElementById("orders-empty");
-
-      async function loadOrders() {
-        if (!APPS_SCRIPT_URL) {
-          ordersLoading.style.display = "none";
-          ordersEmpty.style.display = "block";
-          ordersEmpty.textContent =
-            "Dashboard belum tersambung ke Google Sheets. Isi APPS_SCRIPT_URL dulu.";
-          return;
-        }
-        ordersLoading.style.display = "block";
-        ordersEmpty.style.display = "none";
-        try {
-          const res = await fetch(`${APPS_SCRIPT_URL}?action=getOrders`);
-          const json = await res.json();
-          ordersLoading.style.display = "none";
-          if (!json.ok) throw new Error(json.error || "Gagal memuat");
-          const orders = json.data || [];
-          lastOrderRows = orders;
-          renderStatCards();
-          renderProductGrid();
-          if (orders.length === 0) {
-            ordersEmpty.style.display = "block";
-            ordersList.innerHTML = "";
-            return;
-          }
-          ordersList.innerHTML = orders.map(orderCardHtml).join("");
-        } catch (err) {
-          ordersLoading.style.display = "none";
-          ordersEmpty.style.display = "block";
-          ordersEmpty.textContent = "Gagal memuat data: " + err.message;
-        }
-      }
-
-      function orderCardHtml(o) {
-        let items = [];
-        try {
-          items = JSON.parse(o.ItemsJSON || "[]");
-        } catch (e) {
-          items = [];
-        }
-        const itemsHtml = items
-          .map(
-            (it) =>
-              `<li>${escapeAttr(it.name || it.productName || "Produk")} ${it.variant ? "(" + escapeAttr(it.variant) + ")" : ""} — ${it.qty || 1} Pcs</li>`,
-          )
-          .join("");
-        const timeStr = o.Timestamp
-          ? new Date(o.Timestamp).toLocaleString("id-ID")
-          : "-";
-        const badgeClass = o.Type === "Instant" ? "instant" : "cart";
-        const badgeLabel = o.Type === "Instant" ? "Pesan Langsung" : "Keranjang";
-        return `
-          <div class="order-card">
-            <div class="order-head">
-              <span class="order-name">${escapeAttr(o.CustomerName || "Tanpa Nama")}</span>
-              <span class="order-badge ${badgeClass}">${badgeLabel}</span>
-            </div>
-            <div class="order-time">${timeStr} · ${escapeAttr(o.Phone || "-")}</div>
-            <ul class="order-items-list">${itemsHtml || "<li>-</li>"}</ul>
-            <div style="font-size:12.5px; color:#64748b;">Alamat: ${escapeAttr(o.Address || "-")}</div>
-          </div>
-        `;
-      }
-
-      document
-        .getElementById("refresh-orders-btn")
-        .addEventListener("click", loadOrders);
-
       function startDashboard() {
         loadProducts();
         loadOrders();
@@ -1769,8 +1753,7 @@
 
       // Kalau sebelumnya sudah pernah login sebagai admin di browser ini,
       // langsung masuk tanpa perlu klik lagi. Ditaruh di akhir script biar
-      // semua variabel (productLoading, ordersLoading, dst) sudah pasti
-      // terisi duluan sebelum dipakai.
+      // semua variabel sudah pasti terisi duluan sebelum dipakai.
       const existingAdminAccount = getLoggedInAccount();
       if (existingAdminAccount && isAdminEmail(existingAdminAccount.email)) {
         enterDashboard(existingAdminAccount);
