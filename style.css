@@ -221,6 +221,11 @@ body:has(.nav-links.mobile-active) {
 .google-signin-btn-slot {
   display: inline-block;
   line-height: 0;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+}
+.google-signin-btn-slot iframe {
+  border-radius: 50%;
 }
 .google-signin-btn-slot .account-not-configured {
   width: 40px;

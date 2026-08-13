@@ -126,8 +126,8 @@ function initSiteAccountWidget() {
       google.accounts.id.renderButton(btnContainer, {
         type: "icon",
         shape: "circle",
-        theme: "outline",
-        size: "medium",
+        theme: "filled_blue",
+        size: "large",
       });
     }
     renderState();
