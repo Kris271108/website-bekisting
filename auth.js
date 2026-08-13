@@ -73,6 +73,7 @@ function initSiteAccountWidget() {
   const menuAvatar = document.getElementById("account-menu-avatar");
   const menuName = document.getElementById("account-menu-name");
   const menuEmail = document.getElementById("account-menu-email");
+  const adminLink = document.getElementById("account-admin-link");
   const logoutBtn = document.getElementById("account-logout-btn");
 
   function renderState() {
@@ -85,10 +86,16 @@ function initSiteAccountWidget() {
       if (menuAvatar) menuAvatar.src = account.picture || "";
       if (menuName) menuName.textContent = account.name || "";
       if (menuEmail) menuEmail.textContent = account.email || "";
+      if (adminLink) {
+        adminLink.style.display = isAdminEmail(account.email)
+          ? "flex"
+          : "none";
+      }
       autofillCheckoutFromAccount();
     } else {
       if (btnContainer) btnContainer.style.display = "inline-block";
       if (chip) chip.style.display = "none";
+      if (adminLink) adminLink.style.display = "none";
       if (menu) menu.classList.remove("open");
     }
   }

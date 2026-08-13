@@ -324,6 +324,26 @@ body:has(.nav-links.mobile-active) {
   color: #64748b;
   word-break: break-all;
 }
+.account-admin-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px;
+  margin-bottom: 8px;
+  border-radius: 9px;
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+.account-admin-link:hover {
+  background: #dbeafe;
+}
 .account-logout-btn {
   width: 100%;
   display: flex;
