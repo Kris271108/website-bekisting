@@ -243,40 +243,91 @@
       }
 
       /* ===== Beranda ===== */
-      .stat-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 14px;
-        margin-bottom: 20px;
-      }
-      .stat-card {
-        background: var(--color-card);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid var(--color-border);
-        border-radius: 18px;
-        padding: 16px 18px;
-        box-shadow: 0 8px 22px -12px rgba(15, 23, 42, 0.14);
-      }
-      .stat-card .stat-icon {
-        width: 34px;
-        height: 34px;
-        border-radius: 10px;
+      .kpi-strip {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        margin-bottom: 10px;
+        flex-wrap: wrap;
+        padding: 18px 8px;
+        margin-bottom: 18px;
       }
-      .stat-card .stat-label {
-        font-size: 11px;
+      .kpi-item {
+        flex: 1 1 120px;
+        min-width: 110px;
+        text-align: center;
+        padding: 8px 10px;
+        position: relative;
+      }
+      .kpi-item::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 10%;
+        height: 80%;
+        width: 1px;
+        background: var(--color-border);
+      }
+      .kpi-item:last-child::after {
+        display: none;
+      }
+      .kpi-label {
+        font-size: 10px;
         color: var(--color-text-muted);
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
       }
-      .stat-card .stat-value {
-        font-size: 21px;
+      .kpi-value {
+        font-size: 19px;
         font-weight: 800;
-        margin-top: 2px;
+        margin-top: 3px;
+        color: var(--color-dark);
+      }
+
+      .chart-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+      .bar-chart-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+      .bar-chart-row:last-child {
+        margin-bottom: 0;
+      }
+      .bar-chart-label {
+        width: 108px;
+        flex-shrink: 0;
+        font-size: 12px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .bar-chart-track {
+        flex: 1;
+        height: 10px;
+        background: var(--color-bg-soft);
+        border-radius: 6px;
+        overflow: hidden;
+      }
+      .bar-chart-fill {
+        height: 100%;
+        border-radius: 6px;
+      }
+      .bar-chart-fill.red {
+        background: linear-gradient(90deg, var(--color-accent), #f87171);
+      }
+      .bar-chart-fill.blue {
+        background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+      }
+      .bar-chart-value {
+        width: 34px;
+        flex-shrink: 0;
+        text-align: right;
+        font-size: 12px;
+        font-weight: 700;
       }
 
       .data-table-wrap {
@@ -750,6 +801,115 @@
         color: #cbd5e1;
         cursor: pointer;
       }
+
+      /* ===== Mobile ===== */
+      @media (max-width: 720px) {
+        header {
+          padding: 16px 16px;
+        }
+        .header-top {
+          flex-wrap: wrap;
+          gap: 10px;
+        }
+        .header-brand .logo-badge {
+          width: 36px;
+          height: 36px;
+          font-size: 15px;
+        }
+        header h1 {
+          font-size: 14.5px;
+        }
+        .header-actions {
+          gap: 6px;
+          flex-wrap: wrap;
+        }
+        .admin-identity span {
+          display: none;
+        }
+        .back-to-site span,
+        .back-to-site {
+          font-size: 11px;
+          padding: 8px 11px;
+        }
+        main {
+          padding: 16px 12px 40px 12px;
+        }
+        .tabs {
+          width: 100%;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .tab-btn {
+          flex-shrink: 0;
+          padding: 9px 13px;
+          font-size: 11.5px;
+        }
+        .glass-card,
+        .data-table-wrap {
+          border-radius: 16px;
+        }
+        [style*="padding: 20px"] {
+          padding: 14px !important;
+        }
+        .kpi-strip {
+          padding: 14px 4px;
+        }
+        .kpi-item {
+          flex: 1 1 45%;
+          margin-bottom: 6px;
+        }
+        .kpi-item::after {
+          display: none;
+        }
+        .kpi-value {
+          font-size: 17px;
+        }
+        .chart-grid {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+        .bar-chart-label {
+          width: 84px;
+          font-size: 11px;
+        }
+        table.data-table {
+          font-size: 11.5px;
+        }
+        table.data-table th,
+        table.data-table td {
+          padding: 7px 6px;
+        }
+        .panel-toolbar {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .search-bar {
+          max-width: none;
+        }
+        .product-row {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .product-row img {
+          width: 38px;
+          height: 38px;
+        }
+        .pr-price {
+          font-size: 12px;
+        }
+        .edit-layout {
+          gap: 16px;
+        }
+        .field-row {
+          flex-direction: column;
+          gap: 12px;
+        }
+        .order-card .order-head {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 4px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -808,7 +968,18 @@
 
       <!-- ===== BERANDA ===== -->
       <section id="panel-home" class="panel active">
-        <div class="stat-cards" id="stat-cards"></div>
+        <div class="kpi-strip glass-card" id="kpi-strip"></div>
+
+        <div class="chart-grid">
+          <div class="glass-card data-table-wrap">
+            <h3><i class="fa-solid fa-layer-group"></i> Stok per Kategori</h3>
+            <div id="stock-by-category-chart"></div>
+          </div>
+          <div class="glass-card data-table-wrap">
+            <h3><i class="fa-solid fa-fire"></i> Produk Terbeli</h3>
+            <div id="top-sold-chart"></div>
+          </div>
+        </div>
 
         <div class="glass-card data-table-wrap">
           <h3><i class="fa-solid fa-receipt"></i> Pesanan Terbaru</h3>
@@ -1119,43 +1290,90 @@
           0,
         );
 
-        document.getElementById("stat-cards").innerHTML = `
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#dbeafe;color:#1d4ed8"><i class="fa-solid fa-tags"></i></div>
-            <div class="stat-label">Total Produk</div>
-            <div class="stat-value">${namaProdukUnik}</div>
+        document.getElementById("kpi-strip").innerHTML = `
+          <div class="kpi-item">
+            <div class="kpi-label">Total Produk</div>
+            <div class="kpi-value">${namaProdukUnik}</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#f1f5f9;color:#334155"><i class="fa-solid fa-layer-group"></i></div>
-            <div class="stat-label">Total Varian</div>
-            <div class="stat-value">${totalVarian}</div>
+          <div class="kpi-item">
+            <div class="kpi-label">Total Varian</div>
+            <div class="kpi-value">${totalVarian}</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#dcfce7;color:#16a34a"><i class="fa-solid fa-boxes-stacked"></i></div>
-            <div class="stat-label">Total Stok</div>
-            <div class="stat-value">${totalStok}</div>
+          <div class="kpi-item">
+            <div class="kpi-label">Total Stok</div>
+            <div class="kpi-value">${totalStok}</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#fee2e2;color:#b91c1c"><i class="fa-solid fa-triangle-exclamation"></i></div>
-            <div class="stat-label">Stok Habis</div>
-            <div class="stat-value">${habisStok}</div>
+          <div class="kpi-item">
+            <div class="kpi-label">Stok Habis</div>
+            <div class="kpi-value" style="${habisStok > 0 ? "color:#b91c1c" : ""}">${habisStok}</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#fef3c7;color:#b45309"><i class="fa-solid fa-sack-dollar"></i></div>
-            <div class="stat-label">Estimasi Nilai Stok</div>
-            <div class="stat-value" style="font-size:15px">${formatRupiah(nilaiInventori)}</div>
+          <div class="kpi-item">
+            <div class="kpi-label">Estimasi Nilai Stok</div>
+            <div class="kpi-value" style="font-size:15px">${formatRupiah(nilaiInventori)}</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#ede9fe;color:#6d28d9"><i class="fa-solid fa-receipt"></i></div>
-            <div class="stat-label">Pesanan Tercatat</div>
-            <div class="stat-value">${totalPesanan}</div>
+          <div class="kpi-item">
+            <div class="kpi-label">Pesanan Tercatat</div>
+            <div class="kpi-value">${totalPesanan}</div>
           </div>
-          <div class="stat-card">
-            <div class="stat-icon" style="background:#dbeafe;color:#1d4ed8"><i class="fa-solid fa-cart-shopping"></i></div>
-            <div class="stat-label">Total Qty Terjual</div>
-            <div class="stat-value">${totalTerjual}</div>
+          <div class="kpi-item">
+            <div class="kpi-label">Qty Terjual</div>
+            <div class="kpi-value">${totalTerjual}</div>
           </div>
         `;
+
+        renderStockByCategoryChart(rows);
+        renderTopSoldChart(rows);
+      }
+
+      function barChartRowsHtml(entries, colorClass, emptyMessage) {
+        if (entries.length === 0) {
+          return `<p class="empty-state" style="padding:10px 0;">${emptyMessage}</p>`;
+        }
+        const maxVal = Math.max(...entries.map((e) => e.value), 1);
+        return entries
+          .map(
+            (e) => `
+              <div class="bar-chart-row">
+                <div class="bar-chart-label" title="${escapeAttr(e.label)}">${escapeAttr(e.label)}</div>
+                <div class="bar-chart-track">
+                  <div class="bar-chart-fill ${colorClass}" style="width:${Math.max((e.value / maxVal) * 100, 3)}%"></div>
+                </div>
+                <div class="bar-chart-value">${e.value}</div>
+              </div>
+            `,
+          )
+          .join("");
+      }
+
+      function renderStockByCategoryChart(rows) {
+        const byCategory = {};
+        rows.forEach((r) => {
+          const cat = (r.Category || "Tanpa Kategori").trim() || "Tanpa Kategori";
+          byCategory[cat] = (byCategory[cat] || 0) + (parseInt(r.Stock) || 0);
+        });
+        const entries = Object.entries(byCategory)
+          .map(([label, value]) => ({ label, value }))
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 6);
+        document.getElementById("stock-by-category-chart").innerHTML =
+          barChartRowsHtml(entries, "red", "Belum ada data stok.");
+      }
+
+      function renderTopSoldChart(rows) {
+        const allItems = getAllOrderItems();
+        const entries = rows
+          .map((r) => ({
+            label: r.VariantName || r.ProductName,
+            value: computeSoldForRow(r, allItems),
+          }))
+          .filter((e) => e.value > 0)
+          .sort((a, b) => b.value - a.value)
+          .slice(0, 6);
+        document.getElementById("top-sold-chart").innerHTML = barChartRowsHtml(
+          entries,
+          "blue",
+          "Belum ada produk yang terbeli.",
+        );
       }
 
       function renderRecentOrdersTable() {
