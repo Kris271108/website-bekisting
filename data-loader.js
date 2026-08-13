@@ -33,7 +33,8 @@ const SHEET_CSV_URL = "";
  * Kalau dikosongkan, checkout tetap jalan normal via WA seperti biasa,
  * cuma tidak tercatat di dashboard.
  */
-window.APPS_SCRIPT_ORDER_URL = "";
+window.APPS_SCRIPT_ORDER_URL =
+  "https://script.google.com/macros/s/AKfycbzep8HXkqiIDlecUEQj8piJCpz1bMH9yxkCLYRXGEkjsRW4U0Jn2q75lbtFKK9W-TY/exec";
 
 function logOrderToDashboard(order) {
   if (!window.APPS_SCRIPT_ORDER_URL) return;
