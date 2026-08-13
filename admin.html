@@ -1116,16 +1116,6 @@
         });
       }
 
-      // Kalau sebelumnya sudah pernah login sebagai admin di browser ini,
-      // langsung masuk tanpa perlu klik lagi.
-      const existingAdminAccount = getLoggedInAccount();
-      if (existingAdminAccount && isAdminEmail(existingAdminAccount.email)) {
-        enterDashboard(existingAdminAccount);
-      } else {
-        if (existingAdminAccount) clearLoggedInAccount();
-        bootAdminLogin();
-      }
-
       function showToast(message, type) {
         const container = document.getElementById("toast-container");
         const toast = document.createElement("div");
@@ -1775,6 +1765,18 @@
       function startDashboard() {
         loadProducts();
         loadOrders();
+      }
+
+      // Kalau sebelumnya sudah pernah login sebagai admin di browser ini,
+      // langsung masuk tanpa perlu klik lagi. Ditaruh di akhir script biar
+      // semua variabel (productLoading, ordersLoading, dst) sudah pasti
+      // terisi duluan sebelum dipakai.
+      const existingAdminAccount = getLoggedInAccount();
+      if (existingAdminAccount && isAdminEmail(existingAdminAccount.email)) {
+        enterDashboard(existingAdminAccount);
+      } else {
+        if (existingAdminAccount) clearLoggedInAccount();
+        bootAdminLogin();
       }
     </script>
   </body>
