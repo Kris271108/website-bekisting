@@ -12,7 +12,7 @@
     <meta property="og:title" content="Detail Produk - Bekisting Indonesia" />
     <meta
       property="og:description"
-      content="Spesifikasi lengkap material formwork & scaffolding heavy-duty dari Bekisting Indonesia."
+      content="Spesifikasi lengkap material formwork & scaffolding dari Bekisting Indonesia."
     />
     <meta property="og:type" content="product" />
     <!-- PENTING: ganti dengan domain asli setelah website online -->
@@ -40,6 +40,9 @@
 
     <script src="products.js"></script>
     <script src="data-loader.js"></script>
+    <script src="auth-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -91,6 +94,33 @@
             />
           </div>
           <div id="search-dropdown-results" class="search-dropdown"></div>
+        </div>
+
+        <div class="account-widget" id="account-widget">
+          <div id="google-signin-btn" class="google-signin-btn-slot"></div>
+          <button
+            class="account-chip"
+            id="account-chip"
+            style="display: none"
+            aria-label="Akun saya"
+            type="button"
+          >
+            <img id="account-chip-avatar" class="account-chip-avatar" src="" alt="" />
+            <span id="account-chip-name" class="account-chip-name"></span>
+            <i class="fa-solid fa-chevron-down account-chip-caret"></i>
+          </button>
+          <div class="account-menu" id="account-menu">
+            <div class="account-menu-header">
+              <img id="account-menu-avatar" class="account-menu-avatar" src="" alt="" />
+              <div>
+                <div id="account-menu-name" class="account-menu-name"></div>
+                <div id="account-menu-email" class="account-menu-email"></div>
+              </div>
+            </div>
+            <button class="account-logout-btn" id="account-logout-btn" type="button">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+            </button>
+          </div>
         </div>
 
         <button
@@ -245,7 +275,7 @@
             </label>
             <div id="variant-select-container"></div>
 
-            <div style="margin-top: 18px">
+            <div style="margin-top: 18px" class="content-qty-block">
               <label
                 style="
                   display: block;
@@ -338,25 +368,36 @@
               <i class="fa-solid fa-bolt"></i> Pesan Langsung
             </button>
           </div>
-          <button id="detail-wa-ask-btn" class="btn-wa-ask-modern">
-            <i class="fa-brands fa-whatsapp"></i> Tanya Sales via WA
-          </button>
         </div>
       </div>
     </main>
 
     <div class="sticky-buy-bar" id="sticky-buy-bar">
-      <div class="sticky-buy-info">
-        <span class="sticky-buy-name" id="sticky-buy-name">Produk</span>
-        <span class="sticky-buy-price">Hubungi Sales</span>
+      <div class="sticky-buy-top-row">
+        <select id="sticky-variant-select" aria-label="Pilih Varian"></select>
+        <div class="sticky-qty-stepper">
+          <button type="button" id="sticky-qty-minus" aria-label="Kurangi">
+            −
+          </button>
+          <span id="sticky-qty-display">1</span>
+          <button type="button" id="sticky-qty-plus" aria-label="Tambah">
+            +
+          </button>
+        </div>
       </div>
-      <div class="sticky-buy-actions">
-        <button id="sticky-add-cart-btn" aria-label="Tambah Keranjang">
-          <i class="fa-solid fa-cart-plus"></i>
-        </button>
-        <button id="sticky-instant-btn">
-          <i class="fa-solid fa-bolt"></i> Pesan Sekarang
-        </button>
+      <div class="sticky-buy-row">
+        <div class="sticky-buy-info">
+          <span class="sticky-buy-name" id="sticky-buy-name">Produk</span>
+          <span class="sticky-buy-price">Hubungi Sales</span>
+        </div>
+        <div class="sticky-buy-actions">
+          <button id="sticky-add-cart-btn" aria-label="Tambah Keranjang">
+            <i class="fa-solid fa-cart-plus"></i>
+          </button>
+          <button id="sticky-instant-btn">
+            <i class="fa-solid fa-bolt"></i> Pesan Sekarang
+          </button>
+        </div>
       </div>
     </div>
 
@@ -1109,6 +1150,15 @@
           specVariantEl.textContent = `${(product.variants || []).length} Pilihan`;
         if (specStandarEl) specStandarEl.textContent = product.standar || "-";
 
+        const priceEl = document.getElementById("detail-price");
+        const stickyPriceEl = document.querySelector(".sticky-buy-price");
+        function formatRupiahLocal(num) {
+          return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0,
+          }).format(num);
+        }
         function updateSpecStockSku(variant) {
           if (!variant) return;
           if (specSkuEl) specSkuEl.textContent = variant.sku || "-";
@@ -1129,6 +1179,17 @@
             specStockEl.style.color = color;
             specStockEl.style.fontWeight = "700";
           }
+          const priceNum = parseFloat(variant.price);
+          const priceText =
+            variant.price && !isNaN(priceNum) && priceNum > 0
+              ? `Harga: ${formatRupiahLocal(priceNum)} (Nego Volume Besar)`
+              : "Harga: Hubungi Sales (Nego Volume Besar)";
+          if (priceEl) priceEl.textContent = priceText;
+          if (stickyPriceEl)
+            stickyPriceEl.textContent =
+              variant.price && !isNaN(priceNum) && priceNum > 0
+                ? formatRupiahLocal(priceNum)
+                : "Hubungi Sales";
         }
         updateSpecStockSku(product.variants && product.variants[0]);
 
@@ -1148,19 +1209,26 @@
         let currentSelectedName = product.name;
         let currentSelectedImg = "";
         const requestedVariant = urlParams.get("variant");
+        const stickyVariantSelect = document.getElementById(
+          "sticky-variant-select",
+        );
 
         if (product.variants && product.variants.length > 1) {
           const select = document.createElement("select");
           select.style.cssText =
             "width:100%; padding:12px; border:1px solid #cbd5e1; border-radius:10px; font-size:13.5px; font-weight:500; background:#fff; color:#0f172a; outline:none;";
 
-          product.variants.forEach((v) => {
-            const opt = document.createElement("option");
-            opt.value = v.name;
-            opt.textContent = v.name;
-            opt.setAttribute("data-img", v.img);
-            select.appendChild(opt);
-          });
+          function buildOptions(target) {
+            product.variants.forEach((v) => {
+              const opt = document.createElement("option");
+              opt.value = v.name;
+              opt.textContent = v.name;
+              opt.setAttribute("data-img", v.img);
+              target.appendChild(opt);
+            });
+          }
+          buildOptions(select);
+          if (stickyVariantSelect) buildOptions(stickyVariantSelect);
 
           variantContainer.appendChild(select);
 
@@ -1169,21 +1237,33 @@
             : null;
           const initialVariant = matchedVariant || product.variants[0];
           select.value = initialVariant.name;
+          if (stickyVariantSelect)
+            stickyVariantSelect.value = initialVariant.name;
           currentSelectedName = initialVariant.name;
           currentSelectedImg = initialVariant.img;
           setDetailImage(currentSelectedImg);
           updateSpecStockSku(initialVariant);
 
-          select.addEventListener("change", function () {
-            currentSelectedName = this.value;
-            const matched = product.variants.find(
-              (v) => v.name === currentSelectedName,
-            );
+          function applyVariantChange(name, source) {
+            currentSelectedName = name;
+            const matched = product.variants.find((v) => v.name === name);
             currentSelectedImg = matched ? matched.img : "";
             setDetailImage(currentSelectedImg);
             updateSpecStockSku(matched);
+            if (source !== select) select.value = name;
+            if (stickyVariantSelect && source !== stickyVariantSelect)
+              stickyVariantSelect.value = name;
+          }
+
+          select.addEventListener("change", function () {
+            applyVariantChange(this.value, select);
           });
+          if (stickyVariantSelect)
+            stickyVariantSelect.addEventListener("change", function () {
+              applyVariantChange(this.value, stickyVariantSelect);
+            });
         } else {
+          if (stickyVariantSelect) stickyVariantSelect.style.display = "none";
           const singleLabel = document.createElement("div");
           singleLabel.style.cssText =
             "font-size:13px; color:#64748b; font-weight:500;";
@@ -1204,17 +1284,27 @@
         const qtyInput = document.getElementById("detail-qty-input");
         const plusBtn = document.getElementById("detail-plus");
         const minusBtn = document.getElementById("detail-minus");
+        const stickyQtyDisplay = document.getElementById("sticky-qty-display");
+        const stickyQtyPlus = document.getElementById("sticky-qty-plus");
+        const stickyQtyMinus = document.getElementById("sticky-qty-minus");
+
+        function syncStickyQty() {
+          if (stickyQtyDisplay)
+            stickyQtyDisplay.textContent = qtyInput.value || 1;
+        }
 
         plusBtn.addEventListener("click", () => {
           let v = parseInt(qtyInput.value) || 1;
           v++;
           qtyInput.value = v;
+          syncStickyQty();
         });
         minusBtn.addEventListener("click", () => {
           let v = parseInt(qtyInput.value) || 1;
           if (v > 1) {
             v--;
             qtyInput.value = v;
+            syncStickyQty();
           }
         });
         qtyInput.addEventListener("change", function () {
@@ -1222,7 +1312,25 @@
           if (!q || q < 1 || isNaN(q)) q = 1;
           if (q > 9999) q = 9999;
           this.value = q;
+          syncStickyQty();
         });
+        if (stickyQtyPlus)
+          stickyQtyPlus.addEventListener("click", () => {
+            let v = parseInt(qtyInput.value) || 1;
+            v++;
+            qtyInput.value = v;
+            syncStickyQty();
+          });
+        if (stickyQtyMinus)
+          stickyQtyMinus.addEventListener("click", () => {
+            let v = parseInt(qtyInput.value) || 1;
+            if (v > 1) {
+              v--;
+              qtyInput.value = v;
+              syncStickyQty();
+            }
+          });
+        syncStickyQty();
 
         const addCartBtn = document.getElementById("detail-add-cart-btn");
         addCartBtn.addEventListener("click", function () {
@@ -1431,6 +1539,19 @@
               "_blank",
               "noopener,noreferrer",
             );
+
+            if (window.logOrderToDashboard) {
+              window.logOrderToDashboard({
+                type: "Instant",
+                customerName: safeName,
+                phone: safePhone,
+                address: safeAddress,
+                items: [{ name: product.name, variant: currentSelectedName, qty: orderQty }],
+                totalQty: orderQty,
+                notes: "",
+              });
+            }
+
             checkoutModal.classList.remove("show");
           });
         }

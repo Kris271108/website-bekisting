@@ -211,6 +211,135 @@ body:has(.nav-links.mobile-active) {
   color: #1e293b;
   cursor: pointer;
 }
+
+/* ===== Widget akun (login Google) di pojok kanan atas ===== */
+.account-widget {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.google-signin-btn-slot {
+  display: inline-block;
+  line-height: 0;
+}
+.google-signin-btn-slot .account-not-configured {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #94a3b8;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: not-allowed;
+}
+.account-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 30px;
+  padding: 5px 12px 5px 5px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+.account-chip:hover {
+  border-color: var(--color-accent);
+  background: #ffffff;
+}
+.account-chip-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e2e8f0;
+}
+.account-chip-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.account-chip-caret {
+  font-size: 9px;
+  color: #94a3b8;
+}
+.account-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 15px 35px -10px rgba(15, 23, 42, 0.22);
+  width: 240px;
+  padding: 14px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  transition: all 0.18s ease;
+  z-index: 300;
+}
+.account-menu.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.account-menu-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.account-menu-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #e2e8f0;
+  flex-shrink: 0;
+}
+.account-menu-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.3;
+}
+.account-menu-email {
+  font-size: 11.5px;
+  color: #64748b;
+  word-break: break-all;
+}
+.account-logout-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px;
+  border-radius: 9px;
+  border: 1px solid #fee2e2;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+.account-logout-btn:hover {
+  background: #fee2e2;
+}
+
 .nav-drawer-close {
   display: none;
 }
@@ -1403,16 +1532,18 @@ input[type="number"] {
   border-color: var(--color-accent);
 }
 .search-bubble {
-  padding: 14px 28px !important;
+  padding: 10px 18px !important;
   border-radius: 50px !important;
-  font-size: 14px !important;
+  font-size: 12.5px !important;
   font-weight: 600 !important;
   border: 1px solid #e2e8f0 !important;
   background: #ffffff !important;
   color: #475569 !important;
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
   cursor: pointer;
   transition: all 0.3s ease !important;
 }
@@ -1580,6 +1711,9 @@ input[type="number"] {
 .branch-detail-card:hover {
   transform: translateY(-4px);
   border-color: var(--color-accent);
+}
+.branch-detail-card .fa-whatsapp {
+  color: #25d366; /* semua ikon WA cabang selalu hijau, tidak bergantung hover/cursor */
 }
 .branch-pill-hq {
   background: #fee2e2 !important;

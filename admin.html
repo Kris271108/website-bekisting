@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin - Bekisting Indonesia</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <style>
+      :root {
+        --color-accent: #ef4444;
+        --color-accent-dark: #b40000;
+        --color-dark: #0f172a;
+        --color-text-muted: #64748b;
+        --color-text-light: #94a3b8;
+        --color-bg-soft: #f8fafc;
+        --color-border: #e2e8f0;
+        --color-border-light: #f1f5f9;
+        --color-success: #15803d;
+        --color-success-bg: #dcfce7;
+        --color-warning: #b45309;
+        --color-warning-bg: #fef3c7;
+        --color-danger-bg: #fee2e2;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        background: var(--color-bg-soft);
+        color: var(--color-dark);
+      }
+
+      header {
+        background: linear-gradient(135deg, #1e293b 0%, var(--color-dark) 100%);
+        color: #fff;
+        padding: 22px 24px 46px 24px;
+        position: relative;
+        overflow: hidden;
+      }
+      header::before {
+        content: "";
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        background: rgba(239, 68, 68, 0.18);
+        filter: blur(70px);
+        border-radius: 50%;
+        top: -60px;
+        right: -40px;
+      }
+      .header-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+      }
+      .header-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .header-brand .logo-badge {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: var(--color-accent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+      }
+      header h1 {
+        margin: 0;
+        font-size: 17px;
+      }
+      header p {
+        margin: 2px 0 0 0;
+        font-size: 12px;
+        color: #94a3b8;
+      }
+      .back-to-site {
+        color: #cbd5e1;
+        text-decoration: none;
+        font-size: 12.5px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 8px 14px;
+        border-radius: 20px;
+      }
+      .back-to-site:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .setup-banner {
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+        padding: 12px 20px;
+        font-size: 13px;
+        display: none;
+        text-align: center;
+      }
+      .setup-banner.show {
+        display: block;
+      }
+
+      .stat-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 12px;
+        max-width: 1100px;
+        margin: -28px auto 0 auto;
+        padding: 0 24px;
+        position: relative;
+        z-index: 2;
+      }
+      .stat-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 16px 18px;
+        box-shadow: 0 15px 30px -8px rgba(15, 23, 42, 0.15);
+        border: 1px solid var(--color-border-light);
+      }
+      .stat-card .stat-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        margin-bottom: 8px;
+      }
+      .stat-card .stat-label {
+        font-size: 11px;
+        color: var(--color-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .stat-card .stat-value {
+        font-size: 20px;
+        font-weight: 800;
+        margin-top: 2px;
+      }
+
+      main {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 20px 24px 60px 24px;
+      }
+      .tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .tab-btn {
+        padding: 10px 18px;
+        border-radius: 30px;
+        border: 1px solid var(--color-border);
+        background: #ffffff;
+        color: var(--color-text-muted);
+        font-weight: 600;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .tab-btn.active {
+        background: var(--color-accent);
+        color: #fff;
+        border-color: var(--color-accent);
+        box-shadow: 0 8px 15px -3px rgba(239, 68, 68, 0.35);
+      }
+      .panel {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+        border: 1px solid var(--color-border-light);
+        display: none;
+      }
+      .panel.active {
+        display: block;
+      }
+      .panel-toolbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 16px;
+        flex-wrap: wrap;
+      }
+      .panel-toolbar strong {
+        font-size: 15px;
+      }
+
+      .btn {
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: none;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.2s ease;
+      }
+      .btn-primary {
+        background: var(--color-accent);
+        color: #fff;
+        box-shadow: 0 8px 15px -3px rgba(239, 68, 68, 0.3);
+      }
+      .btn-primary:hover {
+        background: var(--color-accent-dark);
+      }
+      .btn-secondary {
+        background: var(--color-bg-soft);
+        color: var(--color-dark);
+        border: 1px solid var(--color-border);
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 14px;
+      }
+      .product-card {
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .product-card .product-card-top {
+        display: flex;
+        gap: 10px;
+        padding: 12px;
+        background: var(--color-bg-soft);
+        border-bottom: 1px solid var(--color-border-light);
+      }
+      .product-card img {
+        width: 56px;
+        height: 56px;
+        object-fit: contain;
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid var(--color-border-light);
+        flex-shrink: 0;
+      }
+      .product-card .pc-title {
+        font-size: 13.5px;
+        font-weight: 700;
+        line-height: 1.3;
+      }
+      .product-card .pc-variant {
+        font-size: 11.5px;
+        color: var(--color-text-muted);
+      }
+      .product-card .pc-body {
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .field-row {
+        display: flex;
+        gap: 8px;
+      }
+      .field-row .field-col {
+        flex: 1;
+      }
+      .field-col label {
+        font-size: 10.5px;
+        color: var(--color-text-muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 3px;
+      }
+      .field-col input,
+      .field-col select,
+      .field-col textarea {
+        width: 100%;
+        padding: 7px 9px;
+        border: 1px solid var(--color-border);
+        border-radius: 7px;
+        font-size: 12.5px;
+        font-family: inherit;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .field-col textarea {
+        resize: vertical;
+        min-height: 54px;
+        line-height: 1.4;
+      }
+      .field-col input:focus,
+      .field-col select:focus,
+      .field-col textarea:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+      .pc-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 4px;
+      }
+      .pc-actions button {
+        flex: 1;
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+      }
+      .pc-actions .save-btn {
+        background: var(--color-success-bg);
+        color: var(--color-success);
+      }
+      .pc-actions .delete-btn {
+        background: var(--color-danger-bg);
+        color: #b91c1c;
+      }
+      .stock-tag {
+        font-size: 10.5px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-top: 4px;
+      }
+      .stock-tag.out {
+        background: var(--color-danger-bg);
+        color: #b91c1c;
+      }
+      .stock-tag.low {
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+      }
+      .stock-tag.ok {
+        background: var(--color-success-bg);
+        color: var(--color-success);
+      }
+      .sold-tag {
+        font-size: 10.5px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-top: 4px;
+        margin-left: 4px;
+        background: #ede9fe;
+        color: #6d28d9;
+      }
+      .local-tag {
+        font-size: 10.5px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+        display: inline-block;
+        margin-top: 4px;
+        margin-left: 4px;
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+      }
+      .product-card.is-local {
+        border-style: dashed;
+        border-color: #fbbf24;
+        background: #fffdf6;
+      }
+      .product-card.is-local .import-btn {
+        flex: 1;
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+      }
+      .catalog-sync-note {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--color-warning-bg);
+        color: var(--color-warning);
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-size: 12.5px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+      }
+      .catalog-sync-note .sync-note-text {
+        flex: 1;
+        min-width: 200px;
+      }
+      .catalog-sync-note #import-all-catalog-btn {
+        white-space: nowrap;
+      }
+      .product-card {
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+      }
+      .product-card:hover {
+        box-shadow: 0 10px 22px -8px rgba(15, 23, 42, 0.18);
+        transform: translateY(-2px);
+      }
+      .pc-sales-row {
+        display: flex;
+        gap: 8px;
+        margin-top: 2px;
+      }
+      .pc-sales-row .mini-stat {
+        flex: 1;
+        background: var(--color-bg-soft);
+        border: 1px solid var(--color-border-light);
+        border-radius: 8px;
+        padding: 6px 8px;
+        text-align: center;
+      }
+      .pc-sales-row .mini-stat .mini-stat-label {
+        font-size: 9.5px;
+        color: var(--color-text-muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .pc-sales-row .mini-stat .mini-stat-value {
+        font-size: 14px;
+        font-weight: 800;
+        margin-top: 1px;
+      }
+      .pc-sales-row .mini-stat.sold .mini-stat-value {
+        color: #6d28d9;
+      }
+      .pc-sales-row .mini-stat.remaining .mini-stat-value {
+        color: var(--color-success);
+      }
+      .search-bar {
+        position: relative;
+        flex: 1;
+        min-width: 180px;
+        max-width: 320px;
+      }
+      .search-bar i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--color-text-light);
+        font-size: 12px;
+      }
+      .search-bar input {
+        width: 100%;
+        padding: 9px 12px 9px 32px;
+        border: 1px solid var(--color-border);
+        border-radius: 20px;
+        font-size: 12.5px;
+        font-family: inherit;
+      }
+      .search-bar input:focus {
+        outline: none;
+        border-color: var(--color-accent);
+        box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+      }
+
+      .order-card {
+        border: 1px solid var(--color-border);
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin-bottom: 12px;
+      }
+      .order-card .order-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .order-card .order-time {
+        font-size: 11.5px;
+        color: var(--color-text-muted);
+      }
+      .order-card .order-name {
+        font-weight: 700;
+        font-size: 14px;
+      }
+      .order-badge {
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px;
+        border-radius: 20px;
+      }
+      .order-badge.instant {
+        background: var(--color-danger-bg);
+        color: #b91c1c;
+      }
+      .order-badge.cart {
+        background: #dbeafe;
+        color: #1e3a8a;
+      }
+      .order-items-list {
+        font-size: 12.5px;
+        color: var(--color-text-muted);
+        margin: 6px 0;
+        padding-left: 18px;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--color-text-muted);
+        font-size: 13.5px;
+      }
+      .loading-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: var(--color-text-muted);
+        font-size: 13.5px;
+      }
+
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s ease;
+        z-index: 100;
+      }
+      .modal-overlay.show {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal-box {
+        background: #fff;
+        border-radius: 18px;
+        width: 100%;
+        max-width: 440px;
+        padding: 22px;
+        max-height: 88vh;
+        overflow-y: auto;
+      }
+      .modal-box h3 {
+        margin: 0 0 14px 0;
+        font-size: 16px;
+      }
+      .modal-field {
+        margin-bottom: 12px;
+      }
+      .modal-field label {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--color-text-muted);
+        display: block;
+        margin-bottom: 4px;
+      }
+      .modal-field input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        font-size: 13px;
+        font-family: inherit;
+      }
+      .modal-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 16px;
+      }
+      .modal-actions button {
+        flex: 1;
+        padding: 11px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+      }
+
+      #toast-container {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        width: 90%;
+        max-width: 380px;
+      }
+      .toast {
+        padding: 12px 16px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        animation: toast-in 0.25s ease;
+      }
+      .toast.success {
+        background: #16a34a;
+        color: #fff;
+      }
+      .toast.error {
+        background: #dc2626;
+        color: #fff;
+      }
+      @keyframes toast-in {
+        from {
+          transform: translateY(10px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      /* ===== Layar login admin ===== */
+      .admin-login-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        background: linear-gradient(135deg, #1e293b 0%, var(--color-dark) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .admin-login-gate.hide {
+        display: none;
+      }
+      .admin-login-card {
+        background: #ffffff;
+        border-radius: 22px;
+        padding: 40px 32px;
+        max-width: 380px;
+        width: 100%;
+        text-align: center;
+        box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.5);
+      }
+      .admin-login-logo {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: var(--color-accent);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin: 0 auto 16px auto;
+      }
+      .admin-login-card h2 {
+        margin: 0 0 2px 0;
+        font-size: 19px;
+        color: var(--color-dark);
+      }
+      .admin-login-card p.subtitle {
+        margin: 0 0 26px 0;
+        font-size: 13px;
+        color: var(--color-text-muted);
+      }
+      .admin-google-btn-slot {
+        display: flex;
+        justify-content: center;
+        min-height: 44px;
+      }
+      .admin-login-error {
+        margin-top: 16px;
+        background: var(--color-danger-bg);
+        color: #b91c1c;
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 12.5px;
+        text-align: left;
+      }
+      .admin-identity {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #cbd5e1;
+        font-size: 12.5px;
+      }
+      .admin-identity img {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        object-fit: cover;
+        background: #334155;
+      }
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .logout-link {
+        background: rgba(255, 255, 255, 0.08);
+        border: none;
+        font-family: inherit;
+        color: #cbd5e1;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="admin-login-gate" id="admin-login-gate">
+      <div class="admin-login-card">
+        <div class="admin-login-logo"><i class="fa-solid fa-gauge-high"></i></div>
+        <h2>Dashboard Admin</h2>
+        <p class="subtitle">Bekisting Indonesia — masuk dengan akun Google admin kamu.</p>
+        <div id="admin-google-btn" class="admin-google-btn-slot"></div>
+        <div id="admin-login-error" class="admin-login-error" style="display: none"></div>
+      </div>
+    </div>
+    <header>
+      <div class="header-top">
+        <div class="header-brand">
+          <div class="logo-badge"><i class="fa-solid fa-gauge-high"></i></div>
+          <div>
+            <h1>Dashboard Admin</h1>
+            <p>Bekisting Indonesia</p>
+          </div>
+        </div>
+        <div class="header-actions">
+          <div class="admin-identity" id="admin-identity"></div>
+          <a href="Bekisting.html" class="back-to-site">
+            <i class="fa-solid fa-arrow-left"></i> Ke Situs
+          </a>
+          <button class="back-to-site logout-link" id="admin-logout-btn" type="button">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="setup-banner" class="setup-banner">
+      <strong>Belum tersambung ke Google Sheets.</strong> Produk di bawah ini
+      untuk sementara ditampilkan dari katalog situs (products.js) dan belum
+      bisa disimpan permanen. Isi <code>APPS_SCRIPT_URL</code> di bagian
+      bawah file ini dengan link Web App dari Google Apps Script kamu, lihat
+      PANDUAN-SETUP.md.
+    </div>
+
+    <div class="stat-cards" id="stat-cards"></div>
+
+    <main>
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="products">
+          <i class="fa-solid fa-boxes-stacked"></i> Produk
+        </button>
+        <button class="tab-btn" data-tab="orders">
+          <i class="fa-solid fa-receipt"></i> Pesanan Masuk
+        </button>
+      </div>
+
+      <section id="panel-products" class="panel active">
+        <div class="panel-toolbar">
+          <strong>Daftar Produk & Varian</strong>
+          <div class="search-bar">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="product-search" placeholder="Cari nama produk, varian, atau kategori..." />
+          </div>
+          <button class="btn btn-primary" id="add-product-btn">
+            <i class="fa-solid fa-plus"></i> Tambah Produk Baru
+          </button>
+        </div>
+        <div id="catalog-sync-note" class="catalog-sync-note" style="display:none">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="sync-note-text"></span>
+          <button class="btn btn-secondary" id="import-all-catalog-btn" style="display:none">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Impor Semua ke Dashboard
+          </button>
+        </div>
+        <div class="product-grid" id="product-grid"></div>
+        <div id="product-loading" class="loading-state">Memuat data produk...</div>
+        <div id="product-empty" class="empty-state" style="display: none"></div>
+      </section>
+
+      <section id="panel-orders" class="panel">
+        <div class="panel-toolbar">
+          <strong>Pesanan Masuk</strong>
+          <button class="btn btn-secondary" id="refresh-orders-btn">
+            <i class="fa-solid fa-rotate"></i> Muat Ulang
+          </button>
+        </div>
+        <div id="orders-list"></div>
+        <div id="orders-loading" class="loading-state">Memuat data pesanan...</div>
+        <div id="orders-empty" class="empty-state" style="display: none">
+          Belum ada pesanan yang tercatat.
+        </div>
+      </section>
+    </main>
+
+    <div class="modal-overlay" id="add-product-modal">
+      <div class="modal-box">
+        <h3><i class="fa-solid fa-box-open"></i> Tambah Produk Baru</h3>
+        <form id="add-product-form">
+          <div class="modal-field">
+            <label>Nama Produk</label>
+            <input type="text" id="np-name" required />
+          </div>
+          <div class="modal-field">
+            <label>Nama Varian</label>
+            <input type="text" id="np-variant" placeholder="Boleh sama dengan nama produk" />
+          </div>
+          <div class="modal-field">
+            <label>Kategori</label>
+            <input type="text" id="np-category" placeholder="mis. Clamp & Pengunci" />
+          </div>
+          <div class="modal-field">
+            <label>Deskripsi</label>
+            <textarea id="np-description" rows="3" style="width:100%; padding:10px 12px; border:1px solid var(--color-border); border-radius:8px; font-size:13px; font-family:inherit; resize:vertical;" placeholder="Deskripsi produk..."></textarea>
+          </div>
+          <div class="modal-field">
+            <label>Harga (Rp) — kosongkan untuk "Hubungi Sales"</label>
+            <input type="number" id="np-price" min="0" />
+          </div>
+          <div class="modal-field">
+            <label>Stok Awal</label>
+            <input type="number" id="np-stock" min="0" value="0" />
+          </div>
+          <div class="modal-field">
+            <label>Nama File Gambar (harus sudah ada di folder situs)</label>
+            <input type="text" id="np-image" placeholder="mis. bekisting-produk-baru.jpg" />
+          </div>
+          <div class="modal-actions">
+            <button type="button" class="btn-secondary" id="cancel-add-product">Batal</button>
+            <button type="submit" class="btn-primary">Simpan Produk</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <!-- Data katalog produk situs (products.js) dimuat di sini juga, supaya
+         semua produk yang sudah ada di katalog situs ikut tampil di admin
+         walau belum pernah disimpan ke Google Sheets. -->
+    <script src="products.js"></script>
+    <script src="auth-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script>
+      "use strict";
+      const APPS_SCRIPT_URL = "";
+
+      const PLACEHOLDER_IMG =
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(
+          `<svg xmlns='http://www.w3.org/2000/svg' width='56' height='56'><rect width='56' height='56' fill='%23f1f5f9'/><text x='50%' y='50%' font-size='9' fill='%2394a3b8' text-anchor='middle' dy='.3em'>No Img</text></svg>`,
+        );
+
+      if (!APPS_SCRIPT_URL) {
+        document.getElementById("setup-banner").classList.add("show");
+      }
+
+      // ===== Gerbang login admin (Google Sign-In) =====
+      const adminLoginGate = document.getElementById("admin-login-gate");
+      const adminGoogleBtnSlot = document.getElementById("admin-google-btn");
+      const adminLoginError = document.getElementById("admin-login-error");
+      const adminIdentityEl = document.getElementById("admin-identity");
+
+      function showAdminLoginError(message) {
+        adminLoginError.style.display = "block";
+        adminLoginError.textContent = message;
+      }
+
+      function clearAdminLoginError() {
+        adminLoginError.style.display = "none";
+        adminLoginError.textContent = "";
+      }
+
+      function renderAdminIdentity(account) {
+        if (!adminIdentityEl || !account) return;
+        adminIdentityEl.innerHTML = `
+          <img src="${escapeAttr(account.picture)}" alt="" onerror="this.style.display='none'" />
+          <span>${escapeAttr(account.name || account.email)}</span>
+        `;
+      }
+
+      function enterDashboard(account) {
+        adminLoginGate.classList.add("hide");
+        renderAdminIdentity(account);
+        startDashboard();
+      }
+
+      function handleAdminCredential(response) {
+        const profile = decodeGoogleCredential(response.credential);
+        if (!profile) {
+          showAdminLoginError("Gagal membaca data akun Google. Coba lagi.");
+          return;
+        }
+        const account = {
+          email: profile.email || "",
+          name: profile.name || "",
+          picture: profile.picture || "",
+        };
+        if (!isAdminEmail(account.email)) {
+          clearLoggedInAccount();
+          showAdminLoginError(
+            `Akun ${account.email} tidak terdaftar sebagai admin. Hubungi pemilik situs untuk ditambahkan ke ADMIN_EMAILS, atau masuk dengan akun Google lain.`,
+          );
+          if (typeof google !== "undefined" && google.accounts) {
+            google.accounts.id.disableAutoSelect();
+          }
+          return;
+        }
+        clearAdminLoginError();
+        saveLoggedInAccount(account);
+        enterDashboard(account);
+      }
+
+      document
+        .getElementById("admin-logout-btn")
+        .addEventListener("click", () => {
+          clearLoggedInAccount();
+          if (typeof google !== "undefined" && google.accounts) {
+            google.accounts.id.disableAutoSelect();
+          }
+          window.location.reload();
+        });
+
+      function bootAdminLogin() {
+        if (typeof google === "undefined" || !google.accounts) {
+          setTimeout(bootAdminLogin, 300);
+          return;
+        }
+        if (!GOOGLE_CLIENT_ID) {
+          adminGoogleBtnSlot.innerHTML =
+            '<p style="font-size:12.5px;color:#b45309;margin:0;">GOOGLE_CLIENT_ID belum diisi di <code>auth-config.js</code>. Lihat PANDUAN-LOGIN-GOOGLE.md untuk langkah-langkahnya.</p>';
+          return;
+        }
+        google.accounts.id.initialize({
+          client_id: GOOGLE_CLIENT_ID,
+          callback: handleAdminCredential,
+        });
+        google.accounts.id.renderButton(adminGoogleBtnSlot, {
+          type: "standard",
+          theme: "filled_blue",
+          size: "large",
+          text: "signin_with",
+          shape: "pill",
+        });
+      }
+
+      // Kalau sebelumnya sudah pernah login sebagai admin di browser ini,
+      // langsung masuk tanpa perlu klik lagi.
+      const existingAdminAccount = getLoggedInAccount();
+      if (existingAdminAccount && isAdminEmail(existingAdminAccount.email)) {
+        enterDashboard(existingAdminAccount);
+      } else {
+        if (existingAdminAccount) clearLoggedInAccount();
+        bootAdminLogin();
+      }
+
+      function showToast(message, type) {
+        const container = document.getElementById("toast-container");
+        const toast = document.createElement("div");
+        toast.className = `toast ${type === "error" ? "error" : "success"}`;
+        toast.innerHTML = `<i class="fa-solid ${type === "error" ? "fa-circle-exclamation" : "fa-circle-check"}"></i> ${message}`;
+        container.appendChild(toast);
+        setTimeout(() => {
+          toast.style.opacity = "0";
+          toast.style.transition = "opacity 0.3s ease";
+          setTimeout(() => toast.remove(), 300);
+        }, 3200);
+      }
+
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          document
+            .querySelectorAll(".panel")
+            .forEach((p) => p.classList.remove("active"));
+          btn.classList.add("active");
+          document
+            .getElementById("panel-" + btn.dataset.tab)
+            .classList.add("active");
+        });
+      });
+
+      function escapeAttr(v) {
+        return String(v === undefined || v === null ? "" : v).replace(
+          /"/g,
+          "&quot;",
+        );
+      }
+      function escapeHtml(v) {
+        return String(v === undefined || v === null ? "" : v)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function formatRupiah(n) {
+        return new Intl.NumberFormat("id-ID", {
+          style: "currency",
+          currency: "IDR",
+          minimumFractionDigits: 0,
+        }).format(n);
+      }
+
+      let lastProductRows = [];
+      let lastOrderRows = [];
+
+      // Ubah window.PRODUCT_DATA (products.js, sumber katalog situs) jadi
+      // baris-baris rata (satu baris = satu varian), format sama seperti
+      // baris dari Google Sheets, supaya bisa ditampilkan bareng di admin.
+      function buildRowsFromCatalog() {
+        const catalog =
+          typeof PRODUCT_DATA !== "undefined" && Array.isArray(PRODUCT_DATA)
+            ? PRODUCT_DATA
+            : [];
+        const rows = [];
+        catalog.forEach((prod) => {
+          (prod.variants || []).forEach((v) => {
+            rows.push({
+              ProductName: prod.name || "",
+              Category: prod.category || "",
+              Description: prod.desc || "",
+              Material: prod.material || "",
+              Standar: prod.standar || "",
+              VariantName: v.name || prod.name || "",
+              SKU: v.sku || "",
+              Price: v.price || "",
+              Stock: v.stock || 0,
+              ImageFileName: v.img || "",
+              WeightKg: v.weightKg || "",
+              _row: null, // null = belum ada di Google Sheets (katalog situs saja)
+            });
+          });
+        });
+        return rows;
+      }
+
+      // Gabungkan produk dari Google Sheets (sumber utama, bisa diedit
+      // langsung) dengan produk dari katalog situs yang BELUM ada di Sheets
+      // (supaya tetap kelihatan di admin dan bisa "diimpor" sekali klik).
+      function mergeWithCatalog(sheetRows) {
+        const catalogRows = buildRowsFromCatalog();
+        const norm = (s) => String(s || "").trim().toLowerCase();
+        const existingSku = new Set(
+          sheetRows.map((r) => norm(r.SKU)).filter(Boolean),
+        );
+        const existingNameVariant = new Set(
+          sheetRows.map((r) => norm(r.ProductName) + "||" + norm(r.VariantName)),
+        );
+        const missingFromSheet = catalogRows.filter((row) => {
+          const skuKey = norm(row.SKU);
+          if (skuKey && existingSku.has(skuKey)) return false;
+          const nvKey = norm(row.ProductName) + "||" + norm(row.VariantName);
+          if (existingNameVariant.has(nvKey)) return false;
+          return true;
+        });
+        return sheetRows.concat(missingFromSheet);
+      }
+
+      // Mengambil semua item dari semua pesanan (Keranjang & Pesan Langsung),
+      // dipakai untuk menghitung berapa qty yang sudah terjual per varian.
+      function getAllOrderItems() {
+        const allItems = [];
+        lastOrderRows.forEach((o) => {
+          let items = [];
+          try {
+            items = JSON.parse(o.ItemsJSON || "[]");
+          } catch (e) {
+            items = [];
+          }
+          items.forEach((it) => allItems.push(it));
+        });
+        return allItems;
+      }
+
+      // Cocokkan item pesanan ke baris produk berdasarkan nama produk +
+      // varian. Menangani dua format nama yang dipakai situs: "Pesan
+      // Langsung" (name = nama produk, variant = nama varian terpisah) dan
+      // "Keranjang" (name = "Nama Produk - Nama Varian" digabung).
+      function computeSoldForRow(row, allItems) {
+        const pName = (row.ProductName || "").trim();
+        const vName = (row.VariantName || "").trim();
+        const combinedName =
+          vName && vName !== pName ? `${pName} - ${vName}` : pName;
+        let sold = 0;
+        allItems.forEach((it) => {
+          const itName = (it.name || it.productName || "").trim();
+          const itVariant = (it.variant || "").trim();
+          const qty = parseInt(it.qty) || 0;
+          if (itName === pName && itVariant === vName) {
+            sold += qty;
+          } else if (itName === combinedName && !itVariant) {
+            sold += qty;
+          } else if (itName === pName && !vName && !itVariant) {
+            sold += qty;
+          }
+        });
+        return sold;
+      }
+
+      function renderStatCards() {
+        const rows = lastProductRows;
+        const totalVarian = rows.length;
+        const totalStok = rows.reduce(
+          (sum, r) => sum + (parseInt(r.Stock) || 0),
+          0,
+        );
+        const habisStok = rows.filter(
+          (r) => !r.Stock || parseInt(r.Stock) <= 0,
+        ).length;
+        const namaProdukUnik = new Set(rows.map((r) => r.ProductName)).size;
+        const nilaiInventori = rows.reduce((sum, r) => {
+          const price = parseFloat(r.Price) || 0;
+          const stock = parseInt(r.Stock) || 0;
+          return sum + price * stock;
+        }, 0);
+        const totalPesanan = lastOrderRows.length;
+        const totalTerjual = getAllOrderItems().reduce(
+          (sum, it) => sum + (parseInt(it.qty) || 0),
+          0,
+        );
+        const belumTersinkron = rows.filter((r) => r._row === null).length;
+
+        document.getElementById("stat-cards").innerHTML = `
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#dbeafe;color:#1e3a8a"><i class="fa-solid fa-tags"></i></div>
+            <div class="stat-label">Total Produk</div>
+            <div class="stat-value">${namaProdukUnik}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#f1f5f9;color:#334155"><i class="fa-solid fa-layer-group"></i></div>
+            <div class="stat-label">Total Varian</div>
+            <div class="stat-value">${totalVarian}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#dcfce7;color:#15803d"><i class="fa-solid fa-boxes-stacked"></i></div>
+            <div class="stat-label">Total Stok</div>
+            <div class="stat-value">${totalStok}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#fee2e2;color:#b91c1c"><i class="fa-solid fa-triangle-exclamation"></i></div>
+            <div class="stat-label">Stok Habis</div>
+            <div class="stat-value">${habisStok}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#fef3c7;color:#b45309"><i class="fa-solid fa-sack-dollar"></i></div>
+            <div class="stat-label">Estimasi Nilai Stok</div>
+            <div class="stat-value" style="font-size:15px">${formatRupiah(nilaiInventori)}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#ede9fe;color:#6d28d9"><i class="fa-solid fa-receipt"></i></div>
+            <div class="stat-label">Pesanan Tercatat</div>
+            <div class="stat-value">${totalPesanan}</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon" style="background:#dbeafe;color:#1e3a8a"><i class="fa-solid fa-cart-shopping"></i></div>
+            <div class="stat-label">Total Qty Terjual</div>
+            <div class="stat-value">${totalTerjual}</div>
+          </div>
+          ${
+            belumTersinkron > 0
+              ? `
+          <div class="stat-card">
+            <div class="stat-icon" style="background:${"#fef3c7"};color:${"#b45309"}"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+            <div class="stat-label">Katalog Belum Tersinkron</div>
+            <div class="stat-value">${belumTersinkron}</div>
+          </div>`
+              : ""
+          }
+        `;
+      }
+
+      const productGrid = document.getElementById("product-grid");
+      const productLoading = document.getElementById("product-loading");
+      const productEmpty = document.getElementById("product-empty");
+
+      function stockTagHtml(stock) {
+        const s = parseInt(stock) || 0;
+        if (s <= 0) return `<span class="stock-tag out">Stok Habis</span>`;
+        if (s <= 30) return `<span class="stock-tag low">Stok Terbatas</span>`;
+        return `<span class="stock-tag ok">Stok Aman</span>`;
+      }
+
+      function productCardHtml(row, soldQty, idx) {
+        const imgSrc = row.ImageFileName ? row.ImageFileName : PLACEHOLDER_IMG;
+        const sisaStok = parseInt(row.Stock) || 0;
+        const isLocal = row._row === null || row._row === undefined;
+        const actionsHtml = isLocal
+          ? `
+              <div class="pc-actions">
+                <button class="import-btn"><i class="fa-solid fa-cloud-arrow-up"></i> Simpan ke Dashboard</button>
+              </div>
+            `
+          : `
+              <div class="pc-actions">
+                <button class="save-btn"><i class="fa-solid fa-check"></i> Simpan</button>
+                <button class="delete-btn"><i class="fa-solid fa-trash"></i> Hapus</button>
+              </div>
+            `;
+        return `
+          <div class="product-card ${isLocal ? "is-local" : ""}" data-idx="${idx}">
+            <div class="product-card-top">
+              <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.ProductName)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+              <div>
+                <div class="pc-title">${escapeAttr(row.ProductName)}</div>
+                <div class="pc-variant">${escapeAttr(row.VariantName)}</div>
+                ${stockTagHtml(row.Stock)}
+                ${soldQty > 0 ? `<span class="sold-tag"><i class="fa-solid fa-arrow-trend-up"></i> ${soldQty} Terjual</span>` : ""}
+                ${isLocal ? `<span class="local-tag"><i class="fa-solid fa-triangle-exclamation"></i> Belum Tersinkron</span>` : ""}
+              </div>
+            </div>
+            <div class="pc-body">
+              <div class="pc-sales-row">
+                <div class="mini-stat sold">
+                  <div class="mini-stat-label">Terjual</div>
+                  <div class="mini-stat-value">${soldQty}</div>
+                </div>
+                <div class="mini-stat remaining">
+                  <div class="mini-stat-label">Sisa Stok</div>
+                  <div class="mini-stat-value">${sisaStok}</div>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Harga (Rp)</label>
+                  <input class="f-Price" type="number" value="${row.Price || ""}" placeholder="Hubungi Sales" />
+                </div>
+                <div class="field-col">
+                  <label>Stok (Sisa)</label>
+                  <input class="f-Stock" type="number" value="${row.Stock || 0}" />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Deskripsi</label>
+                  <textarea class="f-Description" placeholder="Deskripsi produk...">${escapeHtml(row.Description)}</textarea>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>SKU</label>
+                  <input class="f-SKU" value="${escapeAttr(row.SKU)}" />
+                </div>
+                <div class="field-col">
+                  <label>Kategori</label>
+                  <input class="f-Category" value="${escapeAttr(row.Category)}" />
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Nama Gambar</label>
+                  <input class="f-ImageFileName" value="${escapeAttr(row.ImageFileName)}" />
+                </div>
+              </div>
+              ${actionsHtml}
+            </div>
+          </div>
+        `;
+      }
+
+      let productSearchTerm = "";
+      let currentGridRows = [];
+
+      function renderProductGrid() {
+        if (lastProductRows.length === 0) return;
+        const allItems = getAllOrderItems();
+        const term = productSearchTerm.trim().toLowerCase();
+        const rows = !term
+          ? lastProductRows
+          : lastProductRows.filter((row) =>
+              [row.ProductName, row.VariantName, row.Category, row.SKU]
+                .join(" ")
+                .toLowerCase()
+                .includes(term),
+            );
+        currentGridRows = rows;
+        if (rows.length === 0) {
+          productGrid.innerHTML = "";
+          productEmpty.style.display = "block";
+          productEmpty.textContent = "Tidak ada produk yang cocok dengan pencarian.";
+          return;
+        }
+        productEmpty.style.display = "none";
+        productGrid.innerHTML = rows
+          .map((row, idx) =>
+            productCardHtml(row, computeSoldForRow(row, allItems), idx),
+          )
+          .join("");
+        wireProductCardEvents();
+        renderCatalogSyncNote();
+      }
+
+      function renderCatalogSyncNote() {
+        const noteEl = document.getElementById("catalog-sync-note");
+        if (!noteEl) return;
+        const unsynced = lastProductRows.filter((r) => r._row === null).length;
+        if (unsynced === 0) {
+          noteEl.style.display = "none";
+          return;
+        }
+        noteEl.style.display = "flex";
+        noteEl.querySelector(".sync-note-text").textContent = APPS_SCRIPT_URL
+          ? `${unsynced} produk dari katalog situs belum tersimpan di Dashboard. Klik "Simpan ke Dashboard" di kartunya, atau impor semua sekaligus.`
+          : `Menampilkan ${unsynced} produk dari katalog situs (products.js). Sambungkan ke Google Sheets supaya bisa diedit & tersimpan permanen.`;
+        noteEl.querySelector("#import-all-catalog-btn").style.display =
+          APPS_SCRIPT_URL ? "inline-flex" : "none";
+      }
+
+      async function loadProducts() {
+        if (!APPS_SCRIPT_URL) {
+          // Belum tersambung ke Google Sheets sama sekali — tetap tampilkan
+          // katalog produk situs (dari products.js) walau belum bisa
+          // diedit tersimpan permanen sampai dashboard disambungkan.
+          productLoading.style.display = "none";
+          const catalogRows = buildRowsFromCatalog();
+          lastProductRows = catalogRows;
+          renderStatCards();
+          if (catalogRows.length === 0) {
+            productEmpty.style.display = "block";
+            productEmpty.textContent =
+              "Dashboard belum tersambung ke Google Sheets, dan tidak ada data katalog (products.js) yang terbaca.";
+            productGrid.innerHTML = "";
+            return;
+          }
+          productEmpty.style.display = "none";
+          renderProductGrid();
+          return;
+        }
+        productLoading.style.display = "block";
+        productEmpty.style.display = "none";
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=getProducts`);
+          const json = await res.json();
+          productLoading.style.display = "none";
+          if (!json.ok) throw new Error(json.error || "Gagal memuat");
+          const sheetRows = json.data || [];
+          const rows = mergeWithCatalog(sheetRows);
+          lastProductRows = rows;
+          renderStatCards();
+          if (rows.length === 0) {
+            productEmpty.style.display = "block";
+            productEmpty.textContent =
+              'Belum ada produk. Klik "Tambah Produk Baru" untuk mulai.';
+            productGrid.innerHTML = "";
+            return;
+          }
+          renderProductGrid();
+        } catch (err) {
+          productLoading.style.display = "none";
+          productEmpty.style.display = "block";
+          productEmpty.textContent = "Gagal memuat data: " + err.message;
+        }
+      }
+
+      document.getElementById("product-search").addEventListener("input", (e) => {
+        productSearchTerm = e.target.value;
+        renderProductGrid();
+      });
+
+      function wireProductCardEvents() {
+        productGrid.querySelectorAll(".product-card").forEach((card) => {
+          const idx = parseInt(card.dataset.idx, 10);
+          const row = currentGridRows[idx];
+          if (!row) return;
+
+          const readFields = () => {
+            const product = {};
+            [
+              "Price",
+              "Stock",
+              "Description",
+              "SKU",
+              "Category",
+              "ImageFileName",
+            ].forEach((f) => {
+              const input = card.querySelector(".f-" + f);
+              if (input) product[f] = input.value;
+            });
+            return product;
+          };
+
+          const saveBtn = card.querySelector(".save-btn");
+          if (saveBtn) {
+            saveBtn.addEventListener("click", async () => {
+              const res = await postAction("updateProduct", {
+                row: row._row,
+                product: readFields(),
+              });
+              if (res && res.ok) {
+                showToast("Produk berhasil disimpan.", "success");
+                loadProducts();
+              }
+            });
+          }
+
+          const deleteBtn = card.querySelector(".delete-btn");
+          if (deleteBtn) {
+            deleteBtn.addEventListener("click", async () => {
+              const res = await postAction("deleteProduct", { row: row._row });
+              if (res && res.ok) {
+                showToast("Varian dihapus.", "success");
+                loadProducts();
+              }
+            });
+          }
+
+          const importBtn = card.querySelector(".import-btn");
+          if (importBtn) {
+            importBtn.addEventListener("click", async () => {
+              const fields = readFields();
+              const product = {
+                ProductName: row.ProductName,
+                VariantName: row.VariantName,
+                Category: fields.Category,
+                Description: fields.Description,
+                Material: row.Material || "",
+                Standar: row.Standar || "",
+                SKU: fields.SKU,
+                Price: fields.Price,
+                Stock: fields.Stock,
+                ImageFileName: fields.ImageFileName,
+                WeightKg: row.WeightKg || "",
+              };
+              const res = await postAction("addProduct", { product });
+              if (res && res.ok) {
+                showToast("Produk katalog tersimpan ke Dashboard.", "success");
+                loadProducts();
+              }
+            });
+          }
+        });
+      }
+
+      document
+        .getElementById("import-all-catalog-btn")
+        .addEventListener("click", async () => {
+          const unsynced = lastProductRows.filter((r) => r._row === null);
+          if (unsynced.length === 0) return;
+          const btn = document.getElementById("import-all-catalog-btn");
+          btn.disabled = true;
+          let ok = 0;
+          for (const row of unsynced) {
+            const product = {
+              ProductName: row.ProductName,
+              VariantName: row.VariantName,
+              Category: row.Category,
+              Description: row.Description,
+              Material: row.Material || "",
+              Standar: row.Standar || "",
+              SKU: row.SKU,
+              Price: row.Price,
+              Stock: row.Stock,
+              ImageFileName: row.ImageFileName,
+              WeightKg: row.WeightKg || "",
+            };
+            const res = await postAction("addProduct", { product });
+            if (res && res.ok) ok++;
+          }
+          btn.disabled = false;
+          showToast(`${ok} dari ${unsynced.length} produk katalog berhasil diimpor.`, "success");
+          loadProducts();
+        });
+
+      const addProductModal = document.getElementById("add-product-modal");
+      document
+        .getElementById("add-product-btn")
+        .addEventListener("click", () => {
+          document.getElementById("add-product-form").reset();
+          addProductModal.classList.add("show");
+        });
+      document
+        .getElementById("cancel-add-product")
+        .addEventListener("click", () => {
+          addProductModal.classList.remove("show");
+        });
+      addProductModal.addEventListener("click", (e) => {
+        if (e.target === addProductModal) addProductModal.classList.remove("show");
+      });
+      document
+        .getElementById("add-product-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const name = document.getElementById("np-name").value.trim();
+          if (!name) {
+            showToast("Nama produk wajib diisi.", "error");
+            return;
+          }
+          const variant =
+            document.getElementById("np-variant").value.trim() || name;
+          const product = {
+            ProductName: name,
+            VariantName: variant,
+            Category: document.getElementById("np-category").value.trim(),
+            Description: document.getElementById("np-description").value.trim(),
+            Material: "",
+            Standar: "",
+            SKU: "",
+            Price: document.getElementById("np-price").value,
+            Stock: document.getElementById("np-stock").value || "0",
+            ImageFileName: document.getElementById("np-image").value.trim(),
+            WeightKg: "",
+          };
+          const res = await postAction("addProduct", { product });
+          if (res && res.ok) {
+            showToast("Produk baru berhasil ditambahkan.", "success");
+            addProductModal.classList.remove("show");
+            loadProducts();
+          }
+        });
+
+      async function postAction(action, payload) {
+        if (!APPS_SCRIPT_URL) {
+          showToast("Dashboard belum tersambung ke Google Sheets.", "error");
+          return null;
+        }
+        try {
+          const res = await fetch(APPS_SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({ action, ...payload }),
+          });
+          const json = await res.json();
+          if (!json.ok) {
+            showToast("Gagal: " + (json.error || "Terjadi kesalahan"), "error");
+          }
+          return json;
+        } catch (err) {
+          showToast("Gagal terhubung ke server: " + err.message, "error");
+          return null;
+        }
+      }
+
+      const ordersList = document.getElementById("orders-list");
+      const ordersLoading = document.getElementById("orders-loading");
+      const ordersEmpty = document.getElementById("orders-empty");
+
+      async function loadOrders() {
+        if (!APPS_SCRIPT_URL) {
+          ordersLoading.style.display = "none";
+          ordersEmpty.style.display = "block";
+          ordersEmpty.textContent =
+            "Dashboard belum tersambung ke Google Sheets. Isi APPS_SCRIPT_URL dulu.";
+          return;
+        }
+        ordersLoading.style.display = "block";
+        ordersEmpty.style.display = "none";
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=getOrders`);
+          const json = await res.json();
+          ordersLoading.style.display = "none";
+          if (!json.ok) throw new Error(json.error || "Gagal memuat");
+          const orders = json.data || [];
+          lastOrderRows = orders;
+          renderStatCards();
+          renderProductGrid();
+          if (orders.length === 0) {
+            ordersEmpty.style.display = "block";
+            ordersList.innerHTML = "";
+            return;
+          }
+          ordersList.innerHTML = orders.map(orderCardHtml).join("");
+        } catch (err) {
+          ordersLoading.style.display = "none";
+          ordersEmpty.style.display = "block";
+          ordersEmpty.textContent = "Gagal memuat data: " + err.message;
+        }
+      }
+
+      function orderCardHtml(o) {
+        let items = [];
+        try {
+          items = JSON.parse(o.ItemsJSON || "[]");
+        } catch (e) {
+          items = [];
+        }
+        const itemsHtml = items
+          .map(
+            (it) =>
+              `<li>${escapeAttr(it.name || it.productName || "Produk")} ${it.variant ? "(" + escapeAttr(it.variant) + ")" : ""} — ${it.qty || 1} Pcs</li>`,
+          )
+          .join("");
+        const timeStr = o.Timestamp
+          ? new Date(o.Timestamp).toLocaleString("id-ID")
+          : "-";
+        const badgeClass = o.Type === "Instant" ? "instant" : "cart";
+        const badgeLabel = o.Type === "Instant" ? "Pesan Langsung" : "Keranjang";
+        return `
+          <div class="order-card">
+            <div class="order-head">
+              <span class="order-name">${escapeAttr(o.CustomerName || "Tanpa Nama")}</span>
+              <span class="order-badge ${badgeClass}">${badgeLabel}</span>
+            </div>
+            <div class="order-time">${timeStr} · ${escapeAttr(o.Phone || "-")}</div>
+            <ul class="order-items-list">${itemsHtml || "<li>-</li>"}</ul>
+            <div style="font-size:12.5px; color:#64748b;">Alamat: ${escapeAttr(o.Address || "-")}</div>
+          </div>
+        `;
+      }
+
+      document
+        .getElementById("refresh-orders-btn")
+        .addEventListener("click", loadOrders);
+
+      function startDashboard() {
+        loadProducts();
+        loadOrders();
+      }
+    </script>
+  </body>
+</html>

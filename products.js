@@ -28,8 +28,8 @@ const PRODUCT_DATA = [
   {
     name: "AV Kicker",
     category: "Clamp & Pengunci",
-    desc: "AV Kicker penyangga bekisting kolom/dinding heavy-duty yang berfungsi menjaga kelurusan vertikal formwork secara akurat.",
-    material: "Baja Adjustable Heavy-Duty",
+    desc: "AV Kicker penyangga bekisting kolom/dinding yang berfungsi menjaga kelurusan vertikal formwork secara akurat.",
+    material: "Baja Adjustable",
     standar: "Menopang beban vertikal kolom/dinding secara akurat",
     variants: [
       {

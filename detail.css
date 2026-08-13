@@ -457,7 +457,7 @@
           font-size: 22px;
         }
         .action-row-flex {
-          flex-direction: column;
+          display: none; /* di mobile, aksi diwakili sticky bar bawah */
         }
         .btn-primary-action {
           width: 100%;
@@ -476,6 +476,8 @@
       @media (max-width: 768px) {
         .sticky-buy-bar {
           display: flex;
+          flex-direction: column;
+          gap: 8px;
           position: fixed;
           bottom: 0;
           left: 0;
@@ -484,9 +486,6 @@
           border-top: 1px solid #f1f5f9;
           box-shadow: 0 -8px 25px rgba(15, 23, 42, 0.08);
           padding: 10px 14px;
-          align-items: center;
-          justify-content: space-between;
-          gap: 10px;
           z-index: var(--zi-float-btn); /* Tombol Mengambang */
           transition: transform 0.25s ease;
         }
@@ -494,6 +493,11 @@
         body:has(.modal-overlay.show) .sticky-buy-bar {
           transform: translateY(100%);
           pointer-events: none;
+        }
+        .sticky-buy-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
         }
         .sticky-buy-info {
           display: flex;
@@ -518,6 +522,7 @@
           display: flex;
           gap: 8px;
           flex-shrink: 0;
+          margin-left: auto;
         }
         .sticky-buy-actions #sticky-add-cart-btn {
           width: 42px;
@@ -541,7 +546,65 @@
           align-items: center;
           gap: 6px;
         }
+        #sticky-variant-select {
+          flex: 1;
+          min-width: 0;
+          padding: 8px 10px;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          font-size: 12.5px;
+          font-family: inherit;
+          background: #f8fafc;
+          color: var(--color-dark);
+        }
+        .sticky-buy-top-row {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        .sticky-qty-stepper {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          flex-shrink: 0;
+          border: 1px solid #e2e8f0;
+          border-radius: 8px;
+          background: #f8fafc;
+          padding: 2px;
+        }
+        .sticky-qty-stepper button {
+          width: 30px;
+          height: 30px;
+          border-radius: 6px;
+          border: none;
+          background: #ffffff;
+          color: var(--color-dark);
+          font-size: 15px;
+          font-weight: 700;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .sticky-qty-stepper span {
+          min-width: 20px;
+          text-align: center;
+          font-size: 13px;
+          font-weight: 700;
+          color: var(--color-dark);
+        }
+        .content-qty-block {
+          display: none; /* qty sekarang cuma dikontrol dari sticky bar di mobile */
+        }
         body {
-          padding-bottom: 70px;
+          padding-bottom: 140px;
+        }
+        /* Tombol WA & keranjang mengambang dinaikkan supaya tidak ketiban sticky bar
+           (tinggi sticky bar ~118px, jadi tombol diberi jarak lebih dari itu) */
+        .cart-fab-btn {
+          bottom: 130px !important;
+        }
+        .wa-float-wrapper {
+          bottom: 196px !important;
         }
       }
+

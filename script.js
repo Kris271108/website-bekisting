@@ -35,6 +35,12 @@ function formatRupiah(number) {
   }).format(number);
 }
 
+function formatPriceLabel(price) {
+  const num = parseFloat(price);
+  if (!price || isNaN(num) || num <= 0) return "Harga: Hubungi Sales";
+  return `Harga: ${formatRupiah(num)}`;
+}
+
 function safeSetCart(cartArray) {
   try {
     localStorage.setItem("bekisting_cart", JSON.stringify(cartArray));
@@ -388,7 +394,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (hasMultipleVariants) {
         variantSelectorHtml = `<select class="variant-dropdown">`;
         prod.variants.forEach((v) => {
-          variantSelectorHtml += `<option value="${v.name}" data-img="${v.img}" data-stock="${v.stock || 0}">${v.name}</option>`;
+          variantSelectorHtml += `<option value="${v.name}" data-img="${v.img}" data-stock="${v.stock || 0}" data-price="${v.price || ""}">${v.name}</option>`;
         });
         variantSelectorHtml += `</select>`;
       }
@@ -399,24 +405,18 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="produk-info">
           <h3 class="display-title ${hasMultipleVariants ? "clickable-title" : ""}" tabindex="${hasMultipleVariants ? "0" : "-1"}">${prod.name}${hasMultipleVariants ? ' <i class="fa-solid fa-chevron-down title-caret"></i>' : ""}</h3>
-          <p class="price-indicator-text">Harga: Hubungi Sales</p>
+          <p class="price-indicator-text">${formatPriceLabel(defaultVariant.price)}</p>
           <div class="variant-panel">
             ${variantSelectorHtml}
           </div>
-          <div class="qty-selector">
-            <button class="minus" aria-label="Kurangi jumlah"><i class="fa-solid fa-minus"></i></button>
-            <input type="number" class="qty-value" value="1" min="1" aria-label="Jumlah pesanan" />
-            <button class="plus" aria-label="Tambah jumlah"><i class="fa-solid fa-plus"></i></button>
-          </div>
           <div class="card-action-row">
-            <button class="add-cart-btn"><i class="fa-solid fa-cart-plus"></i> Tambah</button>
-            <button class="wa-ask-btn" aria-label="Tanya Sales via WA">
-              <i class="fa-brands fa-whatsapp"></i>
+            <button class="view-detail-btn" aria-label="Lihat detail produk ${prod.name}">
+              <i class="fa-solid fa-eye"></i> Lihat Detail
+            </button>
+            <button class="add-cart-btn" aria-label="Tambah cepat ke keranjang">
+              <i class="fa-solid fa-cart-plus"></i>
             </button>
           </div>
-          <button class="view-detail-btn" aria-label="Lihat detail produk ${prod.name}">
-            <i class="fa-solid fa-eye"></i> Detail
-          </button>
         </div>
       `;
       const variantToggleBtn = card.querySelector(".display-title.clickable-title");
@@ -434,23 +434,10 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
       }
-      const waAskBtn = card.querySelector(".wa-ask-btn");
-      if (waAskBtn) {
-        waAskBtn.addEventListener("click", function (e) {
-          e.stopPropagation();
-          const pName = card.dataset.selectedVariant || prod.name;
-          const waNumber = "628123651818";
-          const waText = `Halo, saya ingin menanyakan produk *${pName}* dari katalog Bekisting Indonesia. Mohon info harga & ketersediaannya. Terima kasih.`;
-          window.open(
-            `https://api.whatsapp.com/send/?phone=${waNumber}&text=${encodeURIComponent(waText)}`,
-            "_blank",
-            "noopener,noreferrer",
-          );
-        });
-      }
       const dropdown = card.querySelector(".variant-dropdown");
       const imgTarget = card.querySelector(".main-card-img");
       const stockBadgeTarget = card.querySelector(".stock-badge");
+      const priceTarget = card.querySelector(".price-indicator-text");
       if (dropdown) {
         dropdown.addEventListener("change", function () {
           const selectedOption = this.options[this.selectedIndex];
@@ -459,12 +446,14 @@ document.addEventListener("DOMContentLoaded", function () {
           const newStock = parseInt(
             selectedOption.getAttribute("data-stock"),
           );
+          const newPrice = selectedOption.getAttribute("data-price");
           if (imgTarget && newImg) imgTarget.src = newImg;
           card.dataset.selectedVariant = newName;
           if (stockBadgeTarget) {
             stockBadgeTarget.className = `stock-badge ${getStockBadgeClass(newStock)}`;
             stockBadgeTarget.textContent = getStockBadgeText(newStock);
           }
+          if (priceTarget) priceTarget.textContent = formatPriceLabel(newPrice);
         });
       }
       const detailBtn = card.querySelector(".view-detail-btn");
@@ -575,6 +564,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     searchInput.addEventListener("input", function () {
       filterProducts(this.value);
+      renderCatalogSearchDropdown(this.value);
       bubbles.forEach((b) => {
         b.classList.remove("active");
         b.style.background = "#ffffff";
@@ -592,6 +582,54 @@ document.addEventListener("DOMContentLoaded", function () {
           allBubble.style.color = "#ffffff";
           allBubble.style.boxShadow = "0 10px 15px -3px rgba(239,68,68,0.3)";
         }
+      }
+    });
+
+    // ===== Dropdown live search dengan gambar (sama seperti di halaman detail) =====
+    const catalogDropdown = document.getElementById("catalog-search-dropdown");
+    function renderCatalogSearchDropdown(rawQuery) {
+      if (!catalogDropdown || typeof PRODUCT_DATA === "undefined") return;
+      const keyword = rawQuery.trim().toLowerCase();
+      catalogDropdown.innerHTML = "";
+      if (keyword === "") {
+        catalogDropdown.classList.remove("show");
+        return;
+      }
+      const matched = PRODUCT_DATA.filter(
+        (p) =>
+          p.name.toLowerCase().includes(keyword) ||
+          (p.desc || "").toLowerCase().includes(keyword),
+      );
+      if (matched.length > 0) {
+        matched.slice(0, 8).forEach((p) => {
+          const defaultImg =
+            p.variants && p.variants[0] ? p.variants[0].img : p.img;
+          const variantCount = p.variants ? p.variants.length : 1;
+          const itemLink = document.createElement("a");
+          itemLink.href = `detail.html?product=${encodeURIComponent(p.name)}`;
+          itemLink.className = "search-item";
+          itemLink.innerHTML = `
+            <img src="${defaultImg}" alt="Material Bekisting - ${p.name}" loading="lazy" onerror="this.src=window.PLACEHOLDER_IMG">
+            <div class="search-info">
+              <span class="search-name">${p.name}</span>
+              <span class="search-variant">${variantCount} Pilihan Varian</span>
+            </div>
+          `;
+          catalogDropdown.appendChild(itemLink);
+        });
+        catalogDropdown.classList.add("show");
+      } else {
+        catalogDropdown.innerHTML = `<div class="search-no-results">Produk tidak ditemukan...</div>`;
+        catalogDropdown.classList.add("show");
+      }
+    }
+    document.addEventListener("click", function (e) {
+      if (
+        catalogDropdown &&
+        !searchInput.contains(e.target) &&
+        !catalogDropdown.contains(e.target)
+      ) {
+        catalogDropdown.classList.remove("show");
       }
     });
     if (clearBtn) {
@@ -628,35 +666,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   function initDynamicKatalogButtons() {
     document.querySelectorAll(".produk-card").forEach((card) => {
-      const minus = card.querySelector(".minus");
-      const plus = card.querySelector(".plus");
-      const input = card.querySelector(".qty-value");
       const addBtn = card.querySelector(".add-cart-btn");
-      if (plus)
-        plus.addEventListener("click", (e) => {
-          e.stopPropagation();
-          let q = parseInt(input.value) || 1;
-          q++;
-          input.value = q;
-        });
-      if (minus)
-        minus.addEventListener("click", (e) => {
-          e.stopPropagation();
-          let q = parseInt(input.value) || 1;
-          if (q > 1) {
-            q--;
-            input.value = q;
-          }
-        });
-      if (input) {
-        input.addEventListener("click", (e) => e.stopPropagation());
-        input.addEventListener("change", function () {
-          let q = Math.floor(Math.abs(parseFloat(this.value)));
-          if (!q || q < 1 || isNaN(q)) q = 1;
-          if (q > 9999) q = 9999;
-          this.value = q;
-        });
-      }
       if (addBtn) {
         addBtn.addEventListener("click", (e) => {
           e.stopPropagation();
@@ -682,7 +692,7 @@ document.addEventListener("DOMContentLoaded", function () {
             {};
           const pSku = variantObj.sku || "";
           const pWeight = variantObj.weightKg || 0;
-          let currentQty = parseInt(input.value) || 1;
+          let currentQty = 1; // tambah cepat dari katalog selalu 1 pcs; ubah jumlah bisa di keranjang/detail
           let currentCart = getCartFromStorage();
           const existingIndex = currentCart.findIndex(
             (item) => item.name === pName,
@@ -917,6 +927,27 @@ if (checkoutWaBtn) {
       "noopener,noreferrer",
     );
 
+    if (window.logOrderToDashboard) {
+      window.logOrderToDashboard({
+        type: "Cart",
+        customerName: safeBuyerName,
+        phone: safeBuyerPhone,
+        address:
+          deliveryMethod === "delivery"
+            ? sanitizeInput(
+                `${streetField.value.trim()}, ${cityField.value.trim()}, ${provinceField.value.trim()}`,
+              )
+            : "Ambil Sendiri",
+        items: cart.map((item) => ({
+          name: item.name,
+          variant: item.variant || "",
+          qty: item.qty || 0,
+        })),
+        totalQty,
+        notes: buyerNotes || "",
+      });
+    }
+
     setTimeout(() => {
       showConfirmModal(
         "Apakah pesan WhatsApp sudah terkirim? Kosongkan keranjang sekarang supaya tidak menumpuk untuk pesanan berikutnya.",
@@ -1056,7 +1087,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="featured-slide-info">
           <span class="featured-slide-category">${prod.category || "Material Bekisting"}</span>
           <h3 class="featured-slide-name">${prod.name}</h3>
-          <p class="featured-slide-price">Hubungi Sales (Nego Volume Besar)</p>
+          <p class="featured-slide-price">${variant.price ? formatRupiah(variant.price) + " (Nego Volume Besar)" : "Hubungi Sales (Nego Volume Besar)"}</p>
         </div>
       `;
       card.addEventListener("click", () => {

@@ -7,7 +7,7 @@
     <link rel="icon" href="Logobekisting.png" type="image/png" />
     <meta
       name="description"
-      content="PT. Bekisting Indonesia Raya - penyedia sistem formwork, scaffolding, dan aksesoris bekisting heavy-duty berstandar SNI untuk proyek konstruksi di seluruh Indonesia. Tie Rod, Wing Nut, Beam Clamp, dan lainnya."
+      content="PT. Bekisting Indonesia - penyedia sistem formwork, scaffolding, dan aksesoris bekisting berstandar SNI untuk proyek konstruksi di seluruh Indonesia. Tie Rod, Wing Nut, Beam Clamp, dan lainnya."
     />
     <meta
       property="og:title"
@@ -15,7 +15,7 @@
     />
     <meta
       property="og:description"
-      content="Mitra bekisting terpercaya untuk proyek konstruksi Anda. Produk formwork & scaffolding heavy-duty berstandar SNI, siap kirim ke seluruh Indonesia."
+      content="Mitra bekisting terpercaya untuk proyek konstruksi Anda. Produk formwork & scaffolding berstandar SNI, siap kirim ke seluruh Indonesia."
     />
     <meta property="og:type" content="website" />
     <!-- PENTING: ganti "https://www.bekistingindonesia.co.id/" di bawah ini
@@ -44,6 +44,9 @@
 
     <script src="products.js"></script>
     <script src="data-loader.js"></script>
+    <script src="auth-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="script.js" defer></script>
   </head>
   <body>
@@ -84,6 +87,32 @@
       <div class="nav-drawer-overlay" id="nav-drawer-overlay"></div>
 
       <div class="nav-actions">
+        <div class="account-widget" id="account-widget">
+          <div id="google-signin-btn" class="google-signin-btn-slot"></div>
+          <button
+            class="account-chip"
+            id="account-chip"
+            style="display: none"
+            aria-label="Akun saya"
+            type="button"
+          >
+            <img id="account-chip-avatar" class="account-chip-avatar" src="" alt="" />
+            <span id="account-chip-name" class="account-chip-name"></span>
+            <i class="fa-solid fa-chevron-down account-chip-caret"></i>
+          </button>
+          <div class="account-menu" id="account-menu">
+            <div class="account-menu-header">
+              <img id="account-menu-avatar" class="account-menu-avatar" src="" alt="" />
+              <div>
+                <div id="account-menu-name" class="account-menu-name"></div>
+                <div id="account-menu-email" class="account-menu-email"></div>
+              </div>
+            </div>
+            <button class="account-logout-btn" id="account-logout-btn" type="button">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+            </button>
+          </div>
+        </div>
         <button
           class="hamburger-menu"
           id="hamburger-btn"
@@ -183,7 +212,7 @@
           </p>
           <div class="hero-cta-row">
             <a href="#" id="hero-explore-catalog-btn" class="concept-cta-btn"
-              >Lihat Katalog Heavy-Duty <i class="fa-solid fa-arrow-right"></i
+              >Lihat Katalog <i class="fa-solid fa-arrow-right"></i
             ></a>
             <a href="#" id="hero-wa-quote-btn" class="concept-cta-btn-outline">
               <i class="fa-brands fa-whatsapp"></i> Minta Penawaran Harga
@@ -233,8 +262,8 @@
             <span class="section-eyebrow">Tentang Kami</span>
             <h2>Mitra Bekisting Terpercaya untuk Setiap Tahap Proyek Anda</h2>
             <p>
-              PT. Bekisting Indonesia Raya adalah penyedia sistem formwork,
-              scaffolding, dan aksesoris bekisting heavy-duty berstandar SNI
+              PT. Bekisting Indonesia adalah penyedia sistem formwork,
+              scaffolding, dan aksesoris bekisting berstandar SNI
               yang telah dipercaya ratusan kontraktor di seluruh Indonesia. Kami
               hadir untuk memastikan setiap tahap pengecoran beton Anda berjalan
               presisi, aman, dan efisien — mulai dari Tie Rod, Wing Nut, Beam
@@ -250,7 +279,7 @@
               <i class="fa-solid fa-industry"></i>
               <h3>Produk Bersertifikat SNI</h3>
               <p>
-                Material formwork dan scaffolding heavy-duty yang teruji
+                Material formwork dan scaffolding yang teruji
                 kekuatannya di ratusan proyek konstruksi.
               </p>
             </div>
@@ -331,13 +360,13 @@
         <div class="faq-list" id="home-faq-list">
           <div class="faq-item">
             <button class="faq-question" aria-expanded="false">
-              <span>Apa itu PT. Bekisting Indonesia Raya?</span>
+              <span>Apa itu PT. Bekisting Indonesia?</span>
               <i class="fa-solid fa-chevron-down faq-caret"></i>
             </button>
             <div class="faq-answer">
               <p>
-                PT. Bekisting Indonesia Raya adalah penyedia material formwork
-                (bekisting), scaffolding, dan aksesoris konstruksi heavy-duty
+                PT. Bekisting Indonesia adalah penyedia material formwork
+                (bekisting), scaffolding, dan aksesoris konstruksi
                 berstandar SNI, dengan jaringan distribusi di Gresik, Malang,
                 Bandung, Banjarmasin, Banyuwangi, dan Semarang.
               </p>
@@ -419,19 +448,24 @@
       <header class="about-hero-box catalog-hero-compact">
         <h1>Katalog Material Bekisting</h1>
         <p>
-          Temukan seluruh aksesoris formwork dan scaffolding heavy-duty
+          Temukan seluruh aksesoris formwork dan scaffolding
           berstandar SNI untuk kebutuhan proyek konstruksi Anda.
         </p>
       </header>
 
       <div class="middle-search-bubble-section">
-        <div class="floating-search-container">
+        <div class="floating-search-container" style="position: relative">
           <i class="fa-solid fa-magnifying-glass"></i>
           <input
             type="text"
             id="live-search-input"
             placeholder="Cari aksesoris material cor Anda di sini..."
           />
+          <div
+            id="catalog-search-dropdown"
+            class="search-dropdown"
+            style="left: 0; right: 0"
+          ></div>
         </div>
 
         <div
@@ -500,10 +534,10 @@
 
     <div id="view-about-container" class="page-view-section">
       <header class="about-hero-box">
-        <h1>Tentang PT. Bekisting Indonesia Raya</h1>
+        <h1>Tentang PT. Bekisting Indonesia</h1>
         <p>
           Mitra strategis terpercaya penyedia sistem formwork, scaffolding, dan
-          aksesoris bekisting heavy-duty premium berskala nasional.
+          aksesoris bekisting premium berskala nasional.
         </p>
       </header>
 
@@ -511,12 +545,12 @@
         <aside class="left-advantages-panel">
           <h2>Profil & Keunggulan Komitmen Perusahaan</h2>
           <p class="intro-desc-paragraph">
-            PT. Bekisting Indonesia Raya lahir sebagai jawaban atas kebutuhan
+            PT. Bekisting Indonesia lahir sebagai jawaban atas kebutuhan
             industri konstruksi modern nasional yang menuntut efisiensi tinggi,
             jaminan keselamatan mutlak, dan hasil akhir pengecoran beton dengan
             tingkat presisi yang sempurna. Dipercaya oleh ratusan kontraktor
             berskala besar, kami berkomitmen penuh menyediakan produk premium
-            heavy-duty berstandar SNI mulai dari Tie Rod tebal anti-putus, Wing
+            berstandar SNI mulai dari Tie Rod tebal anti-putus, Wing
             Nut, hingga pipa scaffolding penopang beban struktural gedung
             bertingkat, jembatan, dan infrastruktur strategis.
           </p>
@@ -613,7 +647,7 @@
                 <span>0812 3651 818</span>
               </div>
               <div class="branch-info-row">
-                <i class="fa-brands fa-whatsapp" style="color: #25d366"></i>
+                <i class="fa-brands fa-whatsapp"></i>
                 <a
                   href="https://wa.me/628123651818"
                   target="_blank"
@@ -1175,7 +1209,7 @@
         <div style="display: flex; flex-direction: column; gap: 20px">
           <img
             src="Logobekisting.png"
-            alt="Logo PT. Bekisting Indonesia Raya"
+            alt="Logo PT. Bekisting Indonesia"
             loading="lazy"
             style="
               max-height: 45px;
@@ -1266,7 +1300,7 @@
               src="https://maps.google.com/maps?q=Jl.%20Raya%20Bangkingan%20No.16%2C%20Driyorejo%2C%20Gresik%2C%20Jawa%20Timur&z=15&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="Lokasi PT. Bekisting Indonesia Raya"
+              title="Lokasi PT. Bekisting Indonesia"
             ></iframe>
           </div>
           <a
@@ -1324,23 +1358,6 @@
         </div>
       </div>
 
-      <div
-        style="
-          max-width: 1300px;
-          margin: 40px auto 0 auto;
-          padding-top: 25px;
-          border-top: 1px solid rgba(255, 255, 255, 0.08);
-          text-align: center;
-        "
-      >
-        <p
-          class="footer-copyright-text"
-          style="color: #64748b; font-size: 13px; margin: 0"
-        >
-          © 2026 PT. Bekisting Indonesia Raya. Hak Cipta Dilindungi
-          Undang-Undang.
-        </p>
-      </div>
     </footer>
   </body>
 </html>
