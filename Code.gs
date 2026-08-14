@@ -5,17 +5,20 @@
  * Cara pakainya dijelaskan lengkap di PANDUAN-SETUP.md.
  *
  * Fungsinya jadi "server" gratis yang menghubungkan dashboard.html
- * (di situs kamu) dengan Google Sheet data produk & pesanan.
+ * (di situs kamu) dengan Google Sheet data produk, pesanan, & artikel.
  *
  * Sheet yang dipakai (harus persis nama ini, dibuat otomatis kalau belum ada):
  *  - "Products": ProductName, Category, Description, Material, Standar,
  *                VariantName, SKU, Price, Stock, ImageFileName, WeightKg
  *  - "Orders":   Timestamp, Type, CustomerName, Phone, Address, ItemsJSON,
  *                TotalQty, Notes
+ *  - "Articles": Title, Slug, Summary, Content, CoverImage, Status,
+ *                CreatedAt, UpdatedAt
  */
 
 const PRODUCTS_SHEET_NAME = "Products";
 const ORDERS_SHEET_NAME = "Orders";
+const ARTICLES_SHEET_NAME = "Articles";
 const PRODUCTS_HEADER = [
   "ProductName", "Category", "Description", "Material", "Standar",
   "VariantName", "SKU", "Price", "Stock", "ImageFileName", "WeightKg",
@@ -23,6 +26,10 @@ const PRODUCTS_HEADER = [
 const ORDERS_HEADER = [
   "Timestamp", "Type", "CustomerName", "Phone", "Address", "ItemsJSON",
   "TotalQty", "Notes",
+];
+const ARTICLES_HEADER = [
+  "Title", "Slug", "Summary", "Content", "CoverImage", "Status",
+  "CreatedAt", "UpdatedAt",
 ];
 
 function getSheet_(name, header) {
@@ -55,11 +62,22 @@ function sheetToObjects_(sheet) {
     });
 }
 
+// Ubah judul artikel jadi slug URL (huruf kecil, spasi jadi strip).
+function slugify_(text) {
+  const base = String(text || "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-+|-+$)/g, "");
+  return base || "artikel-" + Date.now();
+}
+
 // ============ GET: baca data ============
 function doGet(e) {
   const action = e.parameter.action;
   const productsSheet = getSheet_(PRODUCTS_SHEET_NAME, PRODUCTS_HEADER);
   const ordersSheet = getSheet_(ORDERS_SHEET_NAME, ORDERS_HEADER);
+  const articlesSheet = getSheet_(ARTICLES_SHEET_NAME, ARTICLES_HEADER);
 
   if (action === "getProducts") {
     return jsonOutput_({ ok: true, data: sheetToObjects_(productsSheet) });
@@ -67,6 +85,19 @@ function doGet(e) {
   if (action === "getOrders") {
     const orders = sheetToObjects_(ordersSheet).reverse(); // terbaru dulu
     return jsonOutput_({ ok: true, data: orders });
+  }
+  if (action === "getArticles") {
+    // Dipakai dashboard admin — semua artikel termasuk yang masih Draft.
+    return jsonOutput_({
+      ok: true,
+      data: sheetToObjects_(articlesSheet).reverse(),
+    });
+  }
+  if (action === "getPublishedArticles") {
+    // Dipakai halaman publik artikel.html — cuma yang statusnya Terbit.
+    const all = sheetToObjects_(articlesSheet).reverse();
+    const published = all.filter((a) => a.Status === "Terbit");
+    return jsonOutput_({ ok: true, data: published });
   }
   return jsonOutput_({ ok: false, error: "Aksi tidak dikenal" });
 }
@@ -77,6 +108,7 @@ function doPost(e) {
   const action = body.action;
   const productsSheet = getSheet_(PRODUCTS_SHEET_NAME, PRODUCTS_HEADER);
   const ordersSheet = getSheet_(ORDERS_SHEET_NAME, ORDERS_HEADER);
+  const articlesSheet = getSheet_(ARTICLES_SHEET_NAME, ARTICLES_HEADER);
 
   try {
     if (action === "addProduct") {
@@ -114,6 +146,47 @@ function doPost(e) {
         o.totalQty || 0,
         o.notes || "",
       ]);
+      return jsonOutput_({ ok: true });
+    }
+
+    if (action === "addArticle") {
+      const a = body.article;
+      const now = new Date();
+      articlesSheet.appendRow([
+        a.Title || "",
+        slugify_(a.Title || ""),
+        a.Summary || "",
+        a.Content || "",
+        a.CoverImage || "",
+        a.Status || "Draft",
+        now,
+        now,
+      ]);
+      return jsonOutput_({ ok: true });
+    }
+
+    if (action === "updateArticle") {
+      const rowNum = body.row;
+      const a = body.article;
+      ARTICLES_HEADER.forEach((h, idx) => {
+        if (h === "UpdatedAt") {
+          articlesSheet.getRange(rowNum, idx + 1).setValue(new Date());
+        } else if (h === "Slug") {
+          // Slug ikut diperbarui otomatis kalau judul berubah.
+          if (a.Title !== undefined) {
+            articlesSheet
+              .getRange(rowNum, idx + 1)
+              .setValue(slugify_(a.Title));
+          }
+        } else if (a[h] !== undefined) {
+          articlesSheet.getRange(rowNum, idx + 1).setValue(a[h]);
+        }
+      });
+      return jsonOutput_({ ok: true });
+    }
+
+    if (action === "deleteArticle") {
+      articlesSheet.deleteRow(body.row);
       return jsonOutput_({ ok: true });
     }
 

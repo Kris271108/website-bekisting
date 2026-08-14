@@ -523,6 +523,29 @@
         background: var(--color-warning-bg);
         color: var(--color-warning);
       }
+      .status-tag {
+        font-size: 10px;
+        font-weight: 700;
+        padding: 2px 8px;
+        border-radius: 20px;
+      }
+      .status-tag.published {
+        background: var(--color-success-bg);
+        color: var(--color-success);
+      }
+      .status-tag.draft {
+        background: var(--color-bg-soft);
+        color: var(--color-text-muted);
+      }
+      .field-col select {
+        width: 100%;
+        padding: 10px 13px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        font-size: 13px;
+        font-family: inherit;
+        background: #fff;
+      }
 
       /* ===== Inventaris — mode edit (inline, bukan modal) ===== */
       .edit-back-btn {
@@ -964,6 +987,9 @@
         <button class="tab-btn" data-tab="orders">
           <i class="fa-solid fa-receipt"></i> Pesanan Masuk
         </button>
+        <button class="tab-btn" data-tab="articles">
+          <i class="fa-solid fa-newspaper"></i> Artikel
+        </button>
       </div>
 
       <!-- ===== BERANDA ===== -->
@@ -1062,6 +1088,29 @@
           <div id="orders-empty" class="empty-state" style="display: none">
             Belum ada pesanan yang tercatat.
           </div>
+        </div>
+      </section>
+
+      <!-- ===== ARTIKEL ===== -->
+      <section id="panel-articles" class="panel">
+        <div class="glass-card" style="padding: 20px;">
+          <div id="article-list-view">
+            <div class="panel-toolbar">
+              <strong>Daftar Artikel</strong>
+              <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="article-search" placeholder="Cari judul artikel..." />
+              </div>
+              <button class="btn btn-primary" id="add-article-btn">
+                <i class="fa-solid fa-plus"></i> Tulis Artikel Baru
+              </button>
+            </div>
+            <div class="product-list" id="article-grid"></div>
+            <div id="article-loading" class="loading-state">Memuat data artikel...</div>
+            <div id="article-empty" class="empty-state" style="display: none"></div>
+          </div>
+
+          <div id="article-edit-view" style="display: none"></div>
         </div>
       </section>
     </main>
@@ -1799,6 +1848,236 @@
         showProductEdit({ ...BLANK_ROW }, true);
       });
 
+      // ===================== ARTIKEL =====================
+      let lastArticleRows = [];
+      let articleSearchTerm = "";
+      let currentArticleRows = [];
+
+      const articleGrid = document.getElementById("article-grid");
+      const articleLoading = document.getElementById("article-loading");
+      const articleEmpty = document.getElementById("article-empty");
+      const articleListView = document.getElementById("article-list-view");
+      const articleEditView = document.getElementById("article-edit-view");
+
+      const BLANK_ARTICLE = {
+        Title: "",
+        Summary: "",
+        Content: "",
+        CoverImage: "",
+        Status: "Draft",
+      };
+
+      function formatArticleDate(v) {
+        if (!v) return "-";
+        const d = new Date(v);
+        if (isNaN(d.getTime())) return "-";
+        return d.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        });
+      }
+
+      function articleListRowHtml(row, idx) {
+        const imgSrc = row.CoverImage ? row.CoverImage : PLACEHOLDER_IMG;
+        const isPublished = row.Status === "Terbit";
+        return `
+          <div class="product-row" data-idx="${idx}">
+            <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+            <div class="pr-info">
+              <div class="pr-name">${escapeAttr(row.Title || "(Tanpa judul)")}</div>
+              <div class="pr-meta">
+                <span class="status-tag ${isPublished ? "published" : "draft"}">${isPublished ? "Terbit" : "Draft"}</span>
+                <span class="pr-tag">${formatArticleDate(row.UpdatedAt || row.CreatedAt)}</span>
+              </div>
+            </div>
+            <i class="fa-solid fa-chevron-right pr-arrow"></i>
+          </div>
+        `;
+      }
+
+      function renderArticleGrid() {
+        const term = articleSearchTerm.trim().toLowerCase();
+        const rows = !term
+          ? lastArticleRows
+          : lastArticleRows.filter((row) =>
+              (row.Title || "").toLowerCase().includes(term),
+            );
+        currentArticleRows = rows;
+        if (lastArticleRows.length === 0) {
+          articleGrid.innerHTML = "";
+          articleEmpty.style.display = "block";
+          articleEmpty.textContent =
+            'Belum ada artikel. Klik "Tulis Artikel Baru" untuk mulai.';
+          return;
+        }
+        if (rows.length === 0) {
+          articleGrid.innerHTML = "";
+          articleEmpty.style.display = "block";
+          articleEmpty.textContent = "Tidak ada artikel yang cocok dengan pencarian.";
+          return;
+        }
+        articleEmpty.style.display = "none";
+        articleGrid.innerHTML = rows
+          .map((row, idx) => articleListRowHtml(row, idx))
+          .join("");
+        articleGrid.querySelectorAll(".product-row").forEach((el) => {
+          el.addEventListener("click", () => {
+            const idx = parseInt(el.dataset.idx, 10);
+            showArticleEdit(currentArticleRows[idx], false);
+          });
+        });
+      }
+
+      async function loadArticles() {
+        if (!APPS_SCRIPT_URL) {
+          articleLoading.style.display = "none";
+          articleEmpty.style.display = "block";
+          articleEmpty.textContent =
+            "Dashboard belum tersambung ke Google Sheets.";
+          return;
+        }
+        articleLoading.style.display = "block";
+        articleEmpty.style.display = "none";
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=getArticles`);
+          const json = await res.json();
+          articleLoading.style.display = "none";
+          if (!json.ok) throw new Error(json.error || "Gagal memuat");
+          lastArticleRows = json.data || [];
+          renderArticleGrid();
+        } catch (err) {
+          articleLoading.style.display = "none";
+          articleEmpty.style.display = "block";
+          articleEmpty.textContent = "Gagal memuat data: " + err.message;
+        }
+      }
+
+      document.getElementById("article-search").addEventListener("input", (e) => {
+        articleSearchTerm = e.target.value;
+        renderArticleGrid();
+      });
+
+      function showArticleList() {
+        articleEditView.style.display = "none";
+        articleEditView.innerHTML = "";
+        articleListView.style.display = "block";
+      }
+
+      function showArticleEdit(row, isNew) {
+        articleListView.style.display = "none";
+        articleEditView.style.display = "block";
+        renderArticleEditView(row || { ...BLANK_ARTICLE }, isNew);
+      }
+
+      function renderArticleEditView(row, isNew) {
+        const imgSrc = row.CoverImage ? row.CoverImage : PLACEHOLDER_IMG;
+        articleEditView.innerHTML = `
+          <button class="edit-back-btn" id="article-back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar</button>
+          <div class="edit-layout">
+            <div class="edit-image-col">
+              <img id="article-img-preview" src="${escapeAttr(imgSrc)}" onerror="this.src='${PLACEHOLDER_IMG}'" alt="" />
+              <label>Nama File Gambar Sampul</label>
+              <input id="article-CoverImage" value="${escapeAttr(row.CoverImage)}" placeholder="mis. artikel-cover.jpg" />
+              <label>Ringkasan Singkat</label>
+              <p class="edit-short-desc" id="article-short-summary">${row.Summary ? escapeHtml(row.Summary) : "Belum ada ringkasan."}</p>
+            </div>
+            <div class="edit-fields-col">
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Judul Artikel</label>
+                  <input id="article-Title" value="${escapeAttr(row.Title)}" />
+                </div>
+                <div class="field-col">
+                  <label>Status</label>
+                  <select id="article-Status">
+                    <option value="Draft" ${row.Status !== "Terbit" ? "selected" : ""}>Draft</option>
+                    <option value="Terbit" ${row.Status === "Terbit" ? "selected" : ""}>Terbit</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Ringkasan (tampil di daftar artikel)</label>
+                  <textarea id="article-Summary" style="min-height:60px" placeholder="Ringkasan singkat 1-2 kalimat...">${escapeHtml(row.Summary)}</textarea>
+                </div>
+              </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Isi Artikel</label>
+                  <textarea id="article-Content" style="min-height:220px" placeholder="Tulis isi artikel di sini...">${escapeHtml(row.Content)}</textarea>
+                </div>
+              </div>
+              <div class="edit-actions">
+                <button class="btn btn-primary" id="article-save-btn">
+                  <i class="fa-solid fa-check"></i> ${isNew ? "Simpan Artikel Baru" : "Simpan Perubahan"}
+                </button>
+                ${!isNew ? `<button class="btn btn-danger" id="article-delete-btn"><i class="fa-solid fa-trash"></i> Hapus</button>` : ""}
+              </div>
+            </div>
+          </div>
+        `;
+
+        document.getElementById("article-back-btn").addEventListener("click", showArticleList);
+        document.getElementById("article-CoverImage").addEventListener("input", (e) => {
+          document.getElementById("article-img-preview").src =
+            e.target.value.trim() || PLACEHOLDER_IMG;
+        });
+        document.getElementById("article-Summary").addEventListener("input", (e) => {
+          document.getElementById("article-short-summary").textContent =
+            e.target.value.trim() || "Belum ada ringkasan.";
+        });
+
+        document.getElementById("article-save-btn").addEventListener("click", async () => {
+          const title = document.getElementById("article-Title").value.trim();
+          if (!title) {
+            showToast("Judul artikel wajib diisi.", "error");
+            return;
+          }
+          const article = {
+            Title: title,
+            Status: document.getElementById("article-Status").value,
+            Summary: document.getElementById("article-Summary").value,
+            Content: document.getElementById("article-Content").value,
+            CoverImage: document.getElementById("article-CoverImage").value.trim(),
+          };
+          if (isNew) {
+            const res = await postAction("addArticle", { article });
+            if (res && res.ok) {
+              showToast("Artikel baru berhasil disimpan.", "success");
+              showArticleList();
+              loadArticles();
+            }
+          } else {
+            const res = await postAction("updateArticle", {
+              row: row._row,
+              article,
+            });
+            if (res && res.ok) {
+              showToast("Artikel berhasil disimpan.", "success");
+              showArticleList();
+              loadArticles();
+            }
+          }
+        });
+
+        const delBtn = document.getElementById("article-delete-btn");
+        if (delBtn) {
+          delBtn.addEventListener("click", async () => {
+            const res = await postAction("deleteArticle", { row: row._row });
+            if (res && res.ok) {
+              showToast("Artikel dihapus.", "success");
+              showArticleList();
+              loadArticles();
+            }
+          });
+        }
+      }
+
+      document.getElementById("add-article-btn").addEventListener("click", () => {
+        showArticleEdit({ ...BLANK_ARTICLE }, true);
+      });
+
       // ===================== PESANAN =====================
       const ordersList = document.getElementById("orders-list");
       const ordersLoading = document.getElementById("orders-loading");
@@ -1967,6 +2246,7 @@
       function startDashboard() {
         loadProducts();
         loadOrders();
+        loadArticles();
       }
 
       // Kalau sebelumnya sudah pernah login sebagai admin di browser ini,

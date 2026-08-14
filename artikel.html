@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artikel - Bekisting Indonesia</title>
+    <link rel="icon" href="Logobekisting.png" type="image/png" />
+    <meta
+      name="description"
+      content="Artikel dan wawasan seputar material bekisting, formwork, dan scaffolding dari Bekisting Indonesia."
+    />
+    <link rel="preload" href="Logobekisting.png" as="image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="auth-config.js"></script>
+    <script src="auth.js"></script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+    <style>
+      .articles-page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 140px 24px 80px 24px;
+        min-height: 60vh;
+      }
+      .articles-page-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+      .articles-page-header h1 {
+        font-size: 32px;
+        font-weight: 800;
+        color: var(--color-dark);
+        margin: 0 0 8px 0;
+      }
+      .articles-page-header p {
+        color: #64748b;
+        font-size: 14.5px;
+        margin: 0;
+      }
+      .article-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 22px;
+      }
+      .article-card {
+        background: #fff;
+        border: 1px solid #eef1f6;
+        border-radius: 18px;
+        overflow: hidden;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        transition: all 0.2s ease;
+        box-shadow: 0 8px 22px -14px rgba(15, 23, 42, 0.16);
+      }
+      .article-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 14px 30px -14px rgba(15, 23, 42, 0.25);
+      }
+      .article-card img {
+        width: 100%;
+        aspect-ratio: 16/9;
+        object-fit: cover;
+        background: #f1f5f9;
+      }
+      .article-card-body {
+        padding: 16px 18px 20px 18px;
+      }
+      .article-card-date {
+        font-size: 11px;
+        color: #94a3b8;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+      .article-card-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--color-dark);
+        margin: 0 0 8px 0;
+        line-height: 1.35;
+      }
+      .article-card-summary {
+        font-size: 13px;
+        color: #64748b;
+        line-height: 1.5;
+        margin: 0;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .articles-empty,
+      .articles-loading {
+        text-align: center;
+        padding: 60px 20px;
+        color: #94a3b8;
+        font-size: 14px;
+      }
+
+      /* ===== Detail artikel ===== */
+      .article-detail-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #64748b;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 13px;
+        margin-bottom: 24px;
+      }
+      .article-detail-back:hover {
+        color: var(--color-accent);
+      }
+      .article-detail-cover {
+        width: 100%;
+        max-height: 420px;
+        object-fit: cover;
+        border-radius: 20px;
+        margin-bottom: 28px;
+        background: #f1f5f9;
+      }
+      .article-detail-date {
+        font-size: 12.5px;
+        color: #94a3b8;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 8px;
+      }
+      .article-detail-title {
+        font-size: 30px;
+        font-weight: 800;
+        color: var(--color-dark);
+        line-height: 1.3;
+        margin: 0 0 24px 0;
+      }
+      .article-detail-content {
+        font-size: 15.5px;
+        line-height: 1.85;
+        color: #334155;
+        white-space: pre-line;
+        max-width: 760px;
+      }
+
+      @media (max-width: 640px) {
+        .articles-page-wrap {
+          padding: 110px 16px 60px 16px;
+        }
+        .articles-page-header h1 {
+          font-size: 24px;
+        }
+        .article-detail-title {
+          font-size: 22px;
+        }
+        .article-detail-content {
+          font-size: 14.5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo-container">
+        <a href="Bekisting.html">
+          <img
+            src="Logobekisting.png"
+            alt="Logo Bekisting Indonesia"
+            class="nav-logo"
+          />
+        </a>
+      </div>
+
+      <div class="nav-links" id="nav-links">
+        <button
+          class="nav-drawer-close"
+          id="nav-drawer-close"
+          aria-label="Tutup Menu"
+        >
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="Bekisting.html" class="nav-item">Beranda</a>
+        <a href="Bekisting.html?view=katalog" class="nav-item">Katalog Material</a>
+        <a href="artikel.html" class="nav-item active">Artikel</a>
+        <a href="Bekisting.html?view=about" class="nav-item">Tentang Kami</a>
+      </div>
+      <div class="nav-drawer-overlay" id="nav-drawer-overlay"></div>
+
+      <div class="nav-actions">
+        <div class="account-widget" id="account-widget">
+          <div id="google-signin-btn" class="google-signin-btn-slot"></div>
+          <button
+            class="account-chip"
+            id="account-chip"
+            style="display: none"
+            aria-label="Akun saya"
+            type="button"
+          >
+            <img id="account-chip-avatar" class="account-chip-avatar" src="" alt="" />
+            <span id="account-chip-name" class="account-chip-name"></span>
+            <i class="fa-solid fa-chevron-down account-chip-caret"></i>
+          </button>
+          <div class="account-menu" id="account-menu">
+            <div class="account-menu-header">
+              <img id="account-menu-avatar" class="account-menu-avatar" src="" alt="" />
+              <div>
+                <div id="account-menu-name" class="account-menu-name"></div>
+                <div id="account-menu-email" class="account-menu-email"></div>
+              </div>
+            </div>
+            <a
+              href="admin.html"
+              class="account-admin-link"
+              id="account-admin-link"
+              style="display: none"
+            >
+              <i class="fa-solid fa-gauge-high"></i> Masuk ke Admin Panel
+            </a>
+            <button class="account-logout-btn" id="account-logout-btn" type="button">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+            </button>
+          </div>
+        </div>
+
+        <button
+          class="hamburger-menu"
+          id="hamburger-btn"
+          aria-label="Buka Menu Navigasi"
+        >
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <div class="articles-page-wrap" id="articles-page-wrap">
+      <!-- Diisi otomatis lewat JS: daftar artikel atau detail satu artikel -->
+      <div class="articles-loading" id="articles-loading">Memuat artikel...</div>
+    </div>
+
+    <footer
+      class="premium-modern-footer"
+      style="
+        background: #0f172a;
+        padding: 50px 20px 34px 20px;
+        color: #ffffff;
+        border-top: 4px solid #ef4444;
+        margin-top: 40px;
+      "
+    >
+      <div
+        style="
+          max-width: 1100px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 18px;
+          text-align: center;
+        "
+      >
+        <img
+          src="Logobekisting.png"
+          alt="Logo PT. Bekisting Indonesia"
+          loading="lazy"
+          style="max-height: 40px; width: fit-content; filter: brightness(0) invert(1);"
+        />
+        <div class="footer-social-wrapper" style="display: flex; gap: 12px;">
+          <a href="https://www.facebook.com/pt.tanggamasjayamakmur" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/scaffoldingtanggamas" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://wa.me/628123651818" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.tiktok.com/@tanggamasjayamakmur" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+        <a
+          href="Bekisting.html"
+          style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+          "
+        >
+          <i class="fa-solid fa-house-chimney" style="color: #ef4444"></i>
+          Kembali ke Halaman Utama
+        </a>
+      </div>
+    </footer>
+
+    <script>
+      "use strict";
+      const APPS_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbzep8HXkqiIDlecUEQj8piJCpz1bMH9yxkCLYRXGEkjsRW4U0Jn2q75lbtFKK9W-TY/exec";
+      const PLACEHOLDER_IMG =
+        "data:image/svg+xml;utf8," +
+        encodeURIComponent(
+          `<svg xmlns='http://www.w3.org/2000/svg' width='400' height='225'><rect width='400' height='225' fill='%23f1f5f9'/><text x='50%' y='50%' font-size='14' fill='%2394a3b8' text-anchor='middle' dy='.3em'>Bekisting Indonesia</text></svg>`,
+        );
+
+      // ===== Menu mobile (hamburger) =====
+      const navLinks = document.getElementById("nav-links");
+      const hamburgerBtn = document.getElementById("hamburger-btn");
+      const navDrawerClose = document.getElementById("nav-drawer-close");
+      const navDrawerOverlay = document.getElementById("nav-drawer-overlay");
+      function openDrawer() {
+        navLinks.classList.add("open");
+        navDrawerOverlay.classList.add("open");
+      }
+      function closeDrawer() {
+        navLinks.classList.remove("open");
+        navDrawerOverlay.classList.remove("open");
+      }
+      if (hamburgerBtn) hamburgerBtn.addEventListener("click", openDrawer);
+      if (navDrawerClose) navDrawerClose.addEventListener("click", closeDrawer);
+      if (navDrawerOverlay) navDrawerOverlay.addEventListener("click", closeDrawer);
+
+      function escapeHtml(v) {
+        return String(v === undefined || v === null ? "" : v)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;");
+      }
+      function formatArticleDate(v) {
+        if (!v) return "";
+        const d = new Date(v);
+        if (isNaN(d.getTime())) return "";
+        return d.toLocaleDateString("id-ID", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        });
+      }
+
+      const wrap = document.getElementById("articles-page-wrap");
+
+      function renderArticleList(articles) {
+        if (articles.length === 0) {
+          wrap.innerHTML = `
+            <div class="articles-page-header">
+              <h1>Artikel</h1>
+              <p>Wawasan seputar material bekisting, formwork, dan scaffolding.</p>
+            </div>
+            <div class="articles-empty">Belum ada artikel yang diterbitkan.</div>
+          `;
+          return;
+        }
+        wrap.innerHTML = `
+          <div class="articles-page-header">
+            <h1>Artikel</h1>
+            <p>Wawasan seputar material bekisting, formwork, dan scaffolding.</p>
+          </div>
+          <div class="article-grid">
+            ${articles
+              .map(
+                (a) => `
+                  <a class="article-card" href="artikel.html?slug=${encodeURIComponent(a.Slug || "")}">
+                    <img src="${a.CoverImage || PLACEHOLDER_IMG}" alt="${escapeHtml(a.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                    <div class="article-card-body">
+                      <div class="article-card-date">${formatArticleDate(a.UpdatedAt || a.CreatedAt)}</div>
+                      <h3 class="article-card-title">${escapeHtml(a.Title)}</h3>
+                      <p class="article-card-summary">${escapeHtml(a.Summary)}</p>
+                    </div>
+                  </a>
+                `,
+              )
+              .join("")}
+          </div>
+        `;
+      }
+
+      function renderArticleDetail(article) {
+        wrap.innerHTML = `
+          <a href="artikel.html" class="article-detail-back">
+            <i class="fa-solid fa-arrow-left"></i> Kembali ke Semua Artikel
+          </a>
+          <img class="article-detail-cover" src="${article.CoverImage || PLACEHOLDER_IMG}" alt="${escapeHtml(article.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+          <div class="article-detail-date">${formatArticleDate(article.UpdatedAt || article.CreatedAt)}</div>
+          <h1 class="article-detail-title">${escapeHtml(article.Title)}</h1>
+          <div class="article-detail-content">${escapeHtml(article.Content)}</div>
+        `;
+      }
+
+      async function loadArticlesPage() {
+        if (!APPS_SCRIPT_URL) {
+          wrap.innerHTML = `<div class="articles-empty">Halaman artikel belum tersambung ke server.</div>`;
+          return;
+        }
+        try {
+          const res = await fetch(`${APPS_SCRIPT_URL}?action=getPublishedArticles`);
+          const json = await res.json();
+          if (!json.ok) throw new Error(json.error || "Gagal memuat");
+          const articles = json.data || [];
+          const params = new URLSearchParams(window.location.search);
+          const slug = params.get("slug");
+          if (slug) {
+            const found = articles.find((a) => a.Slug === slug);
+            if (found) {
+              renderArticleDetail(found);
+            } else {
+              wrap.innerHTML = `<div class="articles-empty">Artikel tidak ditemukan. <a href="artikel.html">Kembali ke daftar artikel</a>.</div>`;
+            }
+          } else {
+            renderArticleList(articles);
+          }
+        } catch (err) {
+          wrap.innerHTML = `<div class="articles-empty">Gagal memuat artikel: ${escapeHtml(err.message)}</div>`;
+        }
+      }
+
+      loadArticlesPage();
+    </script>
+  </body>
+</html>
