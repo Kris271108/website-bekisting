@@ -1,37 +1,42 @@
 "use strict";
 /**
  * data-loader.js
- * Menandai kesiapan data produk (window.PRODUCT_DATA), dengan DUA sumber:
+ * Menandai kesiapan data produk (window.PRODUCT_DATA), dengan TIGA sumber,
+ * dicoba berurutan:
  *
  * 1. products.js (dimuat lewat tag <script> biasa di <head>) — SELALU jadi
  *    data awal/cadangan, supaya situs tetap berfungsi walau dibuka langsung
  *    dari file explorer (dobel-klik / file://) atau kalau Google Sheets
  *    sedang tidak bisa diakses.
  *
- * 2. Google Sheets (opsional) — kalau SHEET_CSV_URL di bawah diisi, situs
- *    akan coba ambil data terbaru (terutama STOK & HARGA) dari situ saat
- *    dibuka. Kalau berhasil, data dari Sheets MENGGANTIKAN data dari
- *    products.js. Kalau gagal (offline, link salah, dibuka lewat file://),
- *    situs otomatis tetap pakai data dari products.js — tidak pernah error
- *    total ke pengunjung.
+ * 2. Google Apps Script (window.APPS_SCRIPT_ORDER_URL di bawah) — sumber
+ *    UTAMA kalau sudah diisi. Ini endpoint yang sama dipakai dashboard
+ *    admin, jadi produk yang ditambah/diubah lewat admin.html otomatis
+ *    ikut muncul di situs. Produk dari products.js yang belum pernah
+ *    disimpan ke Dashboard tetap ditampilkan juga (digabung), supaya
+ *    tidak ada produk yang hilang selama proses migrasi bertahap.
  *
- * CARA ISI SHEET_CSV_URL:
- * 1. Buat Google Sheet, isi kolom: ProductName, Category, Description,
- *    Material, Standar, VariantName, SKU, Price, Stock, ImageFileName,
- *    WeightKg (satu baris = satu varian produk).
- * 2. File > Share > Publish to web > pilih sheet-nya > format CSV > Publish.
- * 3. Copy link yang muncul, paste di bawah ini (ganti string kosong "").
+ * 3. Google Sheets CSV (SHEET_CSV_URL, opsional/lama) — cadangan kalau
+ *    APPS_SCRIPT_ORDER_URL belum diisi tapi Sheet sudah di-"Publish to
+ *    web" sebagai CSV.
+ *
+ * Kalau semua sumber gagal (offline, dibuka lewat file://, dsb), situs
+ * otomatis tetap pakai data dari products.js — tidak pernah error total
+ * ke pengunjung.
  */
 const SHEET_CSV_URL = "";
 
 /**
  * APPS_SCRIPT_ORDER_URL — link Web App Google Apps Script yang sama
  * dipakai di admin.html (lihat backend-apps-script/PANDUAN-SETUP.md).
- * Kalau diisi, setiap kali pengunjung checkout (Tambah Keranjang -> WA,
- * atau Pesan Langsung), datanya juga otomatis dikirim & tercatat di
- * Google Sheet ("Orders") supaya bisa dilihat di dashboard admin.
- * Kalau dikosongkan, checkout tetap jalan normal via WA seperti biasa,
- * cuma tidak tercatat di dashboard.
+ * Dipakai untuk DUA hal:
+ * 1. Mengambil data produk terbaru (harga, stok, produk baru) supaya
+ *    situs selalu sinkron dengan yang diubah/ditambah lewat dashboard.
+ * 2. Mencatat pesanan (Tambah Keranjang -> WA, atau Pesan Langsung) ke
+ *    Google Sheet ("Orders") supaya bisa dilihat di dashboard admin.
+ * Kalau dikosongkan, situs tetap pakai data dari products.js dan
+ * checkout tetap jalan normal via WA seperti biasa, cuma tidak
+ * tersinkron/tercatat ke dashboard.
  */
 window.APPS_SCRIPT_ORDER_URL =
   "https://script.google.com/macros/s/AKfycbzep8HXkqiIDlecUEQj8piJCpz1bMH9yxkCLYRXGEkjsRW4U0Jn2q75lbtFKK9W-TY/exec";
@@ -61,6 +66,48 @@ if (window.productsLoadFailed) {
 
 function announceProductsReady() {
   document.dispatchEvent(new Event("products-ready"));
+}
+
+// Ubah baris-baris flat dari Google Sheets (satu baris = satu varian) jadi
+// struktur PRODUCT_DATA yang dikelompokkan per nama produk, sama seperti
+// format products.js.
+function groupSheetRowsToProducts(rows) {
+  const productMap = new Map();
+  rows.forEach((r) => {
+    const name = (r.ProductName || "").trim();
+    if (!name) return;
+    if (!productMap.has(name)) {
+      productMap.set(name, {
+        name,
+        category: (r.Category || "").trim(),
+        desc: (r.Description || "").trim(),
+        material: (r.Material || "").trim(),
+        standar: (r.Standar || "").trim(),
+        variants: [],
+      });
+    }
+    productMap.get(name).variants.push({
+      name: (r.VariantName || name).trim(),
+      sku: (r.SKU || "").trim(),
+      price: r.Price ? parseFloat(r.Price) || null : null,
+      stock: r.Stock ? parseInt(r.Stock, 10) || 0 : 0,
+      img: (r.ImageFileName || "").trim(),
+      weightKg: r.WeightKg ? parseFloat(r.WeightKg) || 0 : 0,
+    });
+  });
+  return Array.from(productMap.values()).filter((p) => p.variants.length > 0);
+}
+
+// Gabungkan produk dari Google Sheets (sumber utama & terbaru) dengan
+// produk bawaan products.js yang namanya belum ada di Sheets, supaya
+// produk lama yang belum "diimpor" lewat dashboard tetap tampil.
+function mergeBundledWithSheetProducts(bundled, sheetProducts) {
+  const norm = (s) => String(s || "").trim().toLowerCase();
+  const sheetNames = new Set(sheetProducts.map((p) => norm(p.name)));
+  const onlyBundled = (bundled || []).filter(
+    (p) => !sheetNames.has(norm(p.name)),
+  );
+  return sheetProducts.concat(onlyBundled);
 }
 
 // Parser CSV sederhana yang tahan koma/kutip di dalam teks (misal deskripsi produk)
@@ -158,9 +205,9 @@ function buildProductsFromCsvRows(rows) {
   return result.length > 0 ? result : null;
 }
 
-function loadFromSheetThenReady() {
+// Sumber 3 (cadangan lama): Google Sheets yang di-"Publish to web" sbg CSV.
+function loadFromSheetCsvThenReady() {
   if (!SHEET_CSV_URL) {
-    // Belum diisi -> langsung pakai data dari products.js, tanpa fetch sama sekali.
     announceProductsReady();
     return;
   }
@@ -178,9 +225,12 @@ function loadFromSheetThenReady() {
       const rows = parseCsvText(csvText);
       const parsed = buildProductsFromCsvRows(rows);
       if (parsed) {
-        window.PRODUCT_DATA = parsed;
+        window.PRODUCT_DATA = mergeBundledWithSheetProducts(
+          window.PRODUCT_DATA,
+          parsed,
+        );
         console.log(
-          `Data produk dimuat dari Google Sheets (${parsed.length} produk).`,
+          `Data produk dimuat dari Google Sheets CSV (${parsed.length} produk).`,
         );
       } else {
         console.warn(
@@ -191,7 +241,7 @@ function loadFromSheetThenReady() {
     .catch((err) => {
       clearTimeout(timeoutId);
       console.warn(
-        "Tidak bisa memuat Google Sheets, tetap pakai products.js sebagai cadangan.",
+        "Tidak bisa memuat Google Sheets CSV, tetap pakai products.js sebagai cadangan.",
         err,
       );
     })
@@ -200,8 +250,62 @@ function loadFromSheetThenReady() {
     });
 }
 
+// Sumber 2 (utama): Google Apps Script — endpoint yang sama dipakai
+// dashboard admin, supaya situs selalu sinkron dengan data terbaru.
+function loadFromAppsScriptThenReady() {
+  const url = window.APPS_SCRIPT_ORDER_URL;
+  if (!url) {
+    loadFromSheetCsvThenReady();
+    return;
+  }
+
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 6000);
+
+  fetch(`${url}?action=getProducts`, { signal: controller.signal })
+    .then((res) => {
+      if (!res.ok) throw new Error("Gagal mengambil data produk: " + res.status);
+      return res.json();
+    })
+    .then((json) => {
+      clearTimeout(timeoutId);
+      if (json && json.ok && Array.isArray(json.data) && json.data.length > 0) {
+        const sheetProducts = groupSheetRowsToProducts(json.data);
+        window.PRODUCT_DATA = mergeBundledWithSheetProducts(
+          window.PRODUCT_DATA,
+          sheetProducts,
+        );
+        console.log(
+          `Data produk disinkronkan dari Dashboard (${sheetProducts.length} produk tersinkron).`,
+        );
+      } else {
+        console.warn(
+          "Dashboard belum punya data produk — tetap pakai products.js.",
+        );
+      }
+    })
+    .catch((err) => {
+      clearTimeout(timeoutId);
+      console.warn(
+        "Tidak bisa memuat data dari Dashboard, tetap pakai products.js sebagai cadangan.",
+        err,
+      );
+    })
+    .finally(() => {
+      announceProductsReady();
+    });
+}
+
+function loadProductsThenReady() {
+  if (window.APPS_SCRIPT_ORDER_URL) {
+    loadFromAppsScriptThenReady();
+  } else {
+    loadFromSheetCsvThenReady();
+  }
+}
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", loadFromSheetThenReady);
+  document.addEventListener("DOMContentLoaded", loadProductsThenReady);
 } else {
-  loadFromSheetThenReady();
+  loadProductsThenReady();
 }
