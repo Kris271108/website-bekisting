@@ -59,79 +59,190 @@
         color: var(--color-dark);
       }
 
-      header {
-        background: linear-gradient(135deg, var(--color-dark) 0%, #1e293b 100%);
-        color: #fff;
-        padding: 20px 24px;
+      /* ===== Shell: sidebar + topbar (ala Shopee Seller Center) ===== */
+      .admin-shell {
+        display: flex;
+        min-height: 100vh;
       }
-      .header-top {
+      .sidebar {
+        width: 232px;
+        flex-shrink: 0;
+        background: #fff;
+        border-right: 1px solid var(--color-border);
+        display: flex;
+        flex-direction: column;
+        position: sticky;
+        top: 0;
+        height: 100vh;
+      }
+      .sidebar-logo {
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        max-width: 1180px;
-        margin: 0 auto;
+        gap: 10px;
+        padding: 20px 18px;
+        border-bottom: 1px solid var(--color-border-light);
       }
-      .header-brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .header-brand .logo-badge {
-        width: 42px;
-        height: 42px;
-        border-radius: 12px;
+      .sidebar-logo .logo-badge {
+        width: 36px;
+        height: 36px;
+        border-radius: 9px;
         background: var(--color-accent);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 15px;
+        color: #fff;
+        flex-shrink: 0;
       }
-      header h1 {
+      .sidebar-logo h1 {
         margin: 0;
-        font-size: 17px;
+        font-size: 13.5px;
+        font-weight: 800;
+        color: var(--color-dark);
+      }
+      .sidebar-logo p {
+        margin: 1px 0 0 0;
+        font-size: 10.5px;
+        color: var(--color-text-muted);
+      }
+      .sidebar-nav {
+        flex: 1;
+        overflow-y: auto;
+        padding: 12px 10px;
+      }
+      .sidebar-section-label {
+        font-size: 10px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--color-text-light);
+        padding: 10px 10px 6px 10px;
+      }
+      .tab-btn {
+        width: 100%;
+        padding: 11px 12px;
+        border-radius: 10px;
+        border: none;
+        background: transparent;
+        color: #475569;
+        font-family: inherit;
         font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        transition: all 0.15s ease;
+        text-align: left;
+        margin-bottom: 2px;
       }
-      header p {
-        margin: 2px 0 0 0;
-        font-size: 12px;
-        color: #94a3b8;
+      .tab-btn i {
+        width: 16px;
+        text-align: center;
+        font-size: 14px;
+        color: var(--color-text-light);
       }
+      .tab-btn:hover {
+        background: var(--color-bg-soft);
+      }
+      .tab-btn.active {
+        background: #fff2ee;
+        color: var(--color-accent-dark);
+      }
+      .tab-btn.active i {
+        color: var(--color-accent);
+      }
+      .sidebar-footer {
+        padding: 14px 14px 18px 14px;
+        border-top: 1px solid var(--color-border-light);
+      }
+      .sidebar-footer .admin-identity {
+        margin-bottom: 10px;
+      }
+      .sidebar-footer .back-to-site {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 6px;
+      }
+
+      .main-area {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 16px 26px;
+        background: #fff;
+        border-bottom: 1px solid var(--color-border);
+        position: sticky;
+        top: 0;
+        z-index: 20;
+      }
+      .topbar h2 {
+        margin: 0;
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--color-dark);
+      }
+      .topbar .breadcrumb {
+        font-size: 11.5px;
+        color: var(--color-text-muted);
+        margin-top: 2px;
+      }
+      .mobile-menu-btn {
+        display: none;
+        background: var(--color-bg-soft);
+        border: none;
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        font-size: 15px;
+        color: var(--color-dark);
+        cursor: pointer;
+      }
+
       .header-actions {
         display: flex;
         align-items: center;
         gap: 10px;
       }
       .back-to-site {
-        color: #cbd5e1;
+        color: #475569;
         text-decoration: none;
         font-size: 12.5px;
-        font-weight: 600;
+        font-weight: 700;
         display: flex;
         align-items: center;
         gap: 6px;
-        background: rgba(255, 255, 255, 0.08);
+        background: var(--color-bg-soft);
         border: none;
         padding: 9px 15px;
-        border-radius: 30px;
+        border-radius: 9px;
         cursor: pointer;
         font-family: inherit;
       }
       .back-to-site:hover {
-        background: rgba(255, 255, 255, 0.16);
+        background: var(--color-border);
       }
       .admin-identity {
         display: flex;
         align-items: center;
         gap: 8px;
-        color: #cbd5e1;
+        color: var(--color-dark);
         font-size: 12.5px;
+        font-weight: 700;
       }
       .admin-identity img {
-        width: 28px;
-        height: 28px;
+        width: 30px;
+        height: 30px;
         border-radius: 50%;
         object-fit: cover;
-        background: #334155;
+        background: var(--color-bg-soft);
+        flex-shrink: 0;
       }
 
       .setup-banner {
@@ -147,43 +258,12 @@
       }
 
       main {
-        max-width: 1180px;
+        padding: 22px 26px 60px 26px;
+        max-width: 1300px;
+        width: 100%;
         margin: 0 auto;
-        padding: 24px 24px 60px 24px;
       }
 
-      .tabs {
-        display: flex;
-        gap: 6px;
-        margin-bottom: 18px;
-        background: var(--color-card);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
-        border: 1px solid var(--color-border);
-        border-radius: 30px;
-        padding: 5px;
-        width: fit-content;
-      }
-      .tab-btn {
-        padding: 9px 18px;
-        border-radius: 24px;
-        border: none;
-        background: transparent;
-        color: var(--color-text-muted);
-        font-family: inherit;
-        font-weight: 700;
-        font-size: 12.5px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 7px;
-        transition: all 0.15s ease;
-      }
-      .tab-btn.active {
-        background: var(--color-accent);
-        color: #fff;
-        box-shadow: 0 6px 14px -4px rgba(239, 68, 68, 0.5);
-      }
       .panel {
         display: none;
       }
@@ -191,12 +271,10 @@
         display: block;
       }
       .glass-card {
-        background: var(--color-card);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        background: #fff;
         border: 1px solid var(--color-border);
-        border-radius: 20px;
-        box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.12);
+        border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
       }
       .panel-toolbar {
         display: flex;
@@ -213,7 +291,7 @@
 
       .btn {
         padding: 10px 18px;
-        border-radius: 30px;
+        border-radius: 8px;
         border: none;
         font-family: inherit;
         font-size: 12.5px;
@@ -395,7 +473,7 @@
         width: 100%;
         padding: 10px 14px 10px 34px;
         border: 1px solid var(--color-border);
-        border-radius: 30px;
+        border-radius: 8px;
         font-size: 12.5px;
         font-family: inherit;
         background: #fff;
@@ -423,77 +501,104 @@
         min-width: 200px;
       }
 
-      .product-list {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+      .shopee-table-wrap {
+        overflow-x: auto;
       }
-      .product-row {
+      table.shopee-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      table.shopee-table thead th {
+        text-align: left;
+        padding: 11px 14px;
+        background: var(--color-bg-soft);
+        color: var(--color-text-muted);
+        font-size: 10.5px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 1px solid var(--color-border);
+        white-space: nowrap;
+      }
+      table.shopee-table tbody tr {
+        border-bottom: 1px solid var(--color-border-light);
+        cursor: pointer;
+        transition: background 0.12s ease;
+      }
+      table.shopee-table tbody tr:hover {
+        background: #fff8f6;
+      }
+      table.shopee-table td {
+        padding: 10px 14px;
+        vertical-align: middle;
+      }
+      .cell-product {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 10px 14px;
-        background: #fff;
-        border: 1px solid var(--color-border);
-        border-radius: 14px;
-        cursor: pointer;
-        transition: all 0.15s ease;
+        gap: 10px;
       }
-      .product-row:hover {
-        border-color: var(--color-accent);
-        box-shadow: 0 6px 16px -8px rgba(239, 68, 68, 0.3);
-        transform: translateY(-1px);
-      }
-      .product-row img {
-        width: 44px;
-        height: 44px;
+      .cell-product img {
+        width: 42px;
+        height: 42px;
         object-fit: contain;
         background: var(--color-bg-soft);
-        border-radius: 10px;
+        border-radius: 8px;
         flex-shrink: 0;
       }
-      .pr-info {
-        flex: 1;
-        min-width: 0;
-      }
-      .pr-name {
-        font-size: 13.5px;
+      .cell-product-name {
+        font-size: 13px;
         font-weight: 700;
+        color: var(--color-dark);
       }
-      .pr-name .pr-variant {
-        font-weight: 500;
+      .cell-product-variant {
+        font-size: 11.5px;
         color: var(--color-text-muted);
-        font-size: 12px;
       }
-      .pr-meta {
-        display: flex;
-        gap: 6px;
-        margin-top: 4px;
-        flex-wrap: wrap;
+      .cell-price {
+        font-weight: 800;
+        color: var(--color-dark);
+        white-space: nowrap;
+      }
+      .action-icon-btn {
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        background: #fff;
+        color: var(--color-text-muted);
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        margin-right: 6px;
+        transition: all 0.15s ease;
+      }
+      .action-icon-btn:hover {
+        border-color: var(--color-accent);
+        color: var(--color-accent);
+        background: #fff2ee;
+      }
+      .action-icon-btn.danger:hover {
+        border-color: #b91c1c;
+        color: #b91c1c;
+        background: var(--color-danger-bg);
       }
       .pr-tag {
         font-size: 10px;
         font-weight: 700;
         padding: 2px 8px;
-        border-radius: 20px;
+        border-radius: 6px;
         background: var(--color-bg-soft);
         color: var(--color-text-muted);
-      }
-      .pr-price {
-        font-size: 13px;
-        font-weight: 800;
-        color: var(--color-dark);
         white-space: nowrap;
-      }
-      .pr-arrow {
-        color: var(--color-text-light);
-        font-size: 13px;
       }
       .stock-tag {
         font-size: 10px;
         font-weight: 700;
         padding: 2px 8px;
-        border-radius: 20px;
+        border-radius: 6px;
       }
       .stock-tag.out {
         background: var(--color-danger-bg);
@@ -511,7 +616,7 @@
         font-size: 10px;
         font-weight: 700;
         padding: 2px 8px;
-        border-radius: 20px;
+        border-radius: 6px;
         background: var(--color-purple-bg);
         color: var(--color-purple);
       }
@@ -519,7 +624,7 @@
         font-size: 10px;
         font-weight: 700;
         padding: 2px 8px;
-        border-radius: 20px;
+        border-radius: 6px;
         background: var(--color-warning-bg);
         color: var(--color-warning);
       }
@@ -527,7 +632,7 @@
         font-size: 10px;
         font-weight: 700;
         padding: 2px 8px;
-        border-radius: 20px;
+        border-radius: 6px;
       }
       .status-tag.published {
         background: var(--color-success-bg);
@@ -681,7 +786,7 @@
         font-size: 10.5px;
         font-weight: 700;
         padding: 3px 10px;
-        border-radius: 20px;
+        border-radius: 6px;
       }
       .order-badge.instant {
         background: var(--color-danger-bg);
@@ -826,21 +931,61 @@
       }
 
       /* ===== Mobile ===== */
-      @media (max-width: 720px) {
-        header {
-          padding: 16px 16px;
+      @media (max-width: 900px) {
+        .admin-shell {
+          flex-direction: column;
         }
-        .header-top {
-          flex-wrap: wrap;
-          gap: 10px;
+        .sidebar {
+          width: 100%;
+          height: auto;
+          position: sticky;
+          top: 0;
+          z-index: 30;
+          flex-direction: row;
+          align-items: center;
+          border-right: none;
+          border-bottom: 1px solid var(--color-border);
         }
-        .header-brand .logo-badge {
-          width: 36px;
-          height: 36px;
-          font-size: 15px;
+        .sidebar-logo {
+          padding: 10px 12px;
+          border-bottom: none;
+          border-right: 1px solid var(--color-border-light);
+          flex-shrink: 0;
         }
-        header h1 {
-          font-size: 14.5px;
+        .sidebar-logo p {
+          display: none;
+        }
+        .sidebar-nav {
+          flex: 1;
+          display: flex;
+          flex-direction: row;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          padding: 8px;
+        }
+        .sidebar-section-label {
+          display: none;
+        }
+        .tab-btn {
+          width: auto;
+          flex-shrink: 0;
+          white-space: nowrap;
+          margin-bottom: 0;
+          margin-right: 4px;
+          padding: 8px 12px;
+          font-size: 11.5px;
+        }
+        .sidebar-footer {
+          display: none;
+        }
+        .topbar {
+          padding: 12px 14px;
+        }
+        .topbar h2 {
+          font-size: 14px;
+        }
+        .topbar .breadcrumb {
+          display: none;
         }
         .header-actions {
           gap: 6px;
@@ -857,19 +1002,9 @@
         main {
           padding: 16px 12px 40px 12px;
         }
-        .tabs {
-          width: 100%;
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-        }
-        .tab-btn {
-          flex-shrink: 0;
-          padding: 9px 13px;
-          font-size: 11.5px;
-        }
         .glass-card,
         .data-table-wrap {
-          border-radius: 16px;
+          border-radius: 12px;
         }
         [style*="padding: 20px"] {
           padding: 14px !important;
@@ -902,23 +1037,23 @@
         table.data-table td {
           padding: 7px 6px;
         }
+        table.shopee-table {
+          font-size: 11.5px;
+        }
+        table.shopee-table th,
+        table.shopee-table td {
+          padding: 8px 8px;
+        }
+        .cell-product img {
+          width: 34px;
+          height: 34px;
+        }
         .panel-toolbar {
           flex-direction: column;
           align-items: stretch;
         }
         .search-bar {
           max-width: none;
-        }
-        .product-row {
-          flex-wrap: wrap;
-          gap: 8px;
-        }
-        .product-row img {
-          width: 38px;
-          height: 38px;
-        }
-        .pr-price {
-          font-size: 12px;
         }
         .edit-layout {
           gap: 16px;
@@ -947,51 +1082,58 @@
       </div>
     </div>
 
-    <header>
-      <div class="header-top">
-        <div class="header-brand">
+    <div class="admin-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
           <div class="logo-badge"><i class="fa-solid fa-gauge-high"></i></div>
           <div>
             <h1>Dashboard Admin</h1>
             <p>Bekisting Indonesia</p>
           </div>
         </div>
-        <div class="header-actions">
-          <div class="admin-identity" id="admin-identity"></div>
-          <a href="Bekisting.html" class="back-to-site">
-            <i class="fa-solid fa-arrow-left"></i> Ke Situs
-          </a>
-          <button class="back-to-site logout-link" id="admin-logout-btn" type="button">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+        <nav class="sidebar-nav">
+          <div class="sidebar-section-label">Menu</div>
+          <button class="tab-btn active" data-tab="home">
+            <i class="fa-solid fa-chart-line"></i> Beranda
           </button>
+          <button class="tab-btn" data-tab="products">
+            <i class="fa-solid fa-boxes-stacked"></i> Inventaris
+          </button>
+          <button class="tab-btn" data-tab="orders">
+            <i class="fa-solid fa-receipt"></i> Pesanan Masuk
+          </button>
+          <button class="tab-btn" data-tab="articles">
+            <i class="fa-solid fa-newspaper"></i> Artikel
+          </button>
+        </nav>
+      </aside>
+
+      <div class="main-area">
+        <div class="topbar">
+          <div>
+            <h2 id="topbar-title">Beranda</h2>
+            <div class="breadcrumb">Dashboard Admin / Beranda</div>
+          </div>
+          <div class="header-actions">
+            <div class="admin-identity" id="admin-identity"></div>
+            <a href="Bekisting.html" class="back-to-site">
+              <i class="fa-solid fa-arrow-left"></i> Ke Situs
+            </a>
+            <button class="back-to-site logout-link" id="admin-logout-btn" type="button">
+              <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
+            </button>
+          </div>
         </div>
-      </div>
-    </header>
 
-    <div id="setup-banner" class="setup-banner">
-      <strong>Belum tersambung ke Google Sheets.</strong> Produk di bawah ini
-      untuk sementara ditampilkan dari katalog situs (products.js) dan belum
-      bisa disimpan permanen. Isi <code>APPS_SCRIPT_URL</code> di bagian
-      bawah file ini dengan link Web App dari Google Apps Script kamu, lihat
-      PANDUAN-SETUP.md.
-    </div>
+        <div id="setup-banner" class="setup-banner">
+          <strong>Belum tersambung ke Google Sheets.</strong> Produk di bawah ini
+          untuk sementara ditampilkan dari katalog situs (products.js) dan belum
+          bisa disimpan permanen. Isi <code>APPS_SCRIPT_URL</code> di bagian
+          bawah file ini dengan link Web App dari Google Apps Script kamu, lihat
+          PANDUAN-SETUP.md.
+        </div>
 
-    <main>
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="home">
-          <i class="fa-solid fa-chart-line"></i> Beranda
-        </button>
-        <button class="tab-btn" data-tab="products">
-          <i class="fa-solid fa-boxes-stacked"></i> Inventaris
-        </button>
-        <button class="tab-btn" data-tab="orders">
-          <i class="fa-solid fa-receipt"></i> Pesanan Masuk
-        </button>
-        <button class="tab-btn" data-tab="articles">
-          <i class="fa-solid fa-newspaper"></i> Artikel
-        </button>
-      </div>
-
+        <main>
       <!-- ===== BERANDA ===== -->
       <section id="panel-home" class="panel active">
         <div class="kpi-strip glass-card" id="kpi-strip"></div>
@@ -1065,7 +1207,22 @@
                 <i class="fa-solid fa-cloud-arrow-up"></i> Impor Semua ke Dashboard
               </button>
             </div>
-            <div class="product-list" id="product-grid"></div>
+            <div class="shopee-table-wrap">
+              <table class="shopee-table">
+                <thead>
+                  <tr>
+                    <th>Produk</th>
+                    <th>Kategori</th>
+                    <th>Harga</th>
+                    <th>Stok</th>
+                    <th>Terjual</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="product-grid"></tbody>
+              </table>
+            </div>
             <div id="product-loading" class="loading-state">Memuat data produk...</div>
             <div id="product-empty" class="empty-state" style="display: none"></div>
           </div>
@@ -1083,7 +1240,21 @@
               <i class="fa-solid fa-rotate"></i> Muat Ulang
             </button>
           </div>
-          <div id="orders-list"></div>
+          <div class="shopee-table-wrap">
+            <table class="shopee-table">
+              <thead>
+                <tr>
+                  <th>Tanggal</th>
+                  <th>Pembeli</th>
+                  <th>Produk</th>
+                  <th>Jumlah</th>
+                  <th>Tipe</th>
+                  <th>Kontak</th>
+                </tr>
+              </thead>
+              <tbody id="orders-list"></tbody>
+            </table>
+          </div>
           <div id="orders-loading" class="loading-state">Memuat data pesanan...</div>
           <div id="orders-empty" class="empty-state" style="display: none">
             Belum ada pesanan yang tercatat.
@@ -1105,7 +1276,19 @@
                 <i class="fa-solid fa-plus"></i> Tulis Artikel Baru
               </button>
             </div>
-            <div class="product-list" id="article-grid"></div>
+            <div class="shopee-table-wrap">
+              <table class="shopee-table">
+                <thead>
+                  <tr>
+                    <th>Artikel</th>
+                    <th>Status</th>
+                    <th>Diperbarui</th>
+                    <th>Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="article-grid"></tbody>
+              </table>
+            </div>
             <div id="article-loading" class="loading-state">Memuat data artikel...</div>
             <div id="article-empty" class="empty-state" style="display: none"></div>
           </div>
@@ -1114,6 +1297,8 @@
         </div>
       </section>
     </main>
+      </div>
+    </div>
 
     <div id="toast-container"></div>
 
@@ -1190,6 +1375,13 @@
         }
       }
 
+      const TAB_LABELS = {
+        home: "Beranda",
+        products: "Inventaris",
+        orders: "Pesanan Masuk",
+        articles: "Artikel",
+      };
+
       document.querySelectorAll(".tab-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           document
@@ -1202,6 +1394,10 @@
           document
             .getElementById("panel-" + btn.dataset.tab)
             .classList.add("active");
+          const label = TAB_LABELS[btn.dataset.tab] || "";
+          document.getElementById("topbar-title").textContent = label;
+          document.querySelector(".breadcrumb").textContent =
+            "Dashboard Admin / " + label;
         });
       });
 
@@ -1526,20 +1722,27 @@
         const imgSrc = row.ImageFileName ? row.ImageFileName : PLACEHOLDER_IMG;
         const isLocal = row._row === null || row._row === undefined;
         return `
-          <div class="product-row" data-idx="${idx}">
-            <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.ProductName)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
-            <div class="pr-info">
-              <div class="pr-name">${escapeAttr(row.ProductName)} <span class="pr-variant">${escapeAttr(row.VariantName)}</span></div>
-              <div class="pr-meta">
-                ${row.Category ? `<span class="pr-tag">${escapeAttr(row.Category)}</span>` : ""}
-                ${stockTagHtml(row.Stock)}
-                ${soldQty > 0 ? `<span class="sold-tag">${soldQty} Terjual</span>` : ""}
-                ${isLocal ? `<span class="local-tag">Belum Tersinkron</span>` : ""}
+          <tr data-idx="${idx}">
+            <td>
+              <div class="cell-product">
+                <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.ProductName)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                <div>
+                  <div class="cell-product-name">${escapeAttr(row.ProductName)}</div>
+                  <div class="cell-product-variant">${escapeAttr(row.VariantName)}</div>
+                  ${isLocal ? `<span class="local-tag">Belum Tersinkron</span>` : ""}
+                </div>
               </div>
-            </div>
-            <div class="pr-price">${row.Price ? formatRupiah(row.Price) : "Hubungi Sales"}</div>
-            <i class="fa-solid fa-chevron-right pr-arrow"></i>
-          </div>
+            </td>
+            <td>${row.Category ? `<span class="pr-tag">${escapeAttr(row.Category)}</span>` : "-"}</td>
+            <td class="cell-price">${row.Price ? formatRupiah(row.Price) : "Hubungi Sales"}</td>
+            <td>${row.Stock || 0}</td>
+            <td>${soldQty > 0 ? `<span class="sold-tag">${soldQty}</span>` : "-"}</td>
+            <td>${stockTagHtml(row.Stock)}</td>
+            <td>
+              <button class="action-icon-btn edit-row-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              ${!isLocal ? `<button class="action-icon-btn danger delete-row-btn" title="Hapus"><i class="fa-solid fa-trash"></i></button>` : ""}
+            </td>
+          </tr>
         `;
       }
 
@@ -1584,11 +1787,29 @@
             productListRowHtml(row, computeSoldForRow(row, allItems), idx),
           )
           .join("");
-        productGrid.querySelectorAll(".product-row").forEach((el) => {
-          el.addEventListener("click", () => {
-            const idx = parseInt(el.dataset.idx, 10);
-            showProductEdit(currentGridRows[idx], false);
-          });
+        productGrid.querySelectorAll("tr[data-idx]").forEach((el) => {
+          const idx = parseInt(el.dataset.idx, 10);
+          const openEdit = () => showProductEdit(currentGridRows[idx], false);
+          el.addEventListener("click", openEdit);
+          const editBtn = el.querySelector(".edit-row-btn");
+          if (editBtn) {
+            editBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              openEdit();
+            });
+          }
+          const deleteBtn = el.querySelector(".delete-row-btn");
+          if (deleteBtn) {
+            deleteBtn.addEventListener("click", async (e) => {
+              e.stopPropagation();
+              const row = currentGridRows[idx];
+              const res = await postAction("deleteProduct", { row: row._row });
+              if (res && res.ok) {
+                showToast("Varian dihapus.", "success");
+                loadProducts();
+              }
+            });
+          }
         });
         renderCatalogSyncNote();
       }
@@ -1882,17 +2103,20 @@
         const imgSrc = row.CoverImage ? row.CoverImage : PLACEHOLDER_IMG;
         const isPublished = row.Status === "Terbit";
         return `
-          <div class="product-row" data-idx="${idx}">
-            <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
-            <div class="pr-info">
-              <div class="pr-name">${escapeAttr(row.Title || "(Tanpa judul)")}</div>
-              <div class="pr-meta">
-                <span class="status-tag ${isPublished ? "published" : "draft"}">${isPublished ? "Terbit" : "Draft"}</span>
-                <span class="pr-tag">${formatArticleDate(row.UpdatedAt || row.CreatedAt)}</span>
+          <tr data-idx="${idx}">
+            <td>
+              <div class="cell-product">
+                <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
+                <div class="cell-product-name">${escapeAttr(row.Title || "(Tanpa judul)")}</div>
               </div>
-            </div>
-            <i class="fa-solid fa-chevron-right pr-arrow"></i>
-          </div>
+            </td>
+            <td><span class="status-tag ${isPublished ? "published" : "draft"}">${isPublished ? "Terbit" : "Draft"}</span></td>
+            <td>${formatArticleDate(row.UpdatedAt || row.CreatedAt)}</td>
+            <td>
+              <button class="action-icon-btn edit-row-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
+              <button class="action-icon-btn danger delete-row-btn" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
         `;
       }
 
@@ -1921,11 +2145,29 @@
         articleGrid.innerHTML = rows
           .map((row, idx) => articleListRowHtml(row, idx))
           .join("");
-        articleGrid.querySelectorAll(".product-row").forEach((el) => {
-          el.addEventListener("click", () => {
-            const idx = parseInt(el.dataset.idx, 10);
-            showArticleEdit(currentArticleRows[idx], false);
-          });
+        articleGrid.querySelectorAll("tr[data-idx]").forEach((el) => {
+          const idx = parseInt(el.dataset.idx, 10);
+          const openEdit = () => showArticleEdit(currentArticleRows[idx], false);
+          el.addEventListener("click", openEdit);
+          const editBtn = el.querySelector(".edit-row-btn");
+          if (editBtn) {
+            editBtn.addEventListener("click", (e) => {
+              e.stopPropagation();
+              openEdit();
+            });
+          }
+          const deleteBtn = el.querySelector(".delete-row-btn");
+          if (deleteBtn) {
+            deleteBtn.addEventListener("click", async (e) => {
+              e.stopPropagation();
+              const row = currentArticleRows[idx];
+              const res = await postAction("deleteArticle", { row: row._row });
+              if (res && res.ok) {
+                showToast("Artikel dihapus.", "success");
+                loadArticles();
+              }
+            });
+          }
         });
       }
 
@@ -2122,13 +2364,13 @@
         } catch (e) {
           items = [];
         }
-        const itemsHtml = items
+        const itemsText = items
           .map(
             (it) =>
-              `<li>${escapeAttr(it.name || "")}${it.variant ? " (" + escapeAttr(it.variant) + ")" : ""} x${it.qty || 0}</li>`,
+              `${escapeAttr(it.name || "")}${it.variant ? " (" + escapeAttr(it.variant) + ")" : ""} x${it.qty || 0}`,
           )
-          .join("");
-        const timeStr = o.Timestamp
+          .join(", ");
+        const dateStr = o.Timestamp
           ? new Date(o.Timestamp).toLocaleString("id-ID", {
               day: "2-digit",
               month: "short",
@@ -2138,15 +2380,17 @@
             })
           : "-";
         return `
-          <div class="order-card">
-            <div class="order-head">
-              <span class="order-name">${escapeAttr(o.CustomerName || "Tanpa Nama")}</span>
-              <span class="order-badge ${badgeClass}">${badgeLabel}</span>
-            </div>
-            <div class="order-time">${timeStr} · ${escapeAttr(o.Phone || "-")}</div>
-            <ul class="order-items-list">${itemsHtml || "<li>-</li>"}</ul>
-            <div style="font-size:12.5px; color:#64748b;">Alamat: ${escapeAttr(o.Address || "-")}</div>
-          </div>
+          <tr>
+            <td style="white-space:nowrap;">${dateStr}</td>
+            <td>
+              <div class="cell-product-name">${escapeAttr(o.CustomerName || "Tanpa Nama")}</div>
+              <div class="cell-product-variant">${escapeAttr(o.Address || "-")}</div>
+            </td>
+            <td style="max-width:280px;">${itemsText || "-"}</td>
+            <td>${o.TotalQty || 0}</td>
+            <td><span class="order-badge ${badgeClass}">${badgeLabel}</span></td>
+            <td style="white-space:nowrap;">${escapeAttr(o.Phone || "-")}</td>
+          </tr>
         `;
       }
 
