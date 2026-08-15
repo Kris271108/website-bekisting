@@ -102,6 +102,15 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
       }
+      .article-card-source {
+        font-size: 11px;
+        color: var(--color-accent);
+        font-weight: 700;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
       .articles-empty,
       .articles-loading {
         text-align: center;
@@ -153,6 +162,24 @@
         color: #334155;
         white-space: pre-line;
         max-width: 760px;
+      }
+      .article-source-backlink {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: 28px;
+        padding: 13px 22px;
+        background: #fff5f5;
+        border: 1px solid #fecaca;
+        border-radius: 14px;
+        color: var(--color-accent-dark);
+        font-weight: 700;
+        font-size: 13.5px;
+        text-decoration: none;
+        max-width: 760px;
+      }
+      .article-source-backlink:hover {
+        background: #fee2e2;
       }
 
       @media (max-width: 640px) {
@@ -337,6 +364,12 @@
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;");
       }
+      function escapeAttr(v) {
+        return String(v === undefined || v === null ? "" : v).replace(
+          /"/g,
+          "&quot;",
+        );
+      }
       function formatArticleDate(v) {
         if (!v) return "";
         const d = new Date(v);
@@ -376,6 +409,7 @@
                       <div class="article-card-date">${formatArticleDate(a.UpdatedAt || a.CreatedAt)}</div>
                       <h3 class="article-card-title">${escapeHtml(a.Title)}</h3>
                       <p class="article-card-summary">${escapeHtml(a.Summary)}</p>
+                      ${a.SourceName ? `<div class="article-card-source"><i class="fa-solid fa-link"></i> Sumber: ${escapeHtml(a.SourceName)}</div>` : ""}
                     </div>
                   </a>
                 `,
@@ -394,6 +428,16 @@
           <div class="article-detail-date">${formatArticleDate(article.UpdatedAt || article.CreatedAt)}</div>
           <h1 class="article-detail-title">${escapeHtml(article.Title)}</h1>
           <div class="article-detail-content">${escapeHtml(article.Content)}</div>
+          ${
+            article.SourceName && article.SourceUrl
+              ? `
+                <a class="article-source-backlink" href="${escapeAttr(article.SourceUrl)}" target="_blank" rel="noopener noreferrer">
+                  <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  Baca artikel lengkapnya di ${escapeHtml(article.SourceName)}
+                </a>
+              `
+              : ""
+          }
         `;
       }
 
@@ -413,6 +457,8 @@
           Status: "Terbit",
           CreatedAt: "",
           UpdatedAt: "",
+          SourceName: a.sourceName || "",
+          SourceUrl: a.sourceUrl || "",
         }));
       }
 

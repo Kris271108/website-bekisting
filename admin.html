@@ -17,9 +17,9 @@
     />
     <style>
       :root {
-        --color-page-bg: #dcecae;
-        --accent-lime: #b7f23a;
-        --accent-lime-dark: #97d81e;
+        --color-page-bg: #f1d9d9;
+        --accent-lime: #ef4444;
+        --accent-lime-dark: #b40000;
         --accent-orange: #ff8f1f;
         --accent-orange-dark: #e8790a;
         --color-accent: var(--accent-lime);
@@ -32,8 +32,8 @@
         --color-border-light: #262626;
         --color-text-muted: #9a9a9a;
         --color-text-light: #6f6f6f;
-        --color-success: var(--accent-lime);
-        --color-success-bg: rgba(183, 242, 58, 0.14);
+        --color-success: #f4f4f5;
+        --color-success-bg: rgba(255, 255, 255, 0.08);
         --color-warning: var(--accent-orange);
         --color-warning-bg: rgba(255, 143, 31, 0.14);
         --color-danger: #ff6b6b;
@@ -91,7 +91,7 @@
         align-items: center;
         justify-content: center;
         font-size: 17px;
-        color: #10130a;
+        color: #ffffff;
         flex-shrink: 0;
       }
       .shell-title h1 {
@@ -148,8 +148,8 @@
       }
       .tab-btn.active {
         background: var(--accent-lime);
-        color: #10130a;
-        box-shadow: 0 6px 16px -4px rgba(183, 242, 58, 0.5);
+        color: #ffffff;
+        box-shadow: 0 6px 16px -4px rgba(239, 68, 68, 0.5);
       }
       .sidebar-add-btn {
         width: 48px;
@@ -299,8 +299,8 @@
       }
       .btn-primary {
         background: var(--color-accent);
-        color: #10130a;
-        box-shadow: 0 8px 18px -6px rgba(183, 242, 58, 0.55);
+        color: #ffffff;
+        box-shadow: 0 8px 18px -6px rgba(239, 68, 68, 0.55);
       }
       .btn-primary:hover {
         background: var(--color-accent-dark);
@@ -573,7 +573,7 @@
       .action-icon-btn:hover {
         border-color: var(--color-accent);
         color: var(--color-accent);
-        background: rgba(183, 242, 58, 0.12);
+        background: rgba(239, 68, 68, 0.12);
       }
       .action-icon-btn.danger:hover {
         border-color: var(--color-danger);
@@ -877,7 +877,7 @@
         height: 56px;
         border-radius: 16px;
         background: var(--accent-lime);
-        color: #10130a;
+        color: #ffffff;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2085,6 +2085,8 @@
         Content: "",
         CoverImage: "",
         Status: "Draft",
+        SourceName: "",
+        SourceUrl: "",
       };
 
       function formatArticleDate(v) {
@@ -2101,19 +2103,24 @@
       function articleListRowHtml(row, idx) {
         const imgSrc = row.CoverImage ? row.CoverImage : PLACEHOLDER_IMG;
         const isPublished = row.Status === "Terbit";
+        const isLocal = row._row === null || row._row === undefined;
         return `
           <tr data-idx="${idx}">
             <td>
               <div class="cell-product">
                 <img src="${escapeAttr(imgSrc)}" alt="${escapeAttr(row.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
-                <div class="cell-product-name">${escapeAttr(row.Title || "(Tanpa judul)")}</div>
+                <div>
+                  <div class="cell-product-name">${escapeAttr(row.Title || "(Tanpa judul)")}</div>
+                  ${row.SourceName ? `<div class="cell-product-variant">Sumber: ${escapeAttr(row.SourceName)}</div>` : ""}
+                  ${isLocal ? `<span class="local-tag">Belum Tersinkron</span>` : ""}
+                </div>
               </div>
             </td>
             <td><span class="status-tag ${isPublished ? "published" : "draft"}">${isPublished ? "Terbit" : "Draft"}</span></td>
             <td>${formatArticleDate(row.UpdatedAt || row.CreatedAt)}</td>
             <td>
               <button class="action-icon-btn edit-row-btn" title="Edit"><i class="fa-solid fa-pen"></i></button>
-              <button class="action-icon-btn danger delete-row-btn" title="Hapus"><i class="fa-solid fa-trash"></i></button>
+              ${!isLocal ? `<button class="action-icon-btn danger delete-row-btn" title="Hapus"><i class="fa-solid fa-trash"></i></button>` : ""}
             </td>
           </tr>
         `;
@@ -2170,12 +2177,43 @@
         });
       }
 
+      // Ubah artikel bawaan (articles-data.js) jadi format baris yang sama
+      // dengan Google Sheets, supaya bisa digabung & tampil/diedit di admin.
+      function bundledArticleRows() {
+        const bundled =
+          typeof ARTICLES_DATA !== "undefined" && Array.isArray(ARTICLES_DATA)
+            ? ARTICLES_DATA
+            : [];
+        return bundled.map((a) => ({
+          Title: a.title || "",
+          Slug: a.slug || "",
+          Summary: a.summary || "",
+          Content: a.content || "",
+          CoverImage: a.coverImage || "",
+          Status: "Terbit",
+          CreatedAt: "",
+          UpdatedAt: "",
+          SourceName: a.sourceName || "",
+          SourceUrl: a.sourceUrl || "",
+          _row: null,
+        }));
+      }
+
+      function mergeArticlesWithBundled(sheetRows) {
+        const bundledRows = bundledArticleRows();
+        const norm = (s) => String(s || "").trim().toLowerCase();
+        const sheetSlugs = new Set(sheetRows.map((r) => norm(r.Slug)));
+        const onlyBundled = bundledRows.filter(
+          (r) => !sheetSlugs.has(norm(r.Slug)),
+        );
+        return sheetRows.concat(onlyBundled);
+      }
+
       async function loadArticles() {
         if (!APPS_SCRIPT_URL) {
           articleLoading.style.display = "none";
-          articleEmpty.style.display = "block";
-          articleEmpty.textContent =
-            "Dashboard belum tersambung ke Google Sheets.";
+          lastArticleRows = bundledArticleRows();
+          renderArticleGrid();
           return;
         }
         articleLoading.style.display = "block";
@@ -2185,7 +2223,7 @@
           const json = await res.json();
           articleLoading.style.display = "none";
           if (!json.ok) throw new Error(json.error || "Gagal memuat");
-          lastArticleRows = json.data || [];
+          lastArticleRows = mergeArticlesWithBundled(json.data || []);
           renderArticleGrid();
         } catch (err) {
           articleLoading.style.display = "none";
@@ -2212,9 +2250,11 @@
       }
 
       function renderArticleEditView(row, isNew) {
+        const isLocal = !isNew && (row._row === null || row._row === undefined);
         const imgSrc = row.CoverImage ? row.CoverImage : PLACEHOLDER_IMG;
         articleEditView.innerHTML = `
           <button class="edit-back-btn" id="article-back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar</button>
+          ${isLocal ? `<div class="catalog-sync-note" style="margin-bottom:16px;"><i class="fa-solid fa-circle-info"></i><span>Artikel kurasi ini belum tersimpan di Dashboard. Klik "Simpan ke Dashboard" di bawah supaya bisa diedit permanen.</span></div>` : ""}
           <div class="edit-layout">
             <div class="edit-image-col">
               <img id="article-img-preview" src="${escapeAttr(imgSrc)}" onerror="this.src='${PLACEHOLDER_IMG}'" alt="" />
@@ -2249,11 +2289,21 @@
                   <textarea id="article-Content" style="min-height:220px" placeholder="Tulis isi artikel di sini...">${escapeHtml(row.Content)}</textarea>
                 </div>
               </div>
+              <div class="field-row">
+                <div class="field-col">
+                  <label>Nama Sumber (kalau kurasi dari situs lain)</label>
+                  <input id="article-SourceName" value="${escapeAttr(row.SourceName)}" placeholder="mis. Indosteger" />
+                </div>
+                <div class="field-col">
+                  <label>Link Sumber (backlink)</label>
+                  <input id="article-SourceUrl" value="${escapeAttr(row.SourceUrl)}" placeholder="https://..." />
+                </div>
+              </div>
               <div class="edit-actions">
                 <button class="btn btn-primary" id="article-save-btn">
-                  <i class="fa-solid fa-check"></i> ${isNew ? "Simpan Artikel Baru" : "Simpan Perubahan"}
+                  <i class="fa-solid fa-check"></i> ${isNew || isLocal ? "Simpan ke Dashboard" : "Simpan Perubahan"}
                 </button>
-                ${!isNew ? `<button class="btn btn-danger" id="article-delete-btn"><i class="fa-solid fa-trash"></i> Hapus</button>` : ""}
+                ${!isNew && !isLocal ? `<button class="btn btn-danger" id="article-delete-btn"><i class="fa-solid fa-trash"></i> Hapus</button>` : ""}
               </div>
             </div>
           </div>
@@ -2281,11 +2331,16 @@
             Summary: document.getElementById("article-Summary").value,
             Content: document.getElementById("article-Content").value,
             CoverImage: document.getElementById("article-CoverImage").value.trim(),
+            SourceName: document.getElementById("article-SourceName").value.trim(),
+            SourceUrl: document.getElementById("article-SourceUrl").value.trim(),
           };
-          if (isNew) {
+          if (isNew || isLocal) {
             const res = await postAction("addArticle", { article });
             if (res && res.ok) {
-              showToast("Artikel baru berhasil disimpan.", "success");
+              showToast(
+                isLocal ? "Artikel kurasi tersimpan ke Dashboard." : "Artikel baru berhasil disimpan.",
+                "success",
+              );
               showArticleList();
               loadArticles();
             }

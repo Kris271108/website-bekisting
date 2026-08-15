@@ -3,87 +3,74 @@
  * articles-data.js
  * Artikel bawaan situs (sama konsepnya seperti products.js untuk produk) —
  * SELALU tampil di artikel.html walau belum pernah disimpan ke Google
- * Sheets. Kalau artikel dengan slug yang sama sudah ada & diterbitkan di
- * Google Sheets (lewat dashboard admin), versi Sheets itu yang dipakai
- * (lebih baru/bisa diedit). Artikel baru boleh ditambah langsung di sini,
- * atau lewat dashboard admin tab Artikel.
+ * Sheets. Isinya kurasi/ringkasan dari artikel-artikel di situs lain
+ * (bukan tulisan asli redaksi Bekisting Indonesia), makanya tiap artikel
+ * WAJIB ada sourceName + sourceUrl sebagai kredit & link balik ke sumber
+ * aslinya — jangan dihapus.
+ *
+ * Kalau artikel dengan slug yang sama sudah ada & diterbitkan di Google
+ * Sheets (lewat dashboard admin), versi Sheets itu yang dipakai. Artikel
+ * baru boleh ditambah langsung di sini, atau lewat dashboard admin tab
+ * Artikel (sudah ada kolom Sumber & Link Sumber juga di sana).
  */
 const ARTICLES_DATA = [
   {
-    title: "Apa Itu Bekisting (Formwork) dan Kenapa Penting dalam Konstruksi?",
-    slug: "apa-itu-bekisting-formwork-dan-kenapa-penting-dalam-konstruksi",
+    title: "Mengenal Jenis-Jenis Formwork dalam Dunia Konstruksi",
+    slug: "mengenal-jenis-jenis-formwork-dalam-dunia-konstruksi",
     summary:
-      "Kenali fungsi dasar bekisting dalam proses pengecoran beton, dan kenapa pemilihan material formwork yang tepat menentukan kualitas akhir struktur bangunan Anda.",
-    content: `Bekisting, atau yang dikenal juga dengan istilah formwork, adalah cetakan sementara yang digunakan untuk membentuk struktur beton selama proses pengecoran. Cetakan ini bisa berbahan kayu, plywood, maupun logam, dan berfungsi menahan beton cair pada bentuk yang diinginkan — mulai dari kolom, balok, plat lantai, hingga dinding — sampai beton cukup keras untuk menahan bebannya sendiri.
+      "Ringkasan seputar ragam jenis formwork/bekisting yang dipakai di lapangan, dari sistem tradisional kayu-plywood sampai sistem reusable modular dan insulated.",
+    content: `Formwork atau bekisting adalah cetakan sementara (kadang permanen) yang menahan beton selama proses pengecoran sampai cukup kuat menahan bebannya sendiri. Di lapangan, jenis formwork yang dipilih biasanya disesuaikan dengan skala proyek, anggaran, dan tingkat kerumitan bentuk struktur.
 
-Tanpa bekisting yang tepat, hasil pengecoran bisa melenceng dari desain struktural, bahkan berisiko menyebabkan kebocoran beton cair atau ketidakrataan permukaan yang berdampak pada kekuatan bangunan jangka panjang.
+Beberapa jenis yang umum dipakai antara lain formwork tradisional berbahan kayu/plywood yang fleksibel untuk bentuk rumit tapi kurang tahan lama, formwork sistem rekayasa berbahan logam (baja/aluminium) yang lebih presisi dan reusable, formwork plastik modular yang ringan dan cocok untuk proyek perumahan skala besar, hingga formwork insulated yang dirakit permanen sebagai bagian dari struktur untuk kebutuhan isolasi.
 
-Beberapa fungsi utama bekisting dalam proyek konstruksi:
-
-1. Menentukan bentuk dan dimensi akhir struktur beton sesuai desain.
-2. Menahan tekanan beton cair selama proses curing berlangsung.
-3. Menjaga kerataan dan presisi permukaan hasil cor.
-4. Bisa dipakai berulang kali (reusable) untuk efisiensi biaya proyek dalam skala besar.
-
-Sistem bekisting yang baik juga didukung oleh aksesoris seperti Tie Rod, Wing Nut, dan Beam Clamp yang menjaga kelurusan serta kekuatan cetakan agar tidak melar atau bocor saat menahan tekanan beton. Karena itu, memilih material bekisting berstandar SNI dan aksesoris pendukung yang sesuai spesifikasi proyek adalah langkah penting yang tidak boleh diabaikan kontraktor maupun mandor lapangan.`,
+Artikel aslinya membahas lebih detail karakteristik dan kelebihan-kekurangan tiap jenis formwork ini.`,
     coverImage: "",
+    sourceName: "Oruma.id",
+    sourceUrl:
+      "https://www.oruma.id/blog/formwork-bekisting-pengertian-dan-jenisnya-di-dunia-konstruksi/",
   },
   {
-    title: "Kenali Fungsi Tie Rod, Wing Nut, dan Beam Clamp dalam Sistem Bekisting",
-    slug: "kenali-fungsi-tie-rod-wing-nut-dan-beam-clamp-dalam-sistem-bekisting",
+    title: "Memahami Formwork Bagi Pemula",
+    slug: "memahami-formwork-bagi-pemula",
     summary:
-      "Tiga komponen kecil ini punya peran besar menjaga kekuatan dan presisi cetakan beton. Simak fungsi masing-masing sebelum menentukan kebutuhan material proyek Anda.",
-    content: `Dalam sistem bekisting, komponen-komponen pendukung sering kali tidak sebesar panel utamanya, tapi perannya sangat krusial untuk memastikan hasil pengecoran beton aman dan presisi. Tiga komponen yang paling sering digunakan adalah Tie Rod, Wing Nut, dan Beam Clamp.
+      "Panduan dasar buat yang baru terjun ke dunia konstruksi — mengenal fungsi formwork/bekisting sebagai cetakan sementara beton dan kenapa pemilihannya penting.",
+    content: `Bagi yang baru mengenal dunia konstruksi, formwork sering jadi istilah yang terdengar teknis tapi sebenarnya konsepnya cukup sederhana: cetakan sementara yang menahan beton cair sampai mengeras dan bisa berdiri sendiri.
 
-Tie Rod berfungsi sebagai pengikat antar panel bekisting yang berhadapan, menahan agar jarak antar panel tidak melebar akibat tekanan beton cair yang sangat besar saat proses pengecoran. Tie Rod yang berkualitas rendah berisiko putus di tengah proses cor, yang bisa berakibat fatal pada hasil struktur maupun keselamatan pekerja di lokasi.
+Pemilihan formwork yang tepat berpengaruh langsung ke efisiensi proyek — mulai dari kecepatan pemasangan dan pembongkaran, ketahanan material saat dipakai berulang kali, sampai hasil akhir permukaan beton. Kesalahan dalam pemilihan atau pemasangan formwork bisa berakibat pada bentuk struktur yang tidak sesuai desain maupun pemborosan waktu dan biaya proyek.
 
-Wing Nut dipasang pada ujung Tie Rod untuk mengencangkan sambungan antar panel bekisting. Bentuknya yang menyerupai sayap memudahkan pekerja mengencangkan atau melepas sambungan secara manual tanpa alat bantu khusus, sehingga mempercepat proses pemasangan maupun pembongkaran bekisting di lapangan.
-
-Beam Clamp digunakan untuk menjepit dan mengunci posisi balok penyangga (girder) pada sistem bekisting horizontal, seperti pada pengecoran plat lantai. Clamp yang kokoh memastikan balok penyangga tidak bergeser selama proses pengecoran berlangsung, menjaga kerataan permukaan hasil cor.
-
-Ketiga komponen ini bekerja sebagai satu kesatuan sistem. Kekuatan salah satu komponen yang tidak memadai bisa mempengaruhi keseluruhan sistem bekisting, karena itu penting memilih material dari pemasok yang memahami standar dan kebutuhan teknis proyek konstruksi.`,
+Artikel aslinya mengulas lebih lengkap dasar-dasar formwork yang perlu diketahui pemula di bidang konstruksi.`,
     coverImage: "",
+    sourceName: "Indosteger",
+    sourceUrl:
+      "https://www.indosteger.co.id/berita/detail/memahami-formwork-bagi-pemula",
   },
   {
-    title: "Tips Memilih Scaffolding yang Aman untuk Proyek Konstruksi",
-    slug: "tips-memilih-scaffolding-yang-aman-untuk-proyek-konstruksi",
+    title: "Tips Keselamatan Kerja Saat Menggunakan Scaffolding",
+    slug: "tips-keselamatan-kerja-saat-menggunakan-scaffolding",
     summary:
-      "Scaffolding yang tepat bukan cuma soal menopang beban, tapi juga soal keselamatan kerja. Ini beberapa hal yang perlu diperhatikan sebelum menyewa atau membeli material scaffolding untuk proyek Anda.",
-    content: `Scaffolding atau perancah adalah struktur sementara yang menopang pekerja, material, dan peralatan selama proses konstruksi berlangsung, terutama untuk pekerjaan di ketinggian seperti pengecoran kolom, pemasangan dinding, hingga finishing fasad gedung bertingkat. Karena berkaitan langsung dengan keselamatan pekerja, pemilihan scaffolding tidak bisa dilakukan asal-asalan.
+      "Sejumlah tips praktis menjaga keselamatan kerja saat memakai scaffolding di lapangan, dari pengecekan kondisi alat sampai pelatihan pekerja.",
+    content: `Scaffolding memberi manfaat besar dalam pekerjaan konstruksi dan pemeliharaan infrastruktur, tapi kalau tidak digunakan dengan benar bisa jadi sumber bahaya besar bagi pekerja — mulai dari risiko jatuh, tertimpa material, hingga bahaya kebakaran maupun listrik di sekitar area kerja.
 
-Berikut beberapa hal yang perlu diperhatikan sebelum menentukan scaffolding untuk proyek Anda:
+Beberapa hal dasar yang perlu diperhatikan: memastikan kondisi scaffolding baik dan aman (baut, bingkai, penyangga berfungsi normal), memeriksa kondisi lingkungan kerja sebelum pemasangan, memasang scaffolding sesuai standar keselamatan yang berlaku, serta memberi pelatihan ke pekerja soal cara pakai yang benar.
 
-1. Kapasitas beban. Pastikan scaffolding yang dipilih mampu menahan beban kerja maksimum, termasuk berat pekerja, material, dan peralatan yang akan diletakkan di atasnya, dengan faktor keamanan yang memadai.
-
-2. Kondisi material. Pipa dan sambungan scaffolding harus bebas dari karat berlebih, penyok, atau keretakan yang bisa melemahkan struktur saat menahan beban.
-
-3. Kestabilan pemasangan. Scaffolding harus dipasang di atas permukaan yang rata dan stabil, dengan pengunci (coupler) yang terpasang sempurna di setiap sambungan untuk mencegah pergeseran struktur.
-
-4. Sesuai standar. Gunakan material scaffolding yang sudah teruji dan sesuai standar konstruksi yang berlaku, bukan sekadar material bekas pakai tanpa pengecekan kondisi.
-
-5. Inspeksi berkala. Untuk proyek jangka panjang, scaffolding perlu diperiksa ulang secara berkala selama masa pemakaian, terutama setelah terpapar cuaca ekstrem atau insiden di lapangan.
-
-Investasi pada material scaffolding yang tepat bukan cuma soal kelancaran proyek, tapi yang terpenting adalah keselamatan seluruh tim di lapangan.`,
+Artikel aslinya membahas lebih lengkap 10 tips keselamatan kerja pada scaffolding yang bisa jadi acuan di lapangan.`,
     coverImage: "",
+    sourceName: "Indonesia Safety Center",
+    sourceUrl:
+      "https://indonesiasafetycenter.org/tips-keselamatan-kerja-pada-scaffolding/",
   },
   {
-    title: "Kenapa Material Bekisting Berstandar SNI Itu Penting?",
-    slug: "kenapa-material-bekisting-berstandar-sni-itu-penting",
+    title: "Scaffolding: Pengertian, Jenis, dan Standar Keselamatan Kerja",
+    slug: "scaffolding-pengertian-jenis-dan-standar-keselamatan-kerja",
     summary:
-      "Bukan sekadar embel-embel di brosur, standar SNI pada material bekisting punya alasan teknis yang berpengaruh langsung ke keamanan dan hasil akhir proyek konstruksi Anda.",
-    content: `Standar Nasional Indonesia (SNI) adalah acuan resmi yang menetapkan spesifikasi minimum sebuah produk, termasuk material konstruksi seperti bekisting dan scaffolding, agar aman dan layak digunakan di lapangan. Bagi kontraktor maupun pemilik proyek, memilih material berstandar SNI bukan sekadar formalitas administratif, tapi langkah mitigasi risiko yang nyata.
+      "Ulasan tentang regulasi K3 scaffolding di Indonesia, termasuk Permenaker Nomor 9 Tahun 2016 tentang K3 Pekerjaan pada Ketinggian yang mewajibkan pekerjaan dilakukan oleh tenaga kerja kompeten.",
+    content: `Hampir seluruh proyek konstruksi, pemeliharaan fasilitas, sampai industri kapal memakai scaffolding sebagai platform kerja di ketinggian. Karena risikonya cukup tinggi, penggunaan scaffolding di Indonesia diatur dalam Permenaker Nomor 9 Tahun 2016 tentang K3 Pekerjaan pada Ketinggian, yang mewajibkan pekerjaan dilakukan secara aman oleh tenaga kerja yang kompeten.
 
-Beberapa alasan kenapa standar SNI penting dalam pemilihan material bekisting:
+Sebagian besar insiden scaffolding sebenarnya bisa dicegah lewat desain yang tepat, pemilihan material yang layak pakai, pemeriksaan rutin, serta pemasangan dan pembongkaran oleh tenaga kerja yang sudah terlatih/bersertifikat.
 
-Kekuatan material teruji. Produk berstandar SNI sudah melalui pengujian kekuatan sesuai kriteria teknis yang ditetapkan, sehingga risiko kegagalan struktur akibat material yang tidak memadai bisa diminimalkan.
-
-Konsistensi kualitas. Standar yang jelas membuat kualitas material lebih konsisten antar batch produksi, mengurangi risiko mendapat material dengan kualitas berbeda-beda dalam satu proyek.
-
-Kemudahan pengawasan proyek. Proyek pemerintah maupun swasta skala besar umumnya mensyaratkan penggunaan material bersertifikat sebagai bagian dari audit dan pengawasan kualitas konstruksi.
-
-Keamanan kerja jangka panjang. Material yang tidak sesuai standar berisiko mengalami deformasi atau kegagalan struktur, yang bisa membahayakan keselamatan pekerja maupun kelangsungan proyek secara keseluruhan.
-
-Sebelum membeli material bekisting maupun scaffolding, pastikan menanyakan sertifikasi dan standar yang dipenuhi oleh pemasok Anda — jangan hanya tergiur harga murah tanpa memastikan kualitas dan keamanannya.`,
+Artikel aslinya mengulas lebih lengkap jenis-jenis scaffolding dan detail standar keselamatan kerja yang berlaku di Indonesia.`,
     coverImage: "",
+    sourceName: "AKUALITA",
+    sourceUrl: "https://akualita.com/news/scaffolding-k3/",
   },
 ];

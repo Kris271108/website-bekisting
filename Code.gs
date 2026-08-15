@@ -13,7 +13,7 @@
  *  - "Orders":   Timestamp, Type, CustomerName, Phone, Address, ItemsJSON,
  *                TotalQty, Notes
  *  - "Articles": Title, Slug, Summary, Content, CoverImage, Status,
- *                CreatedAt, UpdatedAt
+ *                CreatedAt, UpdatedAt, SourceName, SourceUrl
  */
 
 const PRODUCTS_SHEET_NAME = "Products";
@@ -29,7 +29,7 @@ const ORDERS_HEADER = [
 ];
 const ARTICLES_HEADER = [
   "Title", "Slug", "Summary", "Content", "CoverImage", "Status",
-  "CreatedAt", "UpdatedAt",
+  "CreatedAt", "UpdatedAt", "SourceName", "SourceUrl",
 ];
 
 function getSheet_(name, header) {
@@ -161,6 +161,8 @@ function doPost(e) {
         a.Status || "Draft",
         now,
         now,
+        a.SourceName || "",
+        a.SourceUrl || "",
       ]);
       return jsonOutput_({ ok: true });
     }
