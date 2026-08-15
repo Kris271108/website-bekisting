@@ -17,25 +17,31 @@
     />
     <style>
       :root {
-        --color-accent: #ef4444;
-        --color-accent-dark: #b40000;
-        --color-dark: #0f172a;
-        --color-bg: #f4f6fa;
-        --color-bg-soft: #eef1f6;
-        --color-card: rgba(255, 255, 255, 0.82);
-        --color-border: #e5e9f0;
-        --color-border-light: #eef1f6;
-        --color-text-muted: #64748b;
-        --color-text-light: #94a3b8;
-        --color-success: #16a34a;
-        --color-success-bg: #dcfce7;
-        --color-warning: #b45309;
-        --color-warning-bg: #fef3c7;
-        --color-danger-bg: #fee2e2;
-        --color-blue: #1d4ed8;
-        --color-blue-bg: #dbeafe;
-        --color-purple: #6d28d9;
-        --color-purple-bg: #ede9fe;
+        --color-page-bg: #dcecae;
+        --accent-lime: #b7f23a;
+        --accent-lime-dark: #97d81e;
+        --accent-orange: #ff8f1f;
+        --accent-orange-dark: #e8790a;
+        --color-accent: var(--accent-lime);
+        --color-accent-dark: var(--accent-lime-dark);
+        --color-dark: #ffffff;
+        --color-bg: #141414;
+        --color-bg-soft: #202020;
+        --color-card: #1a1a1a;
+        --color-border: #2c2c2c;
+        --color-border-light: #262626;
+        --color-text-muted: #9a9a9a;
+        --color-text-light: #6f6f6f;
+        --color-success: var(--accent-lime);
+        --color-success-bg: rgba(183, 242, 58, 0.14);
+        --color-warning: var(--accent-orange);
+        --color-warning-bg: rgba(255, 143, 31, 0.14);
+        --color-danger: #ff6b6b;
+        --color-danger-bg: rgba(255, 107, 107, 0.14);
+        --color-blue: var(--accent-orange);
+        --color-blue-bg: rgba(255, 143, 31, 0.14);
+        --color-purple: var(--accent-orange);
+        --color-purple-bg: rgba(255, 143, 31, 0.14);
       }
       * {
         box-sizing: border-box;
@@ -44,125 +50,124 @@
         margin: 0;
         font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont,
           sans-serif;
-        background: var(--color-bg);
-        background-image: radial-gradient(
-            circle at 15% 0%,
-            rgba(239, 68, 68, 0.07),
-            transparent 45%
-          ),
-          radial-gradient(
-            circle at 85% 15%,
-            rgba(15, 23, 42, 0.05),
-            transparent 40%
-          );
-        background-attachment: fixed;
+        background: var(--color-page-bg);
+        min-height: 100vh;
+        padding: 22px;
         color: var(--color-dark);
       }
 
-      /* ===== Shell: sidebar + topbar (ala Shopee Seller Center) ===== */
+      /* ===== Shell: panel gelap melayang, ala Nixtio dashboard ===== */
       .admin-shell {
         display: flex;
-        min-height: 100vh;
-      }
-      .sidebar {
-        width: 232px;
-        flex-shrink: 0;
-        background: #fff;
-        border-right: 1px solid var(--color-border);
-        display: flex;
         flex-direction: column;
-        position: sticky;
-        top: 0;
-        height: 100vh;
+        background: var(--color-bg);
+        border-radius: 30px;
+        overflow: hidden;
+        max-width: 1560px;
+        margin: 0 auto;
+        min-height: calc(100vh - 44px);
+        box-shadow: 0 40px 80px -24px rgba(0, 0, 0, 0.4);
       }
-      .sidebar-logo {
+      .shell-topbar {
         display: flex;
         align-items: center;
-        gap: 10px;
-        padding: 20px 18px;
-        border-bottom: 1px solid var(--color-border-light);
+        justify-content: space-between;
+        padding: 18px 26px;
+        border-bottom: 1px solid var(--color-border);
+        flex-wrap: wrap;
+        gap: 12px;
       }
-      .sidebar-logo .logo-badge {
-        width: 36px;
-        height: 36px;
-        border-radius: 9px;
-        background: var(--color-accent);
+      .shell-topbar-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .shell-logo {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--accent-lime);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 15px;
-        color: #fff;
+        font-size: 17px;
+        color: #10130a;
         flex-shrink: 0;
       }
-      .sidebar-logo h1 {
+      .shell-title h1 {
         margin: 0;
-        font-size: 13.5px;
+        font-size: 14px;
         font-weight: 800;
-        color: var(--color-dark);
+        color: #fff;
       }
-      .sidebar-logo p {
+      .shell-title p {
         margin: 1px 0 0 0;
         font-size: 10.5px;
         color: var(--color-text-muted);
       }
-      .sidebar-nav {
+
+      .shell-body {
+        display: flex;
         flex: 1;
-        overflow-y: auto;
-        padding: 12px 10px;
+        min-height: 0;
       }
-      .sidebar-section-label {
-        font-size: 10px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        color: var(--color-text-light);
-        padding: 10px 10px 6px 10px;
+      .sidebar {
+        width: 84px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px 0;
+        border-right: 1px solid var(--color-border);
+      }
+      .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
       }
       .tab-btn {
-        width: 100%;
-        padding: 11px 12px;
-        border-radius: 10px;
+        width: 48px;
+        height: 48px;
+        padding: 0;
+        border-radius: 50%;
         border: none;
-        background: transparent;
-        color: #475569;
+        background: var(--color-bg-soft);
+        color: var(--color-text-muted);
         font-family: inherit;
-        font-weight: 700;
-        font-size: 13px;
+        font-size: 16px;
         cursor: pointer;
         display: flex;
         align-items: center;
-        gap: 11px;
-        transition: all 0.15s ease;
-        text-align: left;
-        margin-bottom: 2px;
-      }
-      .tab-btn i {
-        width: 16px;
-        text-align: center;
-        font-size: 14px;
-        color: var(--color-text-light);
+        justify-content: center;
+        transition: all 0.18s ease;
       }
       .tab-btn:hover {
-        background: var(--color-bg-soft);
+        color: #fff;
+        background: #262626;
       }
       .tab-btn.active {
-        background: #fff2ee;
-        color: var(--color-accent-dark);
+        background: var(--accent-lime);
+        color: #10130a;
+        box-shadow: 0 6px 16px -4px rgba(183, 242, 58, 0.5);
       }
-      .tab-btn.active i {
-        color: var(--color-accent);
-      }
-      .sidebar-footer {
-        padding: 14px 14px 18px 14px;
-        border-top: 1px solid var(--color-border-light);
-      }
-      .sidebar-footer .admin-identity {
-        margin-bottom: 10px;
-      }
-      .sidebar-footer .back-to-site {
-        width: 100%;
+      .sidebar-add-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        border: none;
+        background: var(--accent-orange);
+        color: #1a0f00;
+        font-size: 17px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
         justify-content: center;
-        margin-bottom: 6px;
+        transition: all 0.18s ease;
+        box-shadow: 0 6px 16px -4px rgba(255, 143, 31, 0.5);
+      }
+      .sidebar-add-btn:hover {
+        background: var(--accent-orange-dark);
       }
 
       .main-area {
@@ -170,39 +175,27 @@
         min-width: 0;
         display: flex;
         flex-direction: column;
+        min-height: 0;
+        overflow-y: auto;
       }
       .topbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: 16px 26px;
-        background: #fff;
-        border-bottom: 1px solid var(--color-border);
-        position: sticky;
-        top: 0;
-        z-index: 20;
+        padding: 22px 28px 4px 28px;
       }
       .topbar h2 {
         margin: 0;
-        font-size: 16px;
+        font-size: 26px;
         font-weight: 800;
-        color: var(--color-dark);
+        color: #fff;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
       }
       .topbar .breadcrumb {
         font-size: 11.5px;
         color: var(--color-text-muted);
-        margin-top: 2px;
-      }
-      .mobile-menu-btn {
-        display: none;
-        background: var(--color-bg-soft);
-        border: none;
-        width: 38px;
-        height: 38px;
-        border-radius: 9px;
-        font-size: 15px;
-        color: var(--color-dark);
-        cursor: pointer;
+        margin-top: 4px;
       }
 
       .header-actions {
@@ -211,7 +204,7 @@
         gap: 10px;
       }
       .back-to-site {
-        color: #475569;
+        color: var(--color-text-muted);
         text-decoration: none;
         font-size: 12.5px;
         font-weight: 700;
@@ -221,28 +214,30 @@
         background: var(--color-bg-soft);
         border: none;
         padding: 9px 15px;
-        border-radius: 9px;
+        border-radius: 30px;
         cursor: pointer;
         font-family: inherit;
       }
       .back-to-site:hover {
-        background: var(--color-border);
+        background: #262626;
+        color: #fff;
       }
       .admin-identity {
         display: flex;
         align-items: center;
         gap: 8px;
-        color: var(--color-dark);
+        color: #fff;
         font-size: 12.5px;
         font-weight: 700;
       }
       .admin-identity img {
-        width: 30px;
-        height: 30px;
+        width: 34px;
+        height: 34px;
         border-radius: 50%;
         object-fit: cover;
         background: var(--color-bg-soft);
         flex-shrink: 0;
+        border: 2px solid var(--accent-lime);
       }
 
       .setup-banner {
@@ -271,7 +266,7 @@
         display: block;
       }
       .glass-card {
-        background: #fff;
+        background: var(--color-card);
         border: 1px solid var(--color-border);
         border-radius: 12px;
         box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
@@ -304,20 +299,20 @@
       }
       .btn-primary {
         background: var(--color-accent);
-        color: #fff;
-        box-shadow: 0 8px 18px -6px rgba(239, 68, 68, 0.55);
+        color: #10130a;
+        box-shadow: 0 8px 18px -6px rgba(183, 242, 58, 0.55);
       }
       .btn-primary:hover {
         background: var(--color-accent-dark);
       }
       .btn-secondary {
-        background: #fff;
+        background: var(--color-bg-soft);
         color: var(--color-dark);
         border: 1px solid var(--color-border);
       }
       .btn-danger {
         background: var(--color-danger-bg);
-        color: #b91c1c;
+        color: var(--color-danger);
       }
 
       /* ===== Beranda ===== */
@@ -395,10 +390,10 @@
         border-radius: 6px;
       }
       .bar-chart-fill.red {
-        background: linear-gradient(90deg, var(--color-accent), #f87171);
+        background: linear-gradient(90deg, var(--accent-lime-dark), var(--accent-lime));
       }
       .bar-chart-fill.blue {
-        background: linear-gradient(90deg, #1d4ed8, #60a5fa);
+        background: linear-gradient(90deg, var(--accent-orange-dark), var(--accent-orange));
       }
       .bar-chart-value {
         width: 34px;
@@ -476,7 +471,7 @@
         border-radius: 8px;
         font-size: 12.5px;
         font-family: inherit;
-        background: #fff;
+        background: var(--color-bg-soft);
       }
       .search-bar input:focus {
         outline: none;
@@ -527,7 +522,7 @@
         transition: background 0.12s ease;
       }
       table.shopee-table tbody tr:hover {
-        background: #fff8f6;
+        background: rgba(255, 255, 255, 0.035);
       }
       table.shopee-table td {
         padding: 10px 14px;
@@ -565,7 +560,7 @@
         height: 30px;
         border-radius: 8px;
         border: 1px solid var(--color-border);
-        background: #fff;
+        background: var(--color-bg-soft);
         color: var(--color-text-muted);
         cursor: pointer;
         display: inline-flex;
@@ -578,11 +573,11 @@
       .action-icon-btn:hover {
         border-color: var(--color-accent);
         color: var(--color-accent);
-        background: #fff2ee;
+        background: rgba(183, 242, 58, 0.12);
       }
       .action-icon-btn.danger:hover {
-        border-color: #b91c1c;
-        color: #b91c1c;
+        border-color: var(--color-danger);
+        color: var(--color-danger);
         background: var(--color-danger-bg);
       }
       .pr-tag {
@@ -602,7 +597,7 @@
       }
       .stock-tag.out {
         background: var(--color-danger-bg);
-        color: #b91c1c;
+        color: var(--color-danger);
       }
       .stock-tag.low {
         background: var(--color-warning-bg);
@@ -649,7 +644,7 @@
         border-radius: 12px;
         font-size: 13px;
         font-family: inherit;
-        background: #fff;
+        background: var(--color-bg-soft);
       }
 
       /* ===== Inventaris — mode edit (inline, bukan modal) ===== */
@@ -739,7 +734,7 @@
         border-radius: 12px;
         font-size: 13px;
         font-family: inherit;
-        background: #fff;
+        background: var(--color-bg-soft);
       }
       .field-col textarea {
         resize: vertical;
@@ -764,7 +759,7 @@
         border-radius: 16px;
         padding: 14px 16px;
         margin-bottom: 10px;
-        background: #fff;
+        background: var(--color-card);
       }
       .order-card .order-head {
         display: flex;
@@ -790,7 +785,7 @@
       }
       .order-badge.instant {
         background: var(--color-danger-bg);
-        color: #b91c1c;
+        color: var(--color-danger);
       }
       .order-badge.cart {
         background: var(--color-blue-bg);
@@ -836,7 +831,7 @@
       }
       .toast.success {
         background: var(--color-success);
-        color: #fff;
+        color: #10130a;
       }
       .toast.error {
         background: #b91c1c;
@@ -858,7 +853,7 @@
         position: fixed;
         inset: 0;
         z-index: 1000;
-        background: linear-gradient(135deg, var(--color-dark) 0%, #1e293b 100%);
+        background: linear-gradient(135deg, #10130a 0%, #1a1f10 100%);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -868,7 +863,7 @@
         display: none;
       }
       .admin-login-card {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(255, 255, 255, 0.97);
         backdrop-filter: blur(14px);
         border-radius: 24px;
         padding: 40px 32px;
@@ -881,8 +876,8 @@
         width: 56px;
         height: 56px;
         border-radius: 16px;
-        background: var(--color-accent);
-        color: #fff;
+        background: var(--accent-lime);
+        color: #10130a;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -893,20 +888,20 @@
         margin: 0 0 2px 0;
         font-size: 19px;
         font-weight: 800;
-        color: var(--color-dark);
+        color: #14181c;
       }
       .admin-login-card p.subtitle {
         margin: 0 0 18px 0;
         font-size: 13px;
-        color: var(--color-text-muted);
+        color: #6b7280;
       }
       .admin-login-cta {
         margin: 0 0 12px 0;
         font-size: 12.5px;
         font-weight: 700;
-        color: var(--color-dark);
+        color: #14181c;
         padding-top: 12px;
-        border-top: 1px dashed var(--color-border);
+        border-top: 1px dashed #e2e2e2;
       }
       .admin-google-btn-slot {
         display: flex;
@@ -915,7 +910,7 @@
       }
       .admin-login-error {
         margin-top: 16px;
-        background: var(--color-danger-bg);
+        background: #fde3e3;
         color: #b91c1c;
         border-radius: 12px;
         padding: 10px 14px;
@@ -923,66 +918,57 @@
         text-align: left;
       }
       .logout-link {
-        background: rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.06);
         border: none;
         font-family: inherit;
-        color: #cbd5e1;
+        color: var(--color-text-muted);
         cursor: pointer;
       }
 
       /* ===== Mobile ===== */
       @media (max-width: 900px) {
+        body {
+          padding: 10px;
+        }
         .admin-shell {
+          border-radius: 20px;
+          min-height: calc(100vh - 20px);
+        }
+        .shell-topbar {
+          padding: 14px 16px;
+        }
+        .shell-title p {
+          display: none;
+        }
+        .shell-body {
           flex-direction: column;
         }
         .sidebar {
           width: 100%;
-          height: auto;
-          position: sticky;
-          top: 0;
-          z-index: 30;
           flex-direction: row;
-          align-items: center;
+          justify-content: space-between;
+          padding: 10px 14px;
           border-right: none;
           border-bottom: 1px solid var(--color-border);
         }
-        .sidebar-logo {
-          padding: 10px 12px;
-          border-bottom: none;
-          border-right: 1px solid var(--color-border-light);
-          flex-shrink: 0;
-        }
-        .sidebar-logo p {
-          display: none;
-        }
         .sidebar-nav {
-          flex: 1;
-          display: flex;
           flex-direction: row;
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
-          padding: 8px;
+          gap: 8px;
         }
-        .sidebar-section-label {
-          display: none;
-        }
-        .tab-btn {
-          width: auto;
+        .tab-btn,
+        .sidebar-add-btn {
+          width: 40px;
+          height: 40px;
+          font-size: 14px;
           flex-shrink: 0;
-          white-space: nowrap;
-          margin-bottom: 0;
-          margin-right: 4px;
-          padding: 8px 12px;
-          font-size: 11.5px;
-        }
-        .sidebar-footer {
-          display: none;
         }
         .topbar {
-          padding: 12px 14px;
+          padding: 16px 16px 4px 16px;
         }
         .topbar h2 {
-          font-size: 14px;
+          font-size: 19px;
         }
         .topbar .breadcrumb {
           display: none;
@@ -1004,7 +990,7 @@
         }
         .glass-card,
         .data-table-wrap {
-          border-radius: 12px;
+          border-radius: 14px;
         }
         [style*="padding: 20px"] {
           padding: 14px !important;
@@ -1083,45 +1069,51 @@
     </div>
 
     <div class="admin-shell">
-      <aside class="sidebar" id="sidebar">
-        <div class="sidebar-logo">
-          <div class="logo-badge"><i class="fa-solid fa-gauge-high"></i></div>
-          <div>
+      <div class="shell-topbar">
+        <div class="shell-topbar-left">
+          <div class="shell-logo"><i class="fa-solid fa-gauge-high"></i></div>
+          <div class="shell-title">
             <h1>Dashboard Admin</h1>
             <p>Bekisting Indonesia</p>
           </div>
         </div>
-        <nav class="sidebar-nav">
-          <div class="sidebar-section-label">Menu</div>
-          <button class="tab-btn active" data-tab="home">
-            <i class="fa-solid fa-chart-line"></i> Beranda
+        <div class="header-actions">
+          <div class="admin-identity" id="admin-identity"></div>
+          <a href="Bekisting.html" class="back-to-site">
+            <i class="fa-solid fa-arrow-left"></i> Ke Situs
+          </a>
+          <button class="back-to-site logout-link" id="admin-logout-btn" type="button">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
           </button>
-          <button class="tab-btn" data-tab="products">
-            <i class="fa-solid fa-boxes-stacked"></i> Inventaris
+        </div>
+      </div>
+
+      <div class="shell-body">
+        <aside class="sidebar" id="sidebar">
+          <nav class="sidebar-nav">
+            <button class="tab-btn active" data-tab="home" title="Beranda">
+              <i class="fa-solid fa-chart-line"></i>
+            </button>
+            <button class="tab-btn" data-tab="products" title="Inventaris">
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </button>
+            <button class="tab-btn" data-tab="orders" title="Pesanan Masuk">
+              <i class="fa-solid fa-receipt"></i>
+            </button>
+            <button class="tab-btn" data-tab="articles" title="Artikel">
+              <i class="fa-solid fa-newspaper"></i>
+            </button>
+          </nav>
+          <button class="sidebar-add-btn" id="sidebar-add-btn" title="Tambah Produk Baru">
+            <i class="fa-solid fa-plus"></i>
           </button>
-          <button class="tab-btn" data-tab="orders">
-            <i class="fa-solid fa-receipt"></i> Pesanan Masuk
-          </button>
-          <button class="tab-btn" data-tab="articles">
-            <i class="fa-solid fa-newspaper"></i> Artikel
-          </button>
-        </nav>
-      </aside>
+        </aside>
 
       <div class="main-area">
         <div class="topbar">
           <div>
             <h2 id="topbar-title">Beranda</h2>
             <div class="breadcrumb">Dashboard Admin / Beranda</div>
-          </div>
-          <div class="header-actions">
-            <div class="admin-identity" id="admin-identity"></div>
-            <a href="Bekisting.html" class="back-to-site">
-              <i class="fa-solid fa-arrow-left"></i> Ke Situs
-            </a>
-            <button class="back-to-site logout-link" id="admin-logout-btn" type="button">
-              <i class="fa-solid fa-arrow-right-from-bracket"></i> Keluar
-            </button>
           </div>
         </div>
 
@@ -1298,6 +1290,7 @@
       </section>
     </main>
       </div>
+      </div>
     </div>
 
     <div id="toast-container"></div>
@@ -1306,6 +1299,7 @@
          semua produk yang sudah ada di katalog situs ikut tampil di admin
          walau belum pernah disimpan ke Google Sheets. -->
     <script src="products.js"></script>
+    <script src="articles-data.js"></script>
     <script src="auth-config.js"></script>
     <script src="auth.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -1550,7 +1544,7 @@
           </div>
           <div class="kpi-item">
             <div class="kpi-label">Stok Habis</div>
-            <div class="kpi-value" style="${habisStok > 0 ? "color:#b91c1c" : ""}">${habisStok}</div>
+            <div class="kpi-value" style="${habisStok > 0 ? "color:var(--color-danger)" : ""}">${habisStok}</div>
           </div>
           <div class="kpi-item">
             <div class="kpi-label">Estimasi Nilai Stok</div>
@@ -2066,6 +2060,11 @@
       }
 
       document.getElementById("add-product-btn").addEventListener("click", () => {
+        showProductEdit({ ...BLANK_ROW }, true);
+      });
+
+      document.getElementById("sidebar-add-btn").addEventListener("click", () => {
+        document.querySelector('.tab-btn[data-tab="products"]').click();
         showProductEdit({ ...BLANK_ROW }, true);
       });
 

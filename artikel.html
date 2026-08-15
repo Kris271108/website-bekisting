@@ -23,6 +23,7 @@
     />
     <link rel="stylesheet" href="style.css" />
 
+    <script src="articles-data.js"></script>
     <script src="auth-config.js"></script>
     <script src="auth.js"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -396,30 +397,66 @@
         `;
       }
 
+      // Ubah artikel bawaan (articles-data.js) jadi format yang sama dengan
+      // baris dari Google Sheets, supaya bisa digabung & ditampilkan bareng.
+      function bundledArticlesAsRows() {
+        const bundled =
+          typeof ARTICLES_DATA !== "undefined" && Array.isArray(ARTICLES_DATA)
+            ? ARTICLES_DATA
+            : [];
+        return bundled.map((a) => ({
+          Title: a.title || "",
+          Slug: a.slug || "",
+          Summary: a.summary || "",
+          Content: a.content || "",
+          CoverImage: a.coverImage || "",
+          Status: "Terbit",
+          CreatedAt: "",
+          UpdatedAt: "",
+        }));
+      }
+
+      // Gabungkan: artikel dari Sheets (bisa diedit lewat dashboard, sumber
+      // utama) + artikel bawaan yang slug-nya belum ada di Sheets (supaya
+      // tetap tampil walau belum pernah disimpan/diimpor ke dashboard).
+      function mergeBundledWithSheetArticles(sheetArticles) {
+        const bundledRows = bundledArticlesAsRows();
+        const sheetSlugs = new Set(
+          sheetArticles.map((a) => (a.Slug || "").trim().toLowerCase()),
+        );
+        const onlyBundled = bundledRows.filter(
+          (a) => !sheetSlugs.has((a.Slug || "").trim().toLowerCase()),
+        );
+        return sheetArticles.concat(onlyBundled);
+      }
+
       async function loadArticlesPage() {
-        if (!APPS_SCRIPT_URL) {
-          wrap.innerHTML = `<div class="articles-empty">Halaman artikel belum tersambung ke server.</div>`;
-          return;
-        }
-        try {
-          const res = await fetch(`${APPS_SCRIPT_URL}?action=getPublishedArticles`);
-          const json = await res.json();
-          if (!json.ok) throw new Error(json.error || "Gagal memuat");
-          const articles = json.data || [];
-          const params = new URLSearchParams(window.location.search);
-          const slug = params.get("slug");
-          if (slug) {
-            const found = articles.find((a) => a.Slug === slug);
-            if (found) {
-              renderArticleDetail(found);
-            } else {
-              wrap.innerHTML = `<div class="articles-empty">Artikel tidak ditemukan. <a href="artikel.html">Kembali ke daftar artikel</a>.</div>`;
+        let articles = bundledArticlesAsRows();
+        if (APPS_SCRIPT_URL) {
+          try {
+            const res = await fetch(`${APPS_SCRIPT_URL}?action=getPublishedArticles`);
+            const json = await res.json();
+            if (json.ok && Array.isArray(json.data)) {
+              articles = mergeBundledWithSheetArticles(json.data);
             }
-          } else {
-            renderArticleList(articles);
+          } catch (err) {
+            console.warn(
+              "Tidak bisa memuat artikel dari Dashboard, tetap pakai artikel bawaan.",
+              err,
+            );
           }
-        } catch (err) {
-          wrap.innerHTML = `<div class="articles-empty">Gagal memuat artikel: ${escapeHtml(err.message)}</div>`;
+        }
+        const params = new URLSearchParams(window.location.search);
+        const slug = params.get("slug");
+        if (slug) {
+          const found = articles.find((a) => a.Slug === slug);
+          if (found) {
+            renderArticleDetail(found);
+          } else {
+            wrap.innerHTML = `<div class="articles-empty">Artikel tidak ditemukan. <a href="artikel.html">Kembali ke daftar artikel</a>.</div>`;
+          }
+        } else {
+          renderArticleList(articles);
         }
       }
 
