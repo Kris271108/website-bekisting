@@ -11,7 +11,7 @@
  *  - "Products": ProductName, Category, Description, Material, Standar,
  *                VariantName, SKU, Price, Stock, ImageFileName, WeightKg
  *  - "Orders":   Timestamp, Type, CustomerName, Phone, Address, ItemsJSON,
- *                TotalQty, Notes
+ *                TotalQty, Notes, Status
  *  - "Articles": Title, Slug, Summary, Content, CoverImage, Status,
  *                CreatedAt, UpdatedAt, SourceName, SourceUrl
  */
@@ -25,7 +25,7 @@ const PRODUCTS_HEADER = [
 ];
 const ORDERS_HEADER = [
   "Timestamp", "Type", "CustomerName", "Phone", "Address", "ItemsJSON",
-  "TotalQty", "Notes",
+  "TotalQty", "Notes", "Status",
 ];
 const ARTICLES_HEADER = [
   "Title", "Slug", "Summary", "Content", "CoverImage", "Status",
@@ -145,7 +145,15 @@ function doPost(e) {
         JSON.stringify(o.items || []),
         o.totalQty || 0,
         o.notes || "",
+        "Baru",
       ]);
+      return jsonOutput_({ ok: true });
+    }
+
+    if (action === "updateOrderStatus") {
+      const rowNum = body.row;
+      const statusColIdx = ORDERS_HEADER.indexOf("Status") + 1;
+      ordersSheet.getRange(rowNum, statusColIdx).setValue(body.status || "Baru");
       return jsonOutput_({ ok: true });
     }
 

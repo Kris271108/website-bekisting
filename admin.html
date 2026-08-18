@@ -537,9 +537,10 @@
         width: 42px;
         height: 42px;
         object-fit: contain;
-        background: var(--color-bg-soft);
+        background: #ffffff;
         border-radius: 8px;
         flex-shrink: 0;
+        padding: 2px;
       }
       .cell-product-name {
         font-size: 13px;
@@ -679,10 +680,11 @@
         width: 100%;
         aspect-ratio: 1;
         object-fit: contain;
-        background: var(--color-bg-soft);
+        background: #ffffff;
         border-radius: 16px;
         border: 1px solid var(--color-border);
         margin-bottom: 10px;
+        padding: 8px;
       }
       .edit-image-col label {
         font-size: 10.5px;
@@ -790,6 +792,63 @@
       .order-badge.cart {
         background: var(--color-blue-bg);
         color: var(--color-blue);
+      }
+
+      .status-filter-group {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      .status-filter-btn {
+        padding: 7px 14px;
+        border-radius: 20px;
+        border: 1px solid var(--color-border);
+        background: var(--color-bg-soft);
+        color: var(--color-text-muted);
+        font-family: inherit;
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s ease;
+      }
+      .status-filter-btn:hover {
+        border-color: var(--color-accent);
+        color: #fff;
+      }
+      .status-filter-btn.active {
+        background: var(--color-accent);
+        border-color: var(--color-accent);
+        color: #fff;
+      }
+      .order-status-select {
+        padding: 6px 10px;
+        border-radius: 8px;
+        border: 1px solid var(--color-border);
+        background: var(--color-bg-soft);
+        font-family: inherit;
+        font-size: 11.5px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .order-status-select.status-baru {
+        color: var(--color-blue);
+        border-color: var(--color-blue);
+      }
+      .order-status-select.status-diproses {
+        color: var(--color-warning);
+        border-color: var(--color-warning);
+      }
+      .order-status-select.status-selesai {
+        color: #f4f4f5;
+        border-color: #f4f4f5;
+      }
+      .order-status-select.status-batal {
+        color: var(--color-danger);
+        border-color: var(--color-danger);
+      }
+      .order-status-select option {
+        background: var(--color-bg-soft);
+        color: var(--color-dark);
       }
       .order-items-list {
         font-size: 12.5px;
@@ -1228,6 +1287,13 @@
         <div class="glass-card" style="padding: 20px;">
           <div class="panel-toolbar">
             <strong>Pesanan Masuk</strong>
+            <div class="status-filter-group" id="status-filter-group">
+              <button class="status-filter-btn active" data-status="all">Semua</button>
+              <button class="status-filter-btn" data-status="Baru">Baru</button>
+              <button class="status-filter-btn" data-status="Diproses">Diproses</button>
+              <button class="status-filter-btn" data-status="Selesai">Selesai</button>
+              <button class="status-filter-btn" data-status="Batal">Batal</button>
+            </div>
             <button class="btn btn-secondary" id="refresh-orders-btn">
               <i class="fa-solid fa-rotate"></i> Muat Ulang
             </button>
@@ -1242,6 +1308,7 @@
                   <th>Jumlah</th>
                   <th>Tipe</th>
                   <th>Kontak</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody id="orders-list"></tbody>
@@ -1523,7 +1590,9 @@
           const stock = parseInt(r.Stock) || 0;
           return sum + price * stock;
         }, 0);
-        const totalPesanan = lastOrderRows.length;
+        const pesananBaru = lastOrderRows.filter(
+          (o) => (o.Status || "Baru") === "Baru",
+        ).length;
         const totalTerjual = getAllOrderItems().reduce(
           (sum, it) => sum + (parseInt(it.qty) || 0),
           0,
@@ -1551,8 +1620,8 @@
             <div class="kpi-value" style="font-size:15px">${formatRupiah(nilaiInventori)}</div>
           </div>
           <div class="kpi-item">
-            <div class="kpi-label">Pesanan Tercatat</div>
-            <div class="kpi-value">${totalPesanan}</div>
+            <div class="kpi-label">Pesanan Baru</div>
+            <div class="kpi-value" style="${pesananBaru > 0 ? "color:var(--color-blue)" : ""}">${pesananBaru}</div>
           </div>
           <div class="kpi-item">
             <div class="kpi-label">Qty Terjual</div>
@@ -2378,6 +2447,7 @@
       const ordersList = document.getElementById("orders-list");
       const ordersLoading = document.getElementById("orders-loading");
       const ordersEmpty = document.getElementById("orders-empty");
+      let orderStatusFilter = "all";
 
       async function loadOrders() {
         if (!APPS_SCRIPT_URL) {
@@ -2395,12 +2465,7 @@
           const orders = json.data || [];
           lastOrderRows = orders;
           renderHome();
-          if (orders.length === 0) {
-            ordersEmpty.style.display = "block";
-            ordersList.innerHTML = "";
-            return;
-          }
-          ordersList.innerHTML = orders.map(orderCardHtml).join("");
+          renderOrdersList();
         } catch (err) {
           ordersLoading.style.display = "none";
           ordersEmpty.style.display = "block";
@@ -2408,10 +2473,65 @@
         }
       }
 
+      function renderOrdersList() {
+        const orders =
+          orderStatusFilter === "all"
+            ? lastOrderRows
+            : lastOrderRows.filter(
+                (o) => (o.Status || "Baru") === orderStatusFilter,
+              );
+        if (orders.length === 0) {
+          ordersEmpty.style.display = "block";
+          ordersEmpty.textContent =
+            orderStatusFilter === "all"
+              ? "Belum ada pesanan yang tercatat."
+              : "Tidak ada pesanan dengan status ini.";
+          ordersList.innerHTML = "";
+          return;
+        }
+        ordersEmpty.style.display = "none";
+        ordersList.innerHTML = orders.map(orderCardHtml).join("");
+        ordersList.querySelectorAll(".order-status-select").forEach((sel) => {
+          sel.addEventListener("change", async (e) => {
+            const rowNum = parseInt(e.target.dataset.row, 10);
+            const newStatus = e.target.value;
+            const res = await postAction("updateOrderStatus", {
+              row: rowNum,
+              status: newStatus,
+            });
+            if (res && res.ok) {
+              const order = lastOrderRows.find((o) => o._row === rowNum);
+              if (order) order.Status = newStatus;
+              e.target.className =
+                "order-status-select status-" + newStatus.toLowerCase();
+              showToast("Status pesanan diperbarui.", "success");
+              renderHome();
+            } else {
+              loadOrders();
+            }
+          });
+        });
+      }
+
+      document
+        .getElementById("status-filter-group")
+        .querySelectorAll(".status-filter-btn")
+        .forEach((btn) => {
+          btn.addEventListener("click", () => {
+            document
+              .querySelectorAll(".status-filter-btn")
+              .forEach((b) => b.classList.remove("active"));
+            btn.classList.add("active");
+            orderStatusFilter = btn.dataset.status;
+            renderOrdersList();
+          });
+        });
+
       function orderCardHtml(o) {
         const isInstant = o.Type === "Instant" || o.Type === "Langsung";
         const badgeClass = isInstant ? "instant" : "cart";
         const badgeLabel = isInstant ? "Pesan Langsung" : "Keranjang";
+        const status = o.Status || "Baru";
         let items = [];
         try {
           items = JSON.parse(o.ItemsJSON || "[]");
@@ -2444,6 +2564,14 @@
             <td>${o.TotalQty || 0}</td>
             <td><span class="order-badge ${badgeClass}">${badgeLabel}</span></td>
             <td style="white-space:nowrap;">${escapeAttr(o.Phone || "-")}</td>
+            <td>
+              <select class="order-status-select status-${status.toLowerCase()}" data-row="${o._row}">
+                <option value="Baru" ${status === "Baru" ? "selected" : ""}>Baru</option>
+                <option value="Diproses" ${status === "Diproses" ? "selected" : ""}>Diproses</option>
+                <option value="Selesai" ${status === "Selesai" ? "selected" : ""}>Selesai</option>
+                <option value="Batal" ${status === "Batal" ? "selected" : ""}>Batal</option>
+              </select>
+            </td>
           </tr>
         `;
       }
