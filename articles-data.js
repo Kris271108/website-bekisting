@@ -24,7 +24,7 @@ const ARTICLES_DATA = [
 Beberapa jenis yang umum dipakai antara lain formwork tradisional berbahan kayu/plywood yang fleksibel untuk bentuk rumit tapi kurang tahan lama, formwork sistem rekayasa berbahan logam (baja/aluminium) yang lebih presisi dan reusable, formwork plastik modular yang ringan dan cocok untuk proyek perumahan skala besar, hingga formwork insulated yang dirakit permanen sebagai bagian dari struktur untuk kebutuhan isolasi.
 
 Artikel aslinya membahas lebih detail karakteristik dan kelebihan-kekurangan tiap jenis formwork ini.`,
-    coverImage: "",
+    coverImage: "cover-formwork-jenis.svg",
     sourceName: "Oruma.id",
     sourceUrl:
       "https://www.oruma.id/blog/formwork-bekisting-pengertian-dan-jenisnya-di-dunia-konstruksi/",
@@ -39,7 +39,7 @@ Artikel aslinya membahas lebih detail karakteristik dan kelebihan-kekurangan tia
 Pemilihan formwork yang tepat berpengaruh langsung ke efisiensi proyek — mulai dari kecepatan pemasangan dan pembongkaran, ketahanan material saat dipakai berulang kali, sampai hasil akhir permukaan beton. Kesalahan dalam pemilihan atau pemasangan formwork bisa berakibat pada bentuk struktur yang tidak sesuai desain maupun pemborosan waktu dan biaya proyek.
 
 Artikel aslinya mengulas lebih lengkap dasar-dasar formwork yang perlu diketahui pemula di bidang konstruksi.`,
-    coverImage: "",
+    coverImage: "cover-formwork-pemula.svg",
     sourceName: "Indosteger",
     sourceUrl:
       "https://www.indosteger.co.id/berita/detail/memahami-formwork-bagi-pemula",
@@ -54,7 +54,7 @@ Artikel aslinya mengulas lebih lengkap dasar-dasar formwork yang perlu diketahui
 Beberapa hal dasar yang perlu diperhatikan: memastikan kondisi scaffolding baik dan aman (baut, bingkai, penyangga berfungsi normal), memeriksa kondisi lingkungan kerja sebelum pemasangan, memasang scaffolding sesuai standar keselamatan yang berlaku, serta memberi pelatihan ke pekerja soal cara pakai yang benar.
 
 Artikel aslinya membahas lebih lengkap 10 tips keselamatan kerja pada scaffolding yang bisa jadi acuan di lapangan.`,
-    coverImage: "",
+    coverImage: "cover-scaffolding-tips.svg",
     sourceName: "Indonesia Safety Center",
     sourceUrl:
       "https://indonesiasafetycenter.org/tips-keselamatan-kerja-pada-scaffolding/",
@@ -69,7 +69,7 @@ Artikel aslinya membahas lebih lengkap 10 tips keselamatan kerja pada scaffoldin
 Sebagian besar insiden scaffolding sebenarnya bisa dicegah lewat desain yang tepat, pemilihan material yang layak pakai, pemeriksaan rutin, serta pemasangan dan pembongkaran oleh tenaga kerja yang sudah terlatih/bersertifikat.
 
 Artikel aslinya mengulas lebih lengkap jenis-jenis scaffolding dan detail standar keselamatan kerja yang berlaku di Indonesia.`,
-    coverImage: "",
+    coverImage: "cover-scaffolding-k3.svg",
     sourceName: "AKUALITA",
     sourceUrl: "https://akualita.com/news/scaffolding-k3/",
   },

@@ -1285,19 +1285,23 @@
       <!-- ===== PESANAN ===== -->
       <section id="panel-orders" class="panel">
         <div class="glass-card" style="padding: 20px;">
-          <div class="panel-toolbar">
-            <strong>Pesanan Masuk</strong>
-            <div class="status-filter-group" id="status-filter-group">
-              <button class="status-filter-btn active" data-status="all">Semua</button>
-              <button class="status-filter-btn" data-status="Baru">Baru</button>
-              <button class="status-filter-btn" data-status="Diproses">Diproses</button>
-              <button class="status-filter-btn" data-status="Selesai">Selesai</button>
-              <button class="status-filter-btn" data-status="Batal">Batal</button>
+          <div id="order-list-view">
+            <div class="panel-toolbar">
+              <strong>Pesanan Masuk</strong>
+              <div class="status-filter-group" id="status-filter-group">
+                <button class="status-filter-btn active" data-status="all">Semua</button>
+                <button class="status-filter-btn" data-status="Baru">Baru</button>
+                <button class="status-filter-btn" data-status="Diproses">Diproses</button>
+                <button class="status-filter-btn" data-status="Selesai">Selesai</button>
+                <button class="status-filter-btn" data-status="Batal">Batal</button>
+              </div>
+              <button class="btn btn-secondary" id="refresh-orders-btn">
+                <i class="fa-solid fa-rotate"></i> Muat Ulang
+              </button>
+              <button class="btn btn-primary" id="add-order-btn">
+                <i class="fa-solid fa-plus"></i> Tambah Pesanan
+              </button>
             </div>
-            <button class="btn btn-secondary" id="refresh-orders-btn">
-              <i class="fa-solid fa-rotate"></i> Muat Ulang
-            </button>
-          </div>
           <div class="shopee-table-wrap">
             <table class="shopee-table">
               <thead>
@@ -1318,6 +1322,9 @@
           <div id="orders-empty" class="empty-state" style="display: none">
             Belum ada pesanan yang tercatat.
           </div>
+          </div>
+
+          <div id="order-add-view" style="display: none"></div>
         </div>
       </section>
 
@@ -2447,7 +2454,123 @@
       const ordersList = document.getElementById("orders-list");
       const ordersLoading = document.getElementById("orders-loading");
       const ordersEmpty = document.getElementById("orders-empty");
+      const orderListView = document.getElementById("order-list-view");
+      const orderAddView = document.getElementById("order-add-view");
       let orderStatusFilter = "all";
+
+      function showOrderList() {
+        orderAddView.style.display = "none";
+        orderAddView.innerHTML = "";
+        orderListView.style.display = "block";
+      }
+
+      function showOrderAddForm() {
+        orderListView.style.display = "none";
+        orderAddView.style.display = "block";
+        orderAddView.innerHTML = `
+          <button class="edit-back-btn" id="order-add-back-btn"><i class="fa-solid fa-arrow-left"></i> Kembali ke Daftar</button>
+          <div class="catalog-sync-note" style="margin-bottom:16px;">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>Buat pesanan manual — cocok buat pesanan yang masuk lewat WA/telepon langsung, atau sekadar data contoh buat dites. Bisa diedit statusnya nanti seperti pesanan biasa.</span>
+          </div>
+          <div class="field-row">
+            <div class="field-col">
+              <label>Nama Pembeli</label>
+              <input id="order-add-name" placeholder="mis. Budi Santoso" />
+            </div>
+            <div class="field-col">
+              <label>No. HP / WhatsApp</label>
+              <input id="order-add-phone" placeholder="mis. 08123456789" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-col">
+              <label>Tipe Pesanan</label>
+              <select id="order-add-type">
+                <option value="Cart">Keranjang</option>
+                <option value="Instant">Pesan Langsung</option>
+              </select>
+            </div>
+            <div class="field-col">
+              <label>Total Qty</label>
+              <input id="order-add-qty" type="number" min="1" value="1" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-col">
+              <label>Alamat / Cara Ambil</label>
+              <input id="order-add-address" placeholder="mis. Ambil Sendiri, atau alamat pengiriman" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-col">
+              <label>Ringkasan Produk (satu baris per item, mis. "Angle Beam x5")</label>
+              <textarea id="order-add-items" style="min-height:80px" placeholder="Angle Beam x5&#10;Wing Nut x10"></textarea>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-col">
+              <label>Catatan (opsional)</label>
+              <textarea id="order-add-notes" style="min-height:60px" placeholder="Catatan tambahan..."></textarea>
+            </div>
+          </div>
+          <div class="edit-actions">
+            <button class="btn btn-primary" id="order-add-save-btn">
+              <i class="fa-solid fa-check"></i> Simpan Pesanan
+            </button>
+          </div>
+        `;
+
+        document
+          .getElementById("order-add-back-btn")
+          .addEventListener("click", showOrderList);
+
+        document
+          .getElementById("order-add-save-btn")
+          .addEventListener("click", async () => {
+            const name = document.getElementById("order-add-name").value.trim();
+            if (!name) {
+              showToast("Nama pembeli wajib diisi.", "error");
+              return;
+            }
+            const itemsRaw = document
+              .getElementById("order-add-items")
+              .value.split("\n")
+              .map((s) => s.trim())
+              .filter(Boolean);
+            const totalQty =
+              parseInt(document.getElementById("order-add-qty").value, 10) || 1;
+            const items = itemsRaw.length
+              ? itemsRaw.map((line) => {
+                  const m = line.match(/^(.*?)(?:\s*[xX]\s*(\d+))?$/);
+                  return {
+                    name: (m && m[1] ? m[1] : line).trim(),
+                    variant: "",
+                    qty: m && m[2] ? parseInt(m[2], 10) : 1,
+                  };
+                })
+              : [{ name: "(Tanpa rincian item)", variant: "", qty: totalQty }];
+            const order = {
+              type: document.getElementById("order-add-type").value,
+              customerName: name,
+              phone: document.getElementById("order-add-phone").value.trim(),
+              address: document.getElementById("order-add-address").value.trim(),
+              items,
+              totalQty,
+              notes: document.getElementById("order-add-notes").value.trim(),
+            };
+            const res = await postAction("addOrder", { order });
+            if (res && res.ok) {
+              showToast("Pesanan manual berhasil disimpan.", "success");
+              showOrderList();
+              loadOrders();
+            }
+          });
+      }
+
+      document
+        .getElementById("add-order-btn")
+        .addEventListener("click", showOrderAddForm);
 
       async function loadOrders() {
         if (!APPS_SCRIPT_URL) {
