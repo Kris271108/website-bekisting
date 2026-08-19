@@ -74,7 +74,10 @@ function announceProductsReady() {
 function groupSheetRowsToProducts(rows) {
   const productMap = new Map();
   rows.forEach((r) => {
-    const name = (r.ProductName || "").trim();
+    // Kalau ProductName kosong tapi VariantName ada isinya, tetap dipakai
+    // (pakai VariantName sebagai nama produk) supaya baris data yang belum
+    // sempurna diisi tidak hilang begitu saja dari katalog situs.
+    const name = (r.ProductName || "").trim() || (r.VariantName || "").trim();
     if (!name) return;
     if (!productMap.has(name)) {
       productMap.set(name, {
@@ -93,6 +96,7 @@ function groupSheetRowsToProducts(rows) {
       stock: r.Stock ? parseInt(r.Stock, 10) || 0 : 0,
       img: (r.ImageFileName || "").trim(),
       weightKg: r.WeightKg ? parseFloat(r.WeightKg) || 0 : 0,
+      volumeM3: r.VolumeM3 ? parseFloat(r.VolumeM3) || 0 : 0,
     });
   });
   return Array.from(productMap.values()).filter((p) => p.variants.length > 0);
@@ -169,6 +173,7 @@ function buildProductsFromCsvRows(rows) {
     stock: header.indexOf("stock"),
     img: header.indexOf("imagefilename"),
     weight: header.indexOf("weightkg"),
+    volume: header.indexOf("volumem3"),
   };
   if (idx.name === -1 || idx.variantName === -1) return null;
 
@@ -190,6 +195,7 @@ function buildProductsFromCsvRows(rows) {
     const priceRaw = idx.price !== -1 ? (r[idx.price] || "").trim() : "";
     const stockRaw = idx.stock !== -1 ? (r[idx.stock] || "").trim() : "";
     const weightRaw = idx.weight !== -1 ? (r[idx.weight] || "").trim() : "";
+    const volumeRaw = idx.volume !== -1 ? (r[idx.volume] || "").trim() : "";
     productMap.get(name).variants.push({
       name: (r[idx.variantName] || name).trim(),
       sku: idx.sku !== -1 ? (r[idx.sku] || "").trim() : "",
@@ -197,6 +203,7 @@ function buildProductsFromCsvRows(rows) {
       stock: stockRaw ? parseInt(stockRaw, 10) || 0 : 0,
       img: idx.img !== -1 ? (r[idx.img] || "").trim() : "",
       weightKg: weightRaw ? parseFloat(weightRaw) || 0 : 0,
+      volumeM3: volumeRaw ? parseFloat(volumeRaw) || 0 : 0,
     });
   }
   const result = Array.from(productMap.values()).filter(
