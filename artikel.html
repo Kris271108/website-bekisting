@@ -401,19 +401,26 @@
           </div>
           <div class="article-grid">
             ${articles
-              .map(
-                (a) => `
-                  <a class="article-card" href="artikel.html?slug=${encodeURIComponent(a.Slug || "")}">
+              .map((a) => {
+                const isExternal = !!(a.SourceName && a.SourceUrl);
+                const href = isExternal
+                  ? a.SourceUrl
+                  : `artikel.html?slug=${encodeURIComponent(a.Slug || "")}`;
+                const linkAttrs = isExternal
+                  ? `href="${escapeAttr(href)}" target="_blank" rel="noopener noreferrer"`
+                  : `href="${href}"`;
+                return `
+                  <a class="article-card" ${linkAttrs}>
                     <img src="${a.CoverImage || PLACEHOLDER_IMG}" alt="${escapeHtml(a.Title)}" onerror="this.src='${PLACEHOLDER_IMG}'" />
                     <div class="article-card-body">
                       <div class="article-card-date">${formatArticleDate(a.UpdatedAt || a.CreatedAt)}</div>
                       <h3 class="article-card-title">${escapeHtml(a.Title)}</h3>
                       <p class="article-card-summary">${escapeHtml(a.Summary)}</p>
-                      ${a.SourceName ? `<div class="article-card-source"><i class="fa-solid fa-link"></i> Sumber: ${escapeHtml(a.SourceName)}</div>` : ""}
+                      ${isExternal ? `<div class="article-card-source"><i class="fa-solid fa-arrow-up-right-from-square"></i> Baca di ${escapeHtml(a.SourceName)}</div>` : ""}
                     </div>
                   </a>
-                `,
-              )
+                `;
+              })
               .join("")}
           </div>
         `;
